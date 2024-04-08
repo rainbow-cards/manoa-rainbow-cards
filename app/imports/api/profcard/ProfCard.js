@@ -13,7 +13,7 @@ class ProfCardsCollection {
     // Define the structure of each document in the collection.
     this.schema = new SimpleSchema({
       name: String,
-      class: String,
+      course: String,
       semester: String,
       department: String,
       email: String,
