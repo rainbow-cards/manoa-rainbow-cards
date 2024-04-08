@@ -17,6 +17,8 @@ const Footer = () => (
         <a href="https://rainbow-cards.github.io/">
           Project Homepage
         </a>
+        <br />
+        Daevin Bagcal, Benjamin Bercasio, Elijah Saloma, John Serraon, Yuzuki Fujimoto
       </Col>
     </Container>
   </footer>
