@@ -11,8 +11,8 @@
     { "name": "Boogie Board", "quantity": 2, "owner": "admin@foo.com", "condition": "excellent" }
   ],
 
-  "monti": {
-    "appId": "changeme",
-    "appSecret": "changeme"
-  }
+  "defaultCards": [
+    { "name": "Moore Carleton", "course": "ICS 314", "semester": "Spring 2024", "department": "Information and Computer Science", "email": "cmoore@hawaii.edu", "image": "https://cammoore.github.io/img/cam-moore.jpg", "facts": "Moore got his BS in EECS from the University of Colorado. He helps run the Collaborative Software Development Laboratory." },
+    { "name": "Johnson Philip", "course": "ICS 314", "semester": "Spring 2024", "department": "Information and Computer Science", "email": "johnson@hawaii.edu", "image": "https://github.com/philipmjohnson/philipmjohnson.github.io/raw/main/img/pmj-headshot.png", "facts": "Moore got his BS in CS from the University of Michigan (along with a BS in Biology!). He co-founded the Geo Garden Club, an app that connects local gardeners." }
+  ]
 }
