@@ -26,3 +26,8 @@ body {
   padding-top: 10px;
   padding-bottom: 20px;
 }
+
+.greentxt {
+  color: darkgreen !important;
+  font-family: "Comic Sans MS", Optima, serif;
+}
