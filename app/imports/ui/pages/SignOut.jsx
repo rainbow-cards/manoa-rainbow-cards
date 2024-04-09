@@ -6,7 +6,11 @@ import { Col } from 'react-bootstrap';
 const SignOut = () => {
   Meteor.logout();
   return (
-    <Col id="signout-page" className="text-center py-3"><h2>You are signed out.</h2></Col>
+    <Col id="signout-page" className="greentxt text-center d-flex justify-content-center align-items-center py-3">
+      <div className="alert alert-success w-50 h-25" role="alert">
+        <h2>You have signed out of your Mānoa Rainbow Trading Cards account.</h2>
+      </div>
+    </Col>
   );
 };
 
