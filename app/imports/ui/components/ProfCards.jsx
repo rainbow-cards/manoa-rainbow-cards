@@ -11,7 +11,7 @@ const ProfCards = ({ profInfo }) => (
       <Card.Subtitle>{profInfo.department} {profInfo.email}</Card.Subtitle>
     </Card.Header>
     <Card.Body>
-      <Image src={profInfo.image} width={75} />
+      <Image src={profInfo.image} width={250} />
       <Card.Text>{profInfo.facts}</Card.Text>
     </Card.Body>
   </Card>
