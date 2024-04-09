@@ -3,7 +3,7 @@ import { ProfCards } from '../../api/profcard/ProfCard';
 
 /* eslint-disable no-console */
 
-// Initialize ProfCard database with default data doc
+// Initialize ProfCards database with default data doc
 const addProfCards = (data) => {
   console.log(`  Adding: ${data.name}`);
   ProfCards.collection.insert(data);
