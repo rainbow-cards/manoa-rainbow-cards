@@ -9,10 +9,24 @@ const addData = (data) => {
   ProfCards.collection.insert(data);
 };
 
+// Initialize ProfCards database with default data doc
+const addProfCards = (data) => {
+  console.log(`  Adding: ${data.name}`);
+  ProfCards.collection.insert(data);
+};
+
 // Initialize the StuffsCollection if empty.
 if (ProfCards.collection.find().count() === 0) {
   if (Meteor.settings.defaultData) {
     console.log('Creating default data.');
     Meteor.settings.defaultData.forEach(data => addData(data));
+  }
+}
+
+// Initialize the ProfCardsCollection if empty
+if (ProfCards.collection.find().count() === 0) {
+  if (Meteor.settings.defaultCards) {
+    console.log('Creating default data.');
+    Meteor.settings.defaultCards.forEach(data => addProfCards(data));
   }
 }
