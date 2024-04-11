@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Col, Container, Image, Nav, Row } from 'react-bootstrap';
+import { Button, Col, Container, Image, Row } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 
 /* A simple static component to render some text for the landing page. */
