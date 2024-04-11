@@ -24,25 +24,25 @@ const ListMyCards = () => {
     };
   }, []);
   const myCards = [{
-    name: 'Philip Johnson', class: 'ICS314', semester: 'Fall', department: 'ICS', email: 'pjohnson@hawaii.edu',
+    name: 'Philip Johnson', course: 'ICS314', semester: 'Fall', department: 'ICS', email: 'pjohnson@hawaii.edu',
     image: 'https://github.com/philipmjohnson.png',
     facts: 'I am a Professor of Information and Computer Sciences at the University of Hawaii, Director ' +
       'of the Collaborative Software Development Laboratory, and the CEO of OpenPowerQuality.com.',
   },
   {
-    name: 'Henri Casanova', class: 'ICS111', semester: 'Fall', department: 'ICS', email: 'pjohnson@hawaii.edu',
+    name: 'Henri Casanova', course: 'ICS111', semester: 'Fall', department: 'ICS', email: 'pjohnson@hawaii.edu',
     image: 'https://avatars0.githubusercontent.com/u/7494478?s=460&v=4',
     facts: 'I am a Professor of Information and Computer Sciences at the University of Hawaii, Director ' +
         'of the Collaborative Software Development Laboratory, and the CEO of OpenPowerQuality.com.',
   },
   {
-    name: 'Kim Binsted', class: 'ICS212', semester: 'Spring', department: 'ICS', email: 'pjohnson@hawaii.edu',
+    name: 'Kim Binsted', course: 'ICS212', semester: 'Spring', department: 'ICS', email: 'pjohnson@hawaii.edu',
     image: 'https://www.ics.hawaii.edu/wp-content/uploads/2013/08/kim_binsted-square-300x300.jpg',
     facts: 'I am a Professor of Information and Computer Sciences at the University of Hawaii, Director ' +
         'of the Collaborative Software Development Laboratory, and the CEO of OpenPowerQuality.com.',
   },
   {
-    name: 'Kim Binsted', class: 'ICS212', semester: 'Spring', department: 'ICS', email: 'pjohnson@hawaii.edu',
+    name: 'Kim Binsted', course: 'ICS212', semester: 'Spring', department: 'ICS', email: 'pjohnson@hawaii.edu',
     image: 'https://www.ics.hawaii.edu/wp-content/uploads/2013/08/kim_binsted-square-300x300.jpg',
     facts: 'I am a Professor of Information and Computer Sciences at the University of Hawaii, Director ' +
         'of the Collaborative Software Development Laboratory, and the CEO of OpenPowerQuality.com.',
