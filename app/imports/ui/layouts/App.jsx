@@ -16,6 +16,8 @@ import LoadingSpinner from '../components/LoadingSpinner';
 import ListMyCards from '../pages/ListMyCards';
 import ListCatalog from '../pages/ListCatalog';
 import AddProfCard from '../pages/AddProfCard';
+import EditProfCard from '../pages/EditProfCard';
+import ListCatalogAdmin from '../pages/ListCatalogAdmin';
 
 /** Top-level layout component for this application. Called in imports/startup/client/startup.jsx. */
 const App = () => {
@@ -38,6 +40,8 @@ const App = () => {
           <Route path="/home" element={<ProtectedRoute><Landing /></ProtectedRoute>} />
           <Route path="/list" element={<ProtectedRoute><ListMyCards /></ProtectedRoute>} />
           <Route path="/add" element={<AdminProtectedRoute ready={ready}><AddProfCard /></AdminProtectedRoute>} />
+          <Route path="/admin" element={<AdminProtectedRoute ready={ready}><ListCatalogAdmin /></AdminProtectedRoute>} />
+          <Route path="/edit/:_id" element={<AdminProtectedRoute ready={ready}><EditProfCard /></AdminProtectedRoute>} />
           <Route path="/notauthorized" element={<NotAuthorized />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
