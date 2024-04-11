@@ -34,3 +34,13 @@ body {
   color: darkgreen !important;
   font-family: "Comic Sans MS", Optima, serif;
 }
+
+#sign-up-button {
+  color: white;
+  width: 200px;
+}
+
+#landing-title {
+  font-size: 64px;
+  font-family: "Bungee Spice", sans-serif;
+}
