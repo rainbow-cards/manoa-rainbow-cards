@@ -4,7 +4,7 @@ import { AutoForm, ErrorsField, LongTextField, SubmitField, TextField } from 'un
 import swal from 'sweetalert';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
-import { Stuffs } from '../../api/stuff/Stuff';
+import { ProfCards } from '../../api/profcard/ProfCard';
 
 // Create a schema to specify the structure of the data to appear in the form.
 const formSchema = new SimpleSchema({
@@ -25,7 +25,7 @@ const AddProfCard = () => {
   // On submit, insert the data.
   const submit = (data, formRef) => {
     const { name, course, semester, department, email, image, facts } = data;
-    Stuffs.collection.insert(
+    ProfCards.collection.insert(
       { name, course, semester, department, email, image, facts },
       (error) => {
         if (error) {

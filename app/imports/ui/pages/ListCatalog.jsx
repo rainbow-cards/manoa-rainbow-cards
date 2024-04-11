@@ -6,17 +6,17 @@ import LoadingSpinner from '../components/LoadingSpinner';
 import { ProfCards } from '../../api/profcard/ProfCard';
 import ProfCard from '../components/ProfCard';
 
-/* Renders a table containing all the Stuff documents. Use <StuffItem> to render each row. */
+/* Renders a table containing all the ProfCards documents. Use <StuffItem> to render each row. */
 const ListCatalog = () => {
   // useTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker
   const { profcards, ready } = useTracker(() => {
     // Note that this subscription will get cleaned up
     // when your component is unmounted or deps change.
-    // Get access to Stuff documents.
+    // Get access to ProfCards documents.
     const subscription = Meteor.subscribe('cards.public');
     // Determine if the subscription is ready
     const rdy = subscription.ready();
-    // Get the Stuff documents
+    // Get the ProfCards documents
     const profCardItems = ProfCards.collection.find().fetch();
     return {
       profcards: profCardItems,
