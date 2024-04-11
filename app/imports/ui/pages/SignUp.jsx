@@ -40,7 +40,7 @@ const SignUp = ({ location }) => {
     return <Navigate to={from} />;
   }
   return (
-    <Container id="signup-page" className="py-3">
+    <Container id="signup-page" className="py-3 greentxt">
       <Row className="justify-content-center">
         <Col xs={5}>
           <Col className="text-center">
@@ -48,18 +48,18 @@ const SignUp = ({ location }) => {
           </Col>
           <AutoForm schema={bridge} onSubmit={data => submit(data)}>
             <Card>
-              <Card.Body>
-                <TextField name="email" placeholder="E-mail address" />
+              <Card.Body className="greentxt bg-success-subtle">
+                <TextField name="email" placeholder="UH Manoa Email Address" />
                 <TextField name="password" placeholder="Password" type="password" />
                 <ErrorsField />
                 <SubmitField />
               </Card.Body>
             </Card>
           </AutoForm>
-          <Alert variant="light">
+          <Alert variant="success" className="greentxt">
             Already have an account? Login
             {' '}
-            <Link to="/signin">here</Link>
+            <Link to="/signin" className="link-success">here</Link>
           </Alert>
           {error === '' ? (
             ''
