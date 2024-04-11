@@ -18,7 +18,7 @@ const Footer = () => (
           Project Homepage
         </a>
         <br />
-        Daevin Bagcal, Benjamin Bercasio, Elijah Saloma, John Serraon, Yuzuki Fujimoto
+        Daevin Bagcal, Benjamin Bercasio, Yuzuki Fujimoto, Elijah Saloma, John Serraon
       </Col>
     </Container>
   </footer>
