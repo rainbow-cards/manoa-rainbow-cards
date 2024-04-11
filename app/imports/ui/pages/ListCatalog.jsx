@@ -28,7 +28,7 @@ const ListCatalog = () => {
       <Row className="justify-content-center">
         <Col>
           <Col className="text-center">
-            <h2>My Cards</h2>
+            <h2>Card Catalog</h2>
           </Col>
           <Row xs={2} md={3} lg={4} className="g-4">
             {profcard.map((profInfo, index) => (<Col key={index}><ProfCards profInfo={profInfo} /></Col>))}
