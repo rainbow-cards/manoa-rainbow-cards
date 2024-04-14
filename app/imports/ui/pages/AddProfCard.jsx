@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Col, Container, Row } from 'react-bootstrap';
+import { Card, Col, Container, Dropdown, Row } from 'react-bootstrap';
 import { AutoForm, ErrorsField, LongTextField, SubmitField, TextField } from 'uniforms-bootstrap5';
 import swal from 'sweetalert';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
@@ -15,18 +15,26 @@ const formSchema = new SimpleSchema({
   email: String,
   image: String,
   facts: String,
+  campusEats: String,
 });
 
 const bridge = new SimpleSchema2Bridge(formSchema);
 
 /* Renders the AddStuff page for adding a document. */
 const AddProfCard = () => {
-
+  const campusEatsOptions = [
+    { label: 'Panda Express', value: 'Panda Express' },
+    { label: 'L&L', value: 'L&L' },
+    { label: 'HOLOHOLO Grill', value: 'HOLOHOLO Grill' },
+    { label: 'Lasoon', value: 'Lasoon' },
+    { label: 'BA-LE', value: 'BA-LE' },
+    { label: 'Starbucks', value: 'Starbucks' },
+  ];
   // On submit, insert the data.
   const submit = (data, formRef) => {
-    const { name, course, semester, department, email, image, facts } = data;
+    const { name, course, semester, department, email, image, facts, campusEats } = data;
     ProfCards.collection.insert(
-      { name, course, semester, department, email, image, facts },
+      { name, course, semester, department, email, image, facts, campusEats },
       (error) => {
         if (error) {
           swal('Error', error.message, 'error');
@@ -55,6 +63,7 @@ const AddProfCard = () => {
                 <TextField name="email" />
                 <TextField name="image" />
                 <LongTextField name="facts" />
+                <TextField name="campusEats" />
                 <SubmitField value="Submit" />
                 <ErrorsField />
               </Card.Body>

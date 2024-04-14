@@ -14,15 +14,16 @@ const ProfCard = ({ profInfo }) => (
     <Card.Body>
       <div className="row justify-content-center">
         <div className="col-md-12 text-center">
-          <Image src={profInfo.image} width={230}/>
+          <Image src={profInfo.image} className="img-fluid" alt="Profile Image" />
         </div>
       </div>
-      <div className="row mt-2">
-        <div className="col-md-12">
-          <Card.Subtitle>{profInfo.course}, {profInfo.semester}</Card.Subtitle>
+      <div className="row mt-2 justify-content-center">
+        <div className="col-md-12 text-center">
+          <Card.Subtitle className="mb-1">{profInfo.course}, {profInfo.semester}</Card.Subtitle>
           <Card.Subtitle>{profInfo.email}</Card.Subtitle>
-          <Card.Text>{profInfo.facts}</Card.Text>
         </div>
+        <Card.Text>{profInfo.facts}</Card.Text>
+        <Card.Text>{profInfo.campusEats}</Card.Text>
       </div>
     </Card.Body>
   </Card>
@@ -38,6 +39,8 @@ ProfCard.propTypes = {
     email: PropTypes.string,
     image: PropTypes.string,
     facts: PropTypes.string,
+    campusEats: PropTypes,
+    _id: PropTypes.string,
   }).isRequired,
 };
 
