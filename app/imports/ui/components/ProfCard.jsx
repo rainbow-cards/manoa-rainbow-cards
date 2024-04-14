@@ -23,7 +23,7 @@ const ProfCard = ({ profInfo }) => (
           <Card.Subtitle>{profInfo.email}</Card.Subtitle>
         </div>
         <Card.Text>{profInfo.facts}</Card.Text>
-        <Card.Text>{profInfo.campusEats}</Card.Text>
+        <Card.Text>Favorite campus eats: {profInfo.campusEats}</Card.Text>
       </div>
     </Card.Body>
   </Card>
