@@ -24,6 +24,7 @@ const ProfCard = ({ profInfo }) => (
         </div>
         <Card.Text>{profInfo.facts}</Card.Text>
         <Card.Text>{profInfo.campusEats}</Card.Text>
+        <Link to={`/edit/${profInfo._id}`}>Edit</Link>
       </div>
     </Card.Body>
   </Card>
