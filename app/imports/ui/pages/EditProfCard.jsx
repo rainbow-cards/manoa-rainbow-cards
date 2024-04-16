@@ -53,6 +53,7 @@ const EditProfCard = () => {
                 <TextField name="email" />
                 <TextField name="image" />
                 <LongTextField name="facts" />
+                <TextField name="campusEats" />
                 <SubmitField value="Submit" />
                 <ErrorsField />
               </Card.Body>

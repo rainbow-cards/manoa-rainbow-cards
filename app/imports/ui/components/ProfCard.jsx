@@ -6,13 +6,25 @@ import { Card, Image } from 'react-bootstrap';
 const ProfCard = ({ profInfo }) => (
   <Card className="h-100">
     <Card.Header>
-      <Card.Title>{profInfo.name}</Card.Title>
-      <Card.Subtitle>{profInfo.course}, {profInfo.semester}</Card.Subtitle>
-      <Card.Subtitle>{profInfo.department} {profInfo.email}</Card.Subtitle>
+      <div className="d-flex justify-content-between align-items-center">
+        <Card.Title>{profInfo.name}</Card.Title>
+        <Card.Subtitle>{profInfo.department} </Card.Subtitle>
+      </div>
     </Card.Header>
     <Card.Body>
-      <Image src={profInfo.image} width={250} />
-      <Card.Text>{profInfo.facts}</Card.Text>
+      <div className="row justify-content-center">
+        <div className="col-md-12 text-center">
+          <Image src={profInfo.image} className="img-fluid" alt="Profile Image" />
+        </div>
+      </div>
+      <div className="row mt-2 justify-content-center">
+        <div className="col-md-12 text-center">
+          <Card.Subtitle className="mb-1">{profInfo.course}, {profInfo.semester}</Card.Subtitle>
+          <Card.Subtitle>{profInfo.email}</Card.Subtitle>
+        </div>
+        <Card.Text>{profInfo.facts}</Card.Text>
+        <Card.Text>Favorite campus eats: {profInfo.campusEats}</Card.Text>
+      </div>
     </Card.Body>
   </Card>
 );
@@ -27,6 +39,8 @@ ProfCard.propTypes = {
     email: PropTypes.string,
     image: PropTypes.string,
     facts: PropTypes.string,
+    campusEats: PropTypes,
+    _id: PropTypes.string,
   }).isRequired,
 };
 
