@@ -18,7 +18,7 @@ Meteor.publish('cards.public', function () {
 
 // Professor-level publication.
 
-Meteor.publish(ProfCards.professorPublicationName, function() {
+Meteor.publish(ProfCards.professorPublicationName, function () {
   if (this.userId && Roles.userIsInRole(this.userId, 'professor')) {
     return ProfCards.collection.find();
   }
