@@ -18,6 +18,7 @@ import ListCatalog from '../pages/ListCatalog';
 import AddProfCard from '../pages/AddProfCard';
 import EditProfCard from '../pages/EditProfCard';
 import ListCatalogAdmin from '../pages/ListCatalogAdmin';
+import ListCatalogProf from '../pages/ListCatalogProf';
 
 /** Top-level layout component for this application. Called in imports/startup/client/startup.jsx. */
 const App = () => {
@@ -39,6 +40,7 @@ const App = () => {
           <Route path="/catalog" element={<ListCatalog />} />
           <Route path="/home" element={<ProtectedRoute><Landing /></ProtectedRoute>} />
           <Route path="/list" element={<ProtectedRoute><ListMyCards /></ProtectedRoute>} />
+          <Route path="/profcat" element={<ProfProtectedRoute><ListCatalogProf /></ProfProtectedRoute>} />
           <Route path="/add" element={<AdminProtectedRoute ready={ready}><AddProfCard /></AdminProtectedRoute>} />
           <Route path="/admin" element={<AdminProtectedRoute ready={ready}><ListCatalogAdmin /></AdminProtectedRoute>} />
           <Route path="/edit/:_id" element={<AdminProtectedRoute ready={ready}><EditProfCard /></AdminProtectedRoute>} />
@@ -78,6 +80,18 @@ const AdminProtectedRoute = ({ ready, children }) => {
   return (isLogged && isAdmin) ? children : <Navigate to="/notauthorized" />;
 };
 
+const ProfProtectedRoute = ({ ready, children }) => {
+  const isLogged = Meteor.userId() !== null;
+  if (!isLogged) {
+    return <Navigate to="/signin" />;
+  }
+  if (!ready) {
+    return <LoadingSpinner />;
+  }
+  const isProf = Roles.userIsInRole(Meteor.userId(), 'professor');
+  return (isLogged && isProf) ? children : <Navigate to="/notauthorized" />;
+};
+
 // Require a component and location to be passed to each ProtectedRoute.
 ProtectedRoute.propTypes = {
   children: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
@@ -94,6 +108,17 @@ AdminProtectedRoute.propTypes = {
 };
 
 AdminProtectedRoute.defaultProps = {
+  ready: false,
+  children: <Landing />,
+};
+
+// Require a component and location to be passed to each AdminProtectedRoute.
+ProfProtectedRoute.propTypes = {
+  ready: PropTypes.bool,
+  children: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
+};
+
+ProfProtectedRoute.defaultProps = {
   ready: false,
   children: <Landing />,
 };
