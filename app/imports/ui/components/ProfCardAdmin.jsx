@@ -44,7 +44,7 @@ ProfCard.propTypes = {
     image: PropTypes.string,
     facts: PropTypes.string,
     campusEats: PropTypes.string,
-    secretTalent: PropTypes.string,
+    hiddenTalent: PropTypes.string,
     _id: PropTypes.string,
   }).isRequired,
 };
