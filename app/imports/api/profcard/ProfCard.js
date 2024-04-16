@@ -20,6 +20,7 @@ class ProfCardsCollection {
       image: String,
       facts: String,
       campusEats: String,
+      hiddenTalent: String,
     });
     // Attach the schema to the collection, so all attempts to insert a document are checked against schema.
     this.collection.attachSchema(this.schema);
