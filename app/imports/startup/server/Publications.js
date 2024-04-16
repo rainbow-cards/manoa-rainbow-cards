@@ -20,7 +20,8 @@ Meteor.publish('cards.public', function () {
 
 Meteor.publish(ProfCards.professorPublicationName, function () {
   if (this.userId && Roles.userIsInRole(this.userId, 'professor')) {
-    return ProfCards.collection.find();
+    const email = Meteor.users.findOne(this.userId).email;
+    return ProfCards.collection.find({ email: email });
   }
   return this.ready();
 });
