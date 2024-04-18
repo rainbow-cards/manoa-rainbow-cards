@@ -2,11 +2,26 @@ import { landingPage } from './landing.page';
 import { signinPage } from './signin.page';
 import { signoutPage } from './signout.page';
 import { navBar } from './navbar.component';
+import { catalogPage } from './catalog.page';
+import { myCardsPage } from './mycards.page';
+import { addPage } from './add.page';
 
 /* global fixture:false, test:false */
 
 /** Credentials for one of the sample users defined in settings.development.json. */
 const credentials = { username: 'john@foo.com', password: 'changeme' };
+const admin = { username: 'admin@foo.com', password: 'changeme' };
+const prof = {
+  name: 'Ravi Narayan',
+  course: 'ICS451',
+  semester: 'Fall 2024',
+  department: 'Information and Computer Science',
+  email: 'rnarayan@hawaii.edu',
+  image: 'https://www2.hawaii.edu/~rnarayan/Ravi_Narayan.jpg',
+  facts: 'Excellent ballroom dancer',
+  campus_eats: 'Ding Tea',
+  hidden_talent: 'Vegetarian',
+};
 
 fixture('meteor-application-template-react localhost test with default db')
   .page('http://localhost:3000');
@@ -19,6 +34,60 @@ test('Test that signin and signout work', async (testController) => {
   await navBar.gotoSignInPage(testController);
   await signinPage.signin(testController, credentials.username, credentials.password);
   await navBar.isLoggedIn(testController, credentials.username);
+  await navBar.logout(testController);
+  await signoutPage.isDisplayed(testController);
+});
+
+test('Test that catalog and mycards work for generic accounts', async (testController) => {
+  await navBar.gotoSignInPage(testController);
+  await signinPage.signin(testController, credentials.username, credentials.password);
+  await navBar.isLoggedIn(testController, credentials.username);
+  await navBar.gotoCatalogPage(testController);
+  await catalogPage.isDisplayed(testController);
+  await navBar.gotoMyCardsPage(testController);
+  await myCardsPage.isDisplayed(testController);
+  await navBar.logout(testController);
+  await signoutPage.isDisplayed(testController);
+});
+
+test('Test that signin and signout work for admin accounts', async (testController) => {
+  await navBar.gotoSignInPage(testController);
+  await signinPage.signin(testController, admin.username, admin.password);
+  await navBar.isLoggedIn(testController, admin.username);
+  await navBar.logout(testController);
+  await signoutPage.isDisplayed(testController);
+});
+
+test('Test that catalog and mycards work for admin accounts', async (testController) => {
+  await navBar.gotoSignInPage(testController);
+  await signinPage.signin(testController, admin.username, admin.password);
+  await navBar.isLoggedIn(testController, admin.username);
+  await navBar.gotoCatalogPage(testController);
+  await catalogPage.isDisplayed(testController);
+  await navBar.gotoMyCardsPage(testController);
+  await myCardsPage.isDisplayed(testController);
+  await navBar.logout(testController);
+  await signoutPage.isDisplayed(testController);
+});
+
+test('Test that addprofessorcard page works for admin accounts', async (testController) => {
+  await navBar.gotoSignInPage(testController);
+  await signinPage.signin(testController, admin.username, admin.password);
+  await navBar.isLoggedIn(testController, admin.username);
+  await navBar.gotoAddPage(testController);
+  await addPage.isDisplayed(testController);
+  await addPage.add(
+    testController,
+    prof.name,
+    prof.course,
+    prof.semester,
+    prof.department,
+    prof.email,
+    prof.image,
+    prof.facts,
+    prof.campus_eats,
+    // prof.hidden_talent,
+  );
   await navBar.logout(testController);
   await signoutPage.isDisplayed(testController);
 });
