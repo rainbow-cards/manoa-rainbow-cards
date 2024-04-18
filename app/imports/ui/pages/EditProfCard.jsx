@@ -32,8 +32,8 @@ const EditProfCard = () => {
   // console.log('EditStuff', doc, ready);
   // On successful submit, insert the data.
   const submit = (data) => {
-    const { name, course, semester, department, email, image, facts } = data;
-    ProfCards.collection.update(_id, { $set: { name, course, semester, department, email, image, facts } }, (error) => (error ?
+    const { name, course, semester, department, email, image, facts, campusEats, hiddenTalent } = data;
+    ProfCards.collection.update(_id, { $set: { name, course, semester, department, email, image, facts, campusEats, hiddenTalent } }, (error) => (error ?
       swal('Error', error.message, 'error') :
       swal('Success', 'Card updated successfully', 'success')));
   };
@@ -54,6 +54,7 @@ const EditProfCard = () => {
                 <TextField name="image" />
                 <LongTextField name="facts" />
                 <TextField name="campusEats" />
+                <TextField name="hiddenTalent" />
                 <SubmitField value="Submit" />
                 <ErrorsField />
               </Card.Body>

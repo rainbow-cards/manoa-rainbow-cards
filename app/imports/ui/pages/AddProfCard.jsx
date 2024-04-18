@@ -16,6 +16,7 @@ const formSchema = new SimpleSchema({
   image: String,
   facts: String,
   campusEats: String,
+  hiddenTalent: String,
 });
 
 const bridge = new SimpleSchema2Bridge(formSchema);
@@ -24,9 +25,9 @@ const bridge = new SimpleSchema2Bridge(formSchema);
 const AddProfCard = () => {
   // On submit, insert the data.
   const submit = (data, formRef) => {
-    const { name, course, semester, department, email, image, facts, campusEats } = data;
+    const { name, course, semester, department, email, image, facts, campusEats, hiddenTalent } = data;
     ProfCards.collection.insert(
-      { name, course, semester, department, email, image, facts, campusEats },
+      { name, course, semester, department, email, image, facts, campusEats, hiddenTalent },
       (error) => {
         if (error) {
           swal('Error', error.message, 'error');

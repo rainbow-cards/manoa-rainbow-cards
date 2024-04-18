@@ -24,6 +24,7 @@ const ProfCard = ({ profInfo }) => (
         </div>
         <Card.Text>{profInfo.facts}</Card.Text>
         <Card.Text>Favorite campus eats: {profInfo.campusEats}</Card.Text>
+        <Card.Text>A hidden talent: {profInfo.hiddenTalent}</Card.Text>
       </div>
     </Card.Body>
   </Card>
@@ -39,7 +40,8 @@ ProfCard.propTypes = {
     email: PropTypes.string,
     image: PropTypes.string,
     facts: PropTypes.string,
-    campusEats: PropTypes,
+    campusEats: PropTypes.string,
+    hiddenTalent: PropTypes.string,
     _id: PropTypes.string,
   }).isRequired,
 };

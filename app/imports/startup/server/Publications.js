@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor';
-// import { Roles } from 'meteor/alanning:roles';
+import { Roles } from 'meteor/alanning:roles';
 import { ProfCards } from '../../api/profcard/ProfCard';
 
 // Public-level publication.
@@ -15,6 +15,15 @@ Meteor.publish('cards.public', function () {
 //   }
 //   return this.ready();
 // });
+
+// Professor-level publication.
+
+Meteor.publish(ProfCards.professorPublicationName, function () {
+  if (this.userId && Roles.userIsInRole(this.userId, 'professor')) {
+    return ProfCards.collection.find();
+  }
+  return this.ready();
+});
 
 // alanning:roles publication
 // Recommended code to publish roles for each user.

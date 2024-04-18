@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Card, Image } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 /** Renders a single row in the List Stuff table. See pages/ListStuff.jsx. */
 const ProfCard = ({ profInfo }) => (
@@ -24,6 +25,9 @@ const ProfCard = ({ profInfo }) => (
         </div>
         <Card.Text>{profInfo.facts}</Card.Text>
         <Card.Text>{profInfo.campusEats}</Card.Text>
+        <Card.Text>{profInfo.hiddenTalent}</Card.Text>
+        <Link to={`/edit/${profInfo._id}`}>Edit</Link>
+
       </div>
     </Card.Body>
   </Card>
@@ -39,7 +43,8 @@ ProfCard.propTypes = {
     email: PropTypes.string,
     image: PropTypes.string,
     facts: PropTypes.string,
-    campusEats: PropTypes,
+    campusEats: PropTypes.string,
+    hiddenTalent: PropTypes.string,
     _id: PropTypes.string,
   }).isRequired,
 };
