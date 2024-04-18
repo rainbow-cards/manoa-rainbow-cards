@@ -19,6 +19,7 @@ class ProfCardsCollection {
       email: String,
       image: String,
       facts: String,
+      owner: String,
       campusEats: String,
       hiddenTalent: String,
     });
