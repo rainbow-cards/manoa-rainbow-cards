@@ -52,6 +52,39 @@ class NavBar {
     await testController.click('#login-dropdown');
     await testController.click('#login-dropdown-sign-up');
   }
+
+  async gotoCatalogPage(testController) {
+    /*
+    await this.ensureLogout(testController);
+    const visible = await Selector('#basic-navbar-nav').visible;
+    if (!visible) {
+      await testController.click('button.navbar-toggler');
+    }
+    */
+    await testController.click('#catalog-nav');
+  }
+
+  async gotoMyCardsPage(testController) {
+    /*
+    await this.ensureLogout(testController);
+    const visible = await Selector('#basic-navbar-nav').visible;
+    if (!visible) {
+      await testController.click('button.navbar-toggler');
+    }
+    */
+    await testController.click('#list-user-cards-nav');
+  }
+
+  async gotoAddPage(testController) {
+    /*
+    await this.ensureLogout(testController);
+    const visible = await Selector('#basic-navbar-nav').visible;
+    if (!visible) {
+      await testController.click('button.navbar-toggler');
+    }
+    */
+    await testController.click('#add-card-admin-nav');
+  }
 }
 
 export const navBar = new NavBar();
