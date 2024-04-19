@@ -40,6 +40,7 @@ ProfCard.propTypes = {
     email: PropTypes.string,
     image: PropTypes.string,
     facts: PropTypes.string,
+    owner: PropTypes.string,
     campusEats: PropTypes.string,
     hiddenTalent: PropTypes.string,
     _id: PropTypes.string,

@@ -20,7 +20,16 @@ Meteor.publish('cards.public', function () {
 
 Meteor.publish(ProfCards.professorPublicationName, function () {
   if (this.userId && Roles.userIsInRole(this.userId, 'professor')) {
-    return ProfCards.collection.find();
+    const myEmail = Meteor.users.findOne(this.userId).username;
+    return ProfCards.collection.find({ email: myEmail });
+  }
+  return this.ready();
+});
+
+Meteor.publish(ProfCards.userPublicationName, function () {
+  if (this.userId) {
+    const username = Meteor.users.findOne(this.userId).username;
+    return ProfCards.collection.find({ owner: username });
   }
   return this.ready();
 });

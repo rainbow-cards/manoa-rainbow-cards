@@ -1,15 +1,15 @@
 {
   "defaultAccounts": [
     { "email": "admin@foo.com", "password": "changeme", "role": "admin" },
-    { "email": "professor@foo.com", "password": "changeme", "role":  "professor" },
+    { "email": "cmoore@hawaii.edu", "password": "changeme", "role":  "professor" },
     { "email": "john@foo.com", "password": "changeme" }
   ],
 
   "defaultCards": [
-    { "name": "Moore Carleton", "course": "ICS 314", "semester": "Spring 2024", "department": "ICS", "email": "cmoore@hawaii.edu", "image": "https://cammoore.github.io/img/cam-moore.jpg", "facts": "Moore got his BS in EECS from the University of Colorado. He helps run the Collaborative Software Development Laboratory." },
-    { "name": "Johnson Philip", "course": "ICS 314", "semester": "Spring 2024", "department": "ICS", "email": "pjohnson@hawaii.edu", "image": "https://github.com/philipmjohnson/philipmjohnson.github.io/raw/main/img/pmj-headshot.png", "facts": "Moore got his BS in CS from the University of Michigan (along with a BS in Biology!). He co-founded the Geo Garden Club, an app that connects local gardeners." },
+    { "name": "Moore Carleton", "course": "ICS 314", "semester": "Spring 2024", "department": "ICS", "email": "cmoore@hawaii.edu", "image": "https://cammoore.github.io/img/cam-moore.jpg", "facts": "Moore got his BS in EECS from the University of Colorado. He helps run the Collaborative Software Development Laboratory.", "owner": "john@foo.com", "campusEats": "Bale", "hiddenTalent": "Water Polo" },
+    { "name": "Johnson Philip", "course": "ICS 314", "semester": "Spring 2024", "department": "ICS", "email": "pjohnson@hawaii.edu", "image": "https://github.com/philipmjohnson/philipmjohnson.github.io/raw/main/img/pmj-headshot.png", "facts": "Moore got his BS in CS from the University of Michigan (along with a BS in Biology!). He co-founded the Geo Garden Club, an app that connects local gardeners.", "owner": "professor@foo.com", "campusEats": "Subway", "hiddenTalent": "Basketball, Power Forward"  },
     { "name": "Kim Binsted", "course": "ICS 212", "semester": "Spring 2024", "department": "ICS", "email": "pjohnson@hawaii.edu", "image": "https://www.ics.hawaii.edu/wp-content/uploads/2013/08/kim_binsted-square-300x300.jpg",
-      "facts": "I am a Professor of Information and Computer Sciences at the University of Hawaii, Director of the Collaborative Software Development Laboratory, and the CEO of OpenPowerQuality.com."
+      "facts": "I am a Professor of Information and Computer Sciences at the University of Hawaii, Director of the Collaborative Software Development Laboratory, and the CEO of OpenPowerQuality.com.", "owner": "john@foo.com", "campusEats": "Dunkin Donuts", "hiddenTalent": "Ping Pong"
     }
   ]
 }

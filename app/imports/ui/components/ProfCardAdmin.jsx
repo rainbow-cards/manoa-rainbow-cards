@@ -25,8 +25,9 @@ const ProfCard = ({ profInfo }) => (
         </div>
         <Card.Text>{profInfo.facts}</Card.Text>
         <Card.Text>{profInfo.campusEats}</Card.Text>
-        <Card.Text>{profInfo.secretTalent}</Card.Text>
+        <Card.Text>{profInfo.hiddenTalent}</Card.Text>
         <Link to={`/edit/${profInfo._id}`}>Edit</Link>
+        <footer className="blockquote-footer">{profInfo.owner}</footer>
 
       </div>
     </Card.Body>
@@ -43,8 +44,9 @@ ProfCard.propTypes = {
     email: PropTypes.string,
     image: PropTypes.string,
     facts: PropTypes.string,
+    owner: PropTypes.string,
     campusEats: PropTypes.string,
-    secretTalent: PropTypes.string,
+    hiddenTalent: PropTypes.string,
     _id: PropTypes.string,
   }).isRequired,
 };
