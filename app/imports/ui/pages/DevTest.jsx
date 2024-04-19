@@ -127,7 +127,7 @@ const DevTest = () => {
               console.error('Error:', error);
               swal('Error', 'Failed to add card to doge...', 'error');
             } else {
-              swal('Success', 'Card added to user successfully', 'success');
+              swal('Success', 'Cam Moore card added to doge successfully!', 'success');
             }
           });
         } else {
