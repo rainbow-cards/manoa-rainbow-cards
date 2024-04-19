@@ -33,3 +33,11 @@ Meteor.publish(null, function () {
   }
   return this.ready();
 });
+
+// Publish the USERNAMES ONLY for all documents in the users database.
+Meteor.publish('allUsernames', function () {
+  if (this.userId && Roles.userIsInRole(this.userId, 'admin')) {
+    return Meteor.users.find({}, { fields: { username: 1 } });
+  }
+  return this.ready();
+});

@@ -56,38 +56,37 @@ const AllCards = [
 // Create a schema to specify the structure of the data to appear in the form.
 const formSchema = new SimpleSchema({
   card: { label: 'Select a card', type: String, allowedValues: AllCards.map(card => `${card.name} (${card.semester}, ${card.course})`) },
-  email: { label: 'Enter a user', type: String },
+  user: { label: 'Enter a user', type: String },
 });
-
+const subscriptionUsernames = Meteor.subscribe('allUsernames');
 const bridge = new SimpleSchema2Bridge(formSchema);
 
 /* Renders the DevTest page section for sending a card to a user. */
 const DevTest = () => {
   // On submit, insert the data.
   const submit = (giftData, formRef) => {
-    const { card, email } = giftData;
-
-    // Find the user by their account email via string
-    const targetUser = Meteor.users.findOne({ email });
+    const { card, user } = giftData;
+    // Find the user by their username via string
+    const targetUser = Meteor.users.findOne({ username: user });
 
     if (!targetUser) {
-      swal('Error', `User ${email} not found`, 'error');
-      return;
+      swal('Error', `User ${user} not found`, 'error');
+    } else {
+      swal('Success', `User ${user} exists!`, 'success');
     }
-
     // Add the card data to the user's profile(?)
     // change this based on database structure
-    const updatedProfile = { ...targetUser.profile, card };
-
-    // Update the user's profile in the Meteor.users collection
-    Meteor.users.update(targetUser.email, { $set: { profile: updatedProfile } }, (error) => {
-      if (error) {
-        swal('Error', error.message, 'error');
-      } else {
-        swal('Success', 'Card added to user successfully', 'success');
-        formRef.reset();
-      }
-    });
+    // const updatedProfile = { ...targetUser.profile, card };
+    //
+    // // Update the user's profile in the Meteor.users collection
+    // Meteor.users.update(targetUser._id, { $set: { profile: updatedProfile } }, (error) => {
+    //   if (error) {
+    //     swal('Error', error.message, 'error');
+    //   } else {
+    //     swal('Success', 'Card added to user successfully', 'success');
+    //     formRef.reset();
+    //   }
+    // });
   };
 
   // Render the form. Use Uniforms: https://github.com/vazco/uniforms
@@ -107,13 +106,22 @@ const DevTest = () => {
                   helpClassName="text-danger"
                 />
                 <TextField
-                  name="email"
+                  name="user"
                   showInlineError
                   help="Enter a user's email (required)"
                   helpClassName="text-danger"
                 />
                 <SubmitField value="Submit" />
                 <ErrorsField />
+              </Card.Body>
+            </Card>
+            <h2 className="text-center">All Registered Users</h2>
+            <Card>
+              <Card.Body>
+                {/* Render all users contained in the Meteor.users collection */}
+                {Meteor.users.find().fetch().map(user => (
+                  <div key={user._id}>{user.username}</div>
+                ))}
               </Card.Body>
             </Card>
           </AutoForm>
