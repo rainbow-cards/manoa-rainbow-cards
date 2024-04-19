@@ -19,6 +19,7 @@ import AddProfCard from '../pages/AddProfCard';
 import EditProfCard from '../pages/EditProfCard';
 import ListCatalogAdmin from '../pages/ListCatalogAdmin';
 import ListCatalogProf from '../pages/ListCatalogProf';
+import DevTest from '../pages/DevTest';
 
 /** Top-level layout component for this application. Called in imports/startup/client/startup.jsx. */
 const App = () => {
@@ -44,6 +45,7 @@ const App = () => {
           <Route path="/add" element={<AdminProtectedRoute ready={ready}><AddProfCard /></AdminProtectedRoute>} />
           <Route path="/admin" element={<AdminProtectedRoute ready={ready}><ListCatalogAdmin /></AdminProtectedRoute>} />
           <Route path="/edit/:_id" element={<AdProfProtectedRoute ready={ready}><EditProfCard /></AdProfProtectedRoute>} />
+          <Route path="/devtest" element={<AdminProtectedRoute ready={ready}><DevTest /></AdminProtectedRoute>} />
           <Route path="/notauthorized" element={<NotAuthorized />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
