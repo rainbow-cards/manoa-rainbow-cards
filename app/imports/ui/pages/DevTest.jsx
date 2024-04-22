@@ -1,6 +1,5 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Mongo } from 'meteor/mongo';
 import { Button, Card, Col, Container, Row } from 'react-bootstrap';
 import { AutoForm, ErrorsField, SubmitField, TextField, SelectField } from 'uniforms-bootstrap5';
 import { useTracker } from 'meteor/react-meteor-data';
@@ -25,24 +24,12 @@ const DevTest = () => {
     };
   }, []);
 
-  const emptySchema = new SimpleSchema({
-    placeholderField: { type: String, optional: true }, // Adding a dummy field
-  });
   const bridge = new SimpleSchema2Bridge(new SimpleSchema({
     card: { label: 'Select a card', type: String, allowedValues: profcards.map(card => `${card.name} (${card.semester}, ${card.course})`) },
     user: { label: 'Enter a user', type: String },
   }));
-
   const submit = (formData, formRef) => {
     const { card, user } = formData;
-
-    console.log('Selected card:', card);
-    console.log('All profcards:', profcards);
-
-    if (!profcards || profcards.length === 0) {
-      swal('Error', 'No Rainbow Cards registered...!', 'error');
-      return;
-    }
 
     // Check if the subscription is ready
     if (!ready) {
@@ -57,95 +44,86 @@ const DevTest = () => {
       console.log(`Searching profcards with the following queries: ${cardName}, ${cardSemester}, ${cardCourse}`);
       return name === cardName && semester === cardSemester && course === cardCourse;
     });
-    console.log('Found card:', selectedCard);
 
     if (!selectedCard) {
       swal('Error', 'Card not found in the database...', 'error');
       return;
     }
-
-    // Find the user by their username
+    // console.log(selectedCard);
+    // Find the target user by their username
     const targetUser = Meteor.users.findOne({ username: user });
-
-    console.log('Target user:', targetUser);
-    console.log(`Adding card to ${targetUser.username}`);
 
     if (!targetUser) {
       swal('Error', `User ${user} not found`, 'error');
       return;
     }
-
-    // Access the user's collection based on the subscription
-    const userPublicationName = `${ProfCards.userPublicationName}.${targetUser.username}`;
-    console.log('User publication name:', userPublicationName);
-    const userCollection = new Mongo.Collection(userPublicationName);
-
-    // Add the selected card to the user's cards array
-    const userData = userCollection.findOne({ username: user });
-    const currentCards = userData ? userData.cards || [] : [];
-    console.log('Current cards: ', currentCards);
-    const updatedCards = [...currentCards, selectedCard];
-    console.log('Updated cards: ', updatedCards);
-
-    // Upsert the user's document in the collection
-    userCollection.upsert({ username: user }, { $set: { cards: updatedCards } }, (error) => {
+    console.log(`Targeting ${user} to add ${selectedCard.name} card`);
+    // Insert a copy of the selected card into the ProfCards collection
+    ProfCards.collection.insert({
+      name: selectedCard.name,
+      course: selectedCard.course,
+      semester: selectedCard.semester,
+      department: selectedCard.department,
+      email: selectedCard.email,
+      image: selectedCard.image,
+      facts: selectedCard.facts,
+      campusEats: selectedCard.campusEats || 'N/A',
+      hiddenTalent: selectedCard.hiddenTalent || 'N/A',
+      owner: user, // Set the owner attribute to the target user's username
+    }, (error) => {
       if (error) {
-        console.error('Error:', error);
-        swal('Error', 'Failed to add card to user...', 'error');
+        swal('Error', 'Failed to add card...', 'error');
+        console.log(error);
       } else {
-        // If the upsert is successful, display success message
-        swal('Success', 'Card added to user successfully', 'success')
-          .then(() => {
-            // After user acknowledges success message, reset the form
-            formRef.reset();
-          });
+        swal('Success', `${selectedCard.name} Card sent to ${user} successfully!`, 'success');
+        formRef.reset();
       }
     });
   };
   const submit2 = () => {
-    // Get the first ProfCard from the ProfCards collection
-    const firstProfCard = profcards.find(card => card.name === 'Moore Carleton');
-    console.log(`Found: ${firstProfCard.name}`);
 
-    if (firstProfCard) {
-      // Find the user by their username
-      const targetUser = Meteor.users.findOne({ username: 'doge' });
-
-      if (targetUser) {
-        // Access the user's collection
-        const userCollectionName = `${ProfCards.userPublicationName}.${targetUser.username}`;
-        console.log('User collection name:', userCollectionName);
-
-        // Attempt to access doge's collection
-        const userCollection = Meteor.connection._mongo_livedata_collections[userCollectionName];
-        console.log('User collection:', userCollection);
-
-        // Insert the first ProfCard into the user's collection if it exists
-        if (userCollection) {
-          userCollection.insert(firstProfCard, (error) => {
-            if (error) {
-              console.error('Error:', error);
-              swal('Error', 'Failed to add card to doge...', 'error');
-            } else {
-              swal('Success', 'Cam Moore card added to doge successfully!', 'success');
-            }
-          });
-        } else {
-          swal('Error', `User collection "${userCollectionName}" not found`, 'error');
-        }
-      } else {
-        swal('Error', 'User "doge" not found', 'error');
-      }
-    } else {
-      swal('Error', 'No ProfCards available...', 'error');
+    // Check if the subscription is ready
+    if (!ready) {
+      swal('Error', 'Subscriptions not ready...', 'error');
+      return;
     }
-  };
 
-  const submit3 = () => {
-    const userPublicationName = `${ProfCards.userPublicationName}.doge`;
-    console.log('User publication name:', userPublicationName);
-    const userCollection = new Mongo.Collection(userPublicationName);
-    console.log('doge collection:', userCollection);
+    // Find the selected card from the profcards array
+    const mooreCard = profcards.find(card => card.name === 'Moore Carleton');
+
+    if (!mooreCard) {
+      swal('Error', 'Card not found in the database...', 'error');
+      return;
+    }
+    // console.log(selectedCard);
+    // Find the target user by their username
+    const targetUser = Meteor.users.findOne({ username: 'doge' });
+
+    if (!targetUser) {
+      swal('Error', 'User doge not found', 'error');
+      return;
+    }
+    console.log(`Targeting doge to add ${mooreCard.name} card`);
+    // Insert a copy of the selected card into the ProfCards collection
+    ProfCards.collection.insert({
+      name: mooreCard.name,
+      course: mooreCard.course,
+      semester: mooreCard.semester,
+      department: mooreCard.department,
+      email: mooreCard.email,
+      image: mooreCard.image,
+      facts: mooreCard.facts,
+      campusEats: mooreCard.campusEats || 'N/A',
+      hiddenTalent: mooreCard.hiddenTalent || 'N/A',
+      owner: 'doge', // Set the owner attribute to the target user's username
+    }, (error) => {
+      if (error) {
+        swal('Error', 'Failed to add card to doge account...', 'error');
+        console.log(error);
+      } else {
+        swal('Success', `${mooreCard.name} Rainbow Card sent successfully to doge!`, 'success');
+      }
+    });
   };
   // Render the form. Use Uniforms: https://github.com/vazco/uniforms
   let fRef = null; // Reference for the first AutoForm
@@ -183,11 +161,10 @@ const DevTest = () => {
               </Card.Body>
             </Card>
           </AutoForm>
-          <h2 className="text-center">doge</h2>
+          <h2 className="text-center">Give card to doge</h2>
           <Card className="align-items-center">
             <Card.Body>
               <Row>
-                <Button className="btn btn-primary" onClick={submit3}>Create Collection</Button>
                 <Button className="btn btn-primary" onClick={submit2}>Auto-Add</Button>
               </Row>
             </Card.Body>
