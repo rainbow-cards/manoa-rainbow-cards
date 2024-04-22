@@ -4,7 +4,7 @@ import { Col, Container, Row } from 'react-bootstrap';
 import { useTracker } from 'meteor/react-meteor-data';
 import LoadingSpinner from '../components/LoadingSpinner';
 import { ProfCards } from '../../api/profcard/ProfCard';
-import ProfCard from '../components/ProfCard';
+import ProfCardUser from '../components/ProfCardUser';
 
 /* Renders a table containing all the ProfCards documents. Use <StuffItem> to render each row. */
 const ListMyCards = () => {
@@ -32,7 +32,7 @@ const ListMyCards = () => {
             <h2>My Cards</h2>
           </Col>
           <Row xs={2} md={3} lg={4} className="g-4">
-            {cards.map((profInfo, index) => (<Col key={index}><ProfCard profInfo={profInfo} /></Col>))}
+            {cards.map((profInfo, index) => (<Col key={index}><ProfCardUser profInfo={profInfo} /></Col>))}
 
           </Row>
         </Col>
