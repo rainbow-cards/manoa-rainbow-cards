@@ -22,6 +22,9 @@ const ProfCard = ({ profInfo }) => (
           <Card.Subtitle className="mb-1">{profInfo.course}, {profInfo.semester}</Card.Subtitle>
           <Card.Subtitle>{profInfo.email}</Card.Subtitle>
         </div>
+        <Card.Text>{profInfo.facts}</Card.Text>
+        <Card.Text>Favorite campus eats: {profInfo.campusEats}</Card.Text>
+        <Card.Text>A hidden talent: {profInfo.hiddenTalent}</Card.Text>
       </div>
     </Card.Body>
   </Card>
