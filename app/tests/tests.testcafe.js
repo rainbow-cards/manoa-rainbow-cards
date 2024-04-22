@@ -5,6 +5,7 @@ import { navBar } from './navbar.component';
 import { catalogPage } from './catalog.page';
 import { myCardsPage } from './mycards.page';
 import { addPage } from './add.page';
+import { editPage } from './edit.page';
 
 /* global fixture:false, test:false */
 
@@ -15,12 +16,23 @@ const prof = {
   name: 'Ravi Narayan',
   course: 'ICS451',
   semester: 'Fall 2024',
-  department: 'Information and Computer Science',
+  department: 'ICS',
   email: 'rnarayan@hawaii.edu',
   image: 'https://www2.hawaii.edu/~rnarayan/Ravi_Narayan.jpg',
   facts: 'Excellent ballroom dancer',
   campus_eats: 'Ding Tea',
   hidden_talent: 'Vegetarian',
+};
+const sR = {
+  name: 'Scott Robertson',
+  course: 'ICS111',
+  semester: 'Fall 2022',
+  department: 'ICS',
+  email: 'scottpr@hawaii.edu',
+  image: 'https://www2.hawaii.edu/~scottpr/images/ScottRobertson500x500.jpg',
+  facts: 'Professor and Chair of ICS Department',
+  campus_eats: 'Brito Bowl',
+  hidden_talent: 'Robertson',
 };
 
 fixture('meteor-application-template-react localhost test with default db')
@@ -86,8 +98,35 @@ test('Test that addprofessorcard page works for admin accounts', async (testCont
     prof.image,
     prof.facts,
     prof.campus_eats,
-    // prof.hidden_talent,
+    prof.hidden_talent,
   );
+  /*
   await navBar.logout(testController);
   await signoutPage.isDisplayed(testController);
+  */
+});
+
+test('Test that editprofessorcard page works for admin accounts', async (testController) => {
+  await navBar.gotoSignInPage(testController);
+  await signinPage.signin(testController, admin.username, admin.password);
+  await navBar.isLoggedIn(testController, admin.username);
+  await navBar.gotoEditPage(testController);
+  await navBar.gotoEditor(testController);
+  await editPage.isDisplayed(testController);
+  await editPage.edit(
+    testController,
+    sR.name,
+    sR.course,
+    sR.semester,
+    sR.department,
+    sR.email,
+    sR.image,
+    sR.facts,
+    sR.campus_eats,
+    sR.hidden_talent,
+  );
+  /*
+  await navBar.logout(testController);
+  await signoutPage.isDisplayed(testController);
+  */
 });

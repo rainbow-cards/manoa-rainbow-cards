@@ -57,6 +57,7 @@ const AddProfCard = () => {
                 <TextField id="image" name="image" />
                 <LongTextField id="facts" name="facts" />
                 <TextField id="campuseats" name="campusEats" />
+                <TextField id="hiddentalent" name="hiddenTalent" />
                 <SubmitField id="add-submit" value="Submit" />
                 <ErrorsField />
               </Card.Body>

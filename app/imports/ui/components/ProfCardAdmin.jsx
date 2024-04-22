@@ -26,7 +26,7 @@ const ProfCard = ({ profInfo }) => (
         <Card.Text>{profInfo.facts}</Card.Text>
         <Card.Text>{profInfo.campusEats}</Card.Text>
         <Card.Text>{profInfo.hiddenTalent}</Card.Text>
-        <Link to={`/edit/${profInfo._id}`}>Edit</Link>
+        <Link id="admin-edit-link" to={`/edit/${profInfo._id}`}>Edit</Link>
 
       </div>
     </Card.Body>
