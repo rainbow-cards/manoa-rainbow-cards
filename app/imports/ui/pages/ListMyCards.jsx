@@ -23,7 +23,7 @@ const ListMyCards = () => {
       ready: rdy,
     };
   }, []);
-
+  console.log(cards);
   return (ready ? (
     <Container className="py-3">
       <Row className="justify-content-center">
