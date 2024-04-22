@@ -6,7 +6,6 @@ import { Meteor } from 'meteor/meteor';
 import { ProfCards } from '../../api/profcard/ProfCard';
 import ProfCard from '../components/ProfCard';
 
-/* A simple static component to render some text for the landing page. */
 const Landing = () => {
   const [featuredCard, setFeaturedCard] = useState(null);
 
@@ -26,7 +25,6 @@ const Landing = () => {
   }, []);
 
   useEffect(() => {
-    // Update featured card when the list of cards changes
     const handle = Meteor.subscribe('cards.public');
     return () => handle.stop();
   }, []);
