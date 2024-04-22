@@ -20,7 +20,16 @@ Meteor.publish('cards.public', function () {
 
 Meteor.publish(ProfCards.professorPublicationName, function () {
   if (this.userId && Roles.userIsInRole(this.userId, 'professor')) {
-    return ProfCards.collection.find();
+    const myEmail = Meteor.users.findOne(this.userId).username;
+    return ProfCards.collection.find({ email: myEmail });
+  }
+  return this.ready();
+});
+
+Meteor.publish(ProfCards.userPublicationName, function () {
+  if (this.userId) {
+    const username = Meteor.users.findOne(this.userId).username;
+    return ProfCards.collection.find({ owner: username });
   }
   return this.ready();
 });
@@ -30,6 +39,14 @@ Meteor.publish(ProfCards.professorPublicationName, function () {
 Meteor.publish(null, function () {
   if (this.userId) {
     return Meteor.roleAssignment.find({ 'user._id': this.userId });
+  }
+  return this.ready();
+});
+
+// Publish the USERNAMES ONLY for all documents in the users database.
+Meteor.publish('allUsernames', function () {
+  if (this.userId && Roles.userIsInRole(this.userId, 'admin')) {
+    return Meteor.users.find({}, { fields: { username: 1 } });
   }
   return this.ready();
 });

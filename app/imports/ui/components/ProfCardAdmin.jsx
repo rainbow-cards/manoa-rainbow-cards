@@ -27,7 +27,6 @@ const ProfCard = ({ profInfo }) => (
         <Card.Text>{profInfo.campusEats}</Card.Text>
         <Card.Text>{profInfo.hiddenTalent}</Card.Text>
         <Link id="admin-edit-link" to={`/edit/${profInfo._id}`}>Edit</Link>
-
       </div>
     </Card.Body>
   </Card>
@@ -43,6 +42,7 @@ ProfCard.propTypes = {
     email: PropTypes.string,
     image: PropTypes.string,
     facts: PropTypes.string,
+    owner: PropTypes.string,
     campusEats: PropTypes.string,
     hiddenTalent: PropTypes.string,
     _id: PropTypes.string,

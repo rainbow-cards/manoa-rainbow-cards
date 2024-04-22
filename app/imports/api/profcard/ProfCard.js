@@ -19,13 +19,15 @@ class ProfCardsCollection {
       email: String,
       image: String,
       facts: String,
+      owner: String,
       campusEats: String,
       hiddenTalent: String,
     });
     // Attach the schema to the collection, so all attempts to insert a document are checked against schema.
     this.collection.attachSchema(this.schema);
     // Define names for publications and subscriptions
-    this.professorPublicationName = `${this.name}.publication.admin`;
+    this.professorPublicationName = `${this.name}.publication.professor`;
+    this.userPublicationName = `${this.name}.publication.user`;
   }
 }
 
