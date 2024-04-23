@@ -27,6 +27,7 @@ class ProfCardsCollection {
     this.collection.attachSchema(this.schema);
     // Define names for publications and subscriptions
     this.professorPublicationName = `${this.name}.publication.professor`;
+    this.userPublicationName = `${this.name}.publication.user`;
   }
 }
 
