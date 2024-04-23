@@ -25,9 +25,9 @@ const bridge = new SimpleSchema2Bridge(formSchema);
 const AddProfCard = () => {
   // On submit, insert the data.
   const submit = (data, formRef) => {
-    const { name, course, semester, department, email, image, facts, campusEats, hiddenTalent } = data;
+    const { name, course, semester, department, email, owner, image, facts, campusEats, hiddenTalent } = data;
     ProfCards.collection.insert(
-      { name, course, semester, department, email, image, facts, campusEats, hiddenTalent },
+      { name, course, semester, department, email, owner, image, facts, campusEats, hiddenTalent },
       (error) => {
         if (error) {
           swal('Error', error.message, 'error');
@@ -58,6 +58,7 @@ const AddProfCard = () => {
                 <LongTextField id="facts" name="facts" />
                 <TextField id="campuseats" name="campusEats" />
                 <TextField id="hiddentalent" name="hiddenTalent" />
+                <TextField id="owner" name="owner" />
                 <SubmitField id="add-submit" value="Submit" />
                 <ErrorsField />
               </Card.Body>
