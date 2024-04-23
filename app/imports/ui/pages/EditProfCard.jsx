@@ -41,16 +41,30 @@ const EditProfCard = () => {
   return ready ? (
     <Container className="py-3">
       <Row className="justify-content-center">
-        <Col xs={5}>
+        <Col xs={7}>
           <Col className="text-center"><h2>Edit Card</h2></Col>
           <AutoForm schema={bridge} onSubmit={data => submit(data)} model={doc}>
             <Card>
               <Card.Body>
-                <TextField id="name" name="name" />
-                <TextField id="course" name="course" />
-                <TextField id="semester" name="semester" />
-                <TextField id="department" name="department" />
-                <TextField id="email" name="email" />
+                <Row className="justify-content-center">
+                  <Col xs={6}>
+                    <TextField id="name" name="name" />
+                  </Col>
+                  <Col>
+                    <TextField id="course" name="course" />
+                  </Col>
+                  <Col>
+                    <TextField id="semester" name="semester" />
+                  </Col>
+                </Row>
+                <Row className="justify-content-center">
+                  <Col xs={2}>
+                    <TextField id="department" name="department" />
+                  </Col>
+                  <Col>
+                    <TextField id="email" name="email" />
+                  </Col>
+                </Row>
                 <TextField id="image" name="image" />
                 <LongTextField id="facts" name="facts" />
                 <TextField id="campuseats" name="campusEats" />
