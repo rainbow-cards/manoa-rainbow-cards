@@ -19,6 +19,7 @@ import AddProfCard from '../pages/AddProfCard';
 import EditProfCard from '../pages/EditProfCard';
 import ListCatalogAdmin from '../pages/ListCatalogAdmin';
 import ListCatalogProf from '../pages/ListCatalogProf';
+import LandingSignedIn from '../pages/LandingSignedIn';
 
 /** Top-level layout component for this application. Called in imports/startup/client/startup.jsx. */
 const App = () => {
@@ -38,7 +39,7 @@ const App = () => {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/signout" element={<SignOut />} />
           <Route path="/catalog" element={<ListCatalog />} />
-          <Route path="/home" element={<ProtectedRoute><Landing /></ProtectedRoute>} />
+          <Route path="/home" element={<ProtectedRoute><LandingSignedIn /></ProtectedRoute>} />
           <Route path="/list" element={<ProtectedRoute><ListMyCards /></ProtectedRoute>} />
           <Route path="/profcat" element={<ProfProtectedRoute ready={ready}><ListCatalogProf /></ProfProtectedRoute>} />
           <Route path="/add" element={<AdminProtectedRoute ready={ready}><AddProfCard /></AdminProtectedRoute>} />
@@ -60,7 +61,7 @@ const App = () => {
  */
 const ProtectedRoute = ({ children }) => {
   const isLogged = Meteor.userId() !== null;
-  return isLogged ? children : <Navigate to="/signin" />;
+  return isLogged ? children : <Navigate to="/" />;
 };
 
 /**
@@ -71,7 +72,7 @@ const ProtectedRoute = ({ children }) => {
 const AdminProtectedRoute = ({ ready, children }) => {
   const isLogged = Meteor.userId() !== null;
   if (!isLogged) {
-    return <Navigate to="/signin" />;
+    return <Navigate to="/" />;
   }
   if (!ready) {
     return <LoadingSpinner />;
@@ -83,7 +84,7 @@ const AdminProtectedRoute = ({ ready, children }) => {
 const ProfProtectedRoute = ({ ready, children }) => {
   const isLogged = Meteor.userId() !== null;
   if (!isLogged) {
-    return <Navigate to="/signin" />;
+    return <Navigate to="/" />;
   }
   if (!ready) {
     return <LoadingSpinner />;
@@ -111,7 +112,7 @@ ProtectedRoute.propTypes = {
 };
 
 ProtectedRoute.defaultProps = {
-  children: <Landing />,
+  children: <LandingSignedIn />,
 };
 
 // Require a component and location to be passed to each AdminProtectedRoute.
@@ -122,7 +123,7 @@ AdminProtectedRoute.propTypes = {
 
 AdminProtectedRoute.defaultProps = {
   ready: false,
-  children: <Landing />,
+  children: <LandingSignedIn />,
 };
 
 // Require a component and location to be passed to each AdminProtectedRoute.
