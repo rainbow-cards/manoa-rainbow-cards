@@ -1,7 +1,7 @@
 import React from 'react';
 import swal from 'sweetalert';
 import { Card, Col, Container, Row } from 'react-bootstrap';
-import { AutoForm, ErrorsField, LongTextField, SubmitField, TextField } from 'uniforms-bootstrap5';
+import { AutoForm, ErrorsField, HiddenField, LongTextField, SubmitField, TextField } from 'uniforms-bootstrap5';
 import { Meteor } from 'meteor/meteor';
 import { useTracker } from 'meteor/react-meteor-data';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
@@ -46,17 +46,18 @@ const EditProfCard = () => {
           <AutoForm schema={bridge} onSubmit={data => submit(data)} model={doc}>
             <Card>
               <Card.Body>
-                <TextField name="name" />
-                <TextField name="course" />
-                <TextField name="semester" />
-                <TextField name="department" />
-                <TextField name="email" />
-                <TextField name="image" />
-                <LongTextField name="facts" />
-                <TextField name="campusEats" />
-                <TextField name="hiddenTalent" />
-                <SubmitField value="Submit" />
+                <TextField id="name" name="name" />
+                <TextField id="course" name="course" />
+                <TextField id="semester" name="semester" />
+                <TextField id="department" name="department" />
+                <TextField id="email" name="email" />
+                <TextField id="image" name="image" />
+                <LongTextField id="facts" name="facts" />
+                <TextField id="campuseats" name="campusEats" />
+                <TextField id="hiddentalent" name="hiddenTalent" />
+                <SubmitField id="edit-submit" value="Submit" />
                 <ErrorsField />
+                <HiddenField name="owner" />
               </Card.Body>
             </Card>
           </AutoForm>

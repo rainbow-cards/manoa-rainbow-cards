@@ -12,7 +12,7 @@ class AddPage {
     await testController.expect(this.pageSelector.exists).ok();
   }
 
-  async add(testController, name, course, semester, department, email, image, facts, campuseats /* ,hiddentalent */) {
+  async add(testController, name, course, semester, department, email, image, facts, campuseats, hiddentalent) {
     await this.isDisplayed(testController);
     await testController.typeText('#name', name);
     await testController.typeText('#course', course);
@@ -22,11 +22,10 @@ class AddPage {
     await testController.typeText('#image', image);
     await testController.typeText('#facts', facts);
     await testController.typeText('#campuseats', campuseats);
-    // await testController.typeText('#hiddentalent', hiddentalent);
+    await testController.typeText('#hiddentalent', hiddentalent);
     await testController.click('#add-submit input.btn.btn-primary');
-    await testController.click('#');
-    // Below line doesn't work for some reason
-    // await testController.click(submitButton());
+    await testController.pressKey('enter');
+
   }
 }
 

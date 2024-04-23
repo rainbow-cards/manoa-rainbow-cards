@@ -15,6 +15,7 @@ const formSchema = new SimpleSchema({
   email: String,
   image: String,
   facts: String,
+  owner: String,
   campusEats: String,
   hiddenTalent: String,
 });
@@ -25,9 +26,9 @@ const bridge = new SimpleSchema2Bridge(formSchema);
 const AddProfCard = () => {
   // On submit, insert the data.
   const submit = (data, formRef) => {
-    const { name, course, semester, department, email, image, facts, campusEats, hiddenTalent } = data;
+    const { name, course, semester, department, email, image, facts, owner, campusEats, hiddenTalent } = data;
     ProfCards.collection.insert(
-      { name, course, semester, department, email, image, facts, campusEats, hiddenTalent },
+      { name, course, semester, department, email, image, facts, owner, campusEats, hiddenTalent },
       (error) => {
         if (error) {
           swal('Error', error.message, 'error');
@@ -49,14 +50,30 @@ const AddProfCard = () => {
           <AutoForm ref={ref => { fRef = ref; }} schema={bridge} onSubmit={data => submit(data, fRef)}>
             <Card>
               <Card.Body>
-                <TextField id="name" name="name" />
-                <TextField id="course" name="course" />
-                <TextField id="semester" name="semester" />
-                <TextField id="department" name="department" />
-                <TextField id="email" name="email" />
+                <Row className="justify-content-center">
+                  <Col xs={6}>
+                    <TextField id="name" name="name" />
+                  </Col>
+                  <Col>
+                    <TextField id="course" name="course" />
+                  </Col>
+                  <Col>
+                    <TextField id="semester" name="semester" />
+                  </Col>
+                </Row>
+                <Row className="justify-content-center">
+                  <Col xs={2}>
+                    <TextField id="department" name="department" />
+                  </Col>
+                  <Col>
+                    <TextField id="email" name="email" />
+                  </Col>
+                </Row>
                 <TextField id="image" name="image" />
                 <LongTextField id="facts" name="facts" />
+                <TextField id="owner" name="owner" />
                 <TextField id="campuseats" name="campusEats" />
+                <TextField id="hiddentalent" name="hiddenTalent" />
                 <SubmitField id="add-submit" value="Submit" />
                 <ErrorsField />
               </Card.Body>
