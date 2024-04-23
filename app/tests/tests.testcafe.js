@@ -100,6 +100,9 @@ test('Test that addprofessorcard page works for admin accounts', async (testCont
     prof.campus_eats,
     prof.hidden_talent,
   );
+  await navBar.gotoCatalogPage(testController);
+  await catalogPage.isDisplayed(testController);
+  await catalogPage.hasAdded(testController);
   /*
   await navBar.logout(testController);
   await signoutPage.isDisplayed(testController);
