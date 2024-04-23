@@ -15,7 +15,7 @@ class CatalogPage {
   /** Notice, the default (from a meteor reset) amount of cards is 3 */
   async hasAdded(testController) {
     const colCount = Selector('.col').count;
-    await testController.expect(colCount).gte(3); // Need to change to 4 once add function works again
+    await testController.expect(colCount).gte(4); // Need to change to 4 once add function works again
   }
 }
 

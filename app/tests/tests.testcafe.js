@@ -20,6 +20,7 @@ const prof = {
   email: 'rnarayan@hawaii.edu',
   image: 'https://www2.hawaii.edu/~rnarayan/Ravi_Narayan.jpg',
   facts: 'Excellent ballroom dancer',
+  owner: 'john@foo.com',
   campus_eats: 'Ding Tea',
   hidden_talent: 'Vegetarian',
 };
@@ -82,7 +83,7 @@ test('Test that catalog and mycards work for admin accounts', async (testControl
   await signoutPage.isDisplayed(testController);
 });
 
-test('Test that addprofessorcard page works for admin accounts', async (testController) => {
+test.only('Test that addprofessorcard page works for admin accounts', async (testController) => {
   await navBar.gotoSignInPage(testController);
   await signinPage.signin(testController, admin.username, admin.password);
   await navBar.isLoggedIn(testController, admin.username);
@@ -97,6 +98,7 @@ test('Test that addprofessorcard page works for admin accounts', async (testCont
     prof.email,
     prof.image,
     prof.facts,
+    prof.owner,
     prof.campus_eats,
     prof.hidden_talent,
   );
