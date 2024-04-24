@@ -37,13 +37,11 @@ const sR = {
   hidden_talent: 'Robertson',
 };
 
-fixture('Mānoa Rainbow Cards deployment page test with default db')
-  .page('http://localhost:3000');
+// fixture('Mānoa Rainbow Cards deployment page test with default db')
+//   .page('http://localhost:3000');
 
-/*
 fixture('Mānoa Rainbow Cards deployment page test with default db')
   .page('https://manoa-rainbow-cards.xyz/');
-*/
 
 test('Test that landing page shows up', async (testController) => {
   await landingPage.isDisplayed(testController);
