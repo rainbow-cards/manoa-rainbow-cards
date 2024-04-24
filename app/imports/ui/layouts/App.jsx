@@ -40,7 +40,7 @@ const App = () => {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/signout" element={<SignOut />} />
           <Route path="/catalog" element={<ListCatalog />} />
-          <Route path="/home" element={<ProtectedRoute><LandingSignedIn /></ProtectedRoute>} />
+          <Route path="/home" element={<ProtectedRoute><Landing /></ProtectedRoute>} />
           <Route path="/list" element={<ProtectedRoute><ListMyCards /></ProtectedRoute>} />
           <Route path="/profcat" element={<ProfProtectedRoute ready={ready}><ListCatalogProf /></ProfProtectedRoute>} />
           <Route path="/add" element={<AdminProtectedRoute ready={ready}><AddProfCard /></AdminProtectedRoute>} />
