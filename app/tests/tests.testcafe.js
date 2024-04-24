@@ -6,6 +6,7 @@ import { catalogPage } from './catalog.page';
 import { myCardsPage } from './mycards.page';
 import { addPage } from './add.page';
 import { editPage } from './edit.page';
+import { devTestPage } from './devtest.page';
 
 /* global fixture:false, test:false */
 
@@ -20,6 +21,7 @@ const prof = {
   email: 'rnarayan@hawaii.edu',
   image: 'https://www2.hawaii.edu/~rnarayan/Ravi_Narayan.jpg',
   facts: 'Excellent ballroom dancer',
+  owner: 'john@foo.com',
   campus_eats: 'Ding Tea',
   hidden_talent: 'Vegetarian',
 };
@@ -102,6 +104,7 @@ test('Test that addprofessorcard page works for admin accounts', async (testCont
     prof.email,
     prof.image,
     prof.facts,
+    prof.owner,
     prof.campus_eats,
     prof.hidden_talent,
   );
@@ -133,6 +136,22 @@ test('Test that editprofessorcard page works for admin accounts', async (testCon
     sR.campus_eats,
     sR.hidden_talent,
   );
+  /*
+  await navBar.logout(testController);
+  await signoutPage.isDisplayed(testController);
+  */
+});
+
+test('Test that devtest page works for admins', async (testController) => {
+  await navBar.gotoSignInPage(testController);
+  await signinPage.signin(testController, admin.username, admin.password);
+  await navBar.isLoggedIn(testController, admin.username);
+  await navBar.gotoDevTest(testController);
+  await devTestPage.isDisplayed(testController);
+  await devTestPage.devTestAdd(testController);
+  await navBar.gotoMyCardsPage(testController);
+  await myCardsPage.isDisplayed(testController);
+  await myCardsPage.hasAdded(testController);
   /*
   await navBar.logout(testController);
   await signoutPage.isDisplayed(testController);
