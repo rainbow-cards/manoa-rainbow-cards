@@ -6,6 +6,7 @@ import { catalogPage } from './catalog.page';
 import { myCardsPage } from './mycards.page';
 import { addPage } from './add.page';
 import { editPage } from './edit.page';
+import { devTestPage } from './devtest.page';
 
 /* global fixture:false, test:false */
 
@@ -36,8 +37,13 @@ const sR = {
   hidden_talent: 'Robertson',
 };
 
-fixture('meteor-application-template-react localhost test with default db')
+/*
+fixture('Mānoa Rainbow Cards deployment page test with default db')
   .page('http://localhost:3000');
+*/
+
+fixture('Mānoa Rainbow Cards deployment page test with default db')
+  .page('https://manoa-rainbow-cards.xyz/');
 
 test('Test that landing page shows up', async (testController) => {
   await landingPage.isDisplayed(testController);
@@ -83,7 +89,7 @@ test('Test that catalog and mycards work for admin accounts', async (testControl
   await signoutPage.isDisplayed(testController);
 });
 
-test.only('Test that addprofessorcard page works for admin accounts', async (testController) => {
+test('Test that addprofessorcard page works for admin accounts', async (testController) => {
   await navBar.gotoSignInPage(testController);
   await signinPage.signin(testController, admin.username, admin.password);
   await navBar.isLoggedIn(testController, admin.username);
@@ -130,6 +136,22 @@ test('Test that editprofessorcard page works for admin accounts', async (testCon
     sR.campus_eats,
     sR.hidden_talent,
   );
+  /*
+  await navBar.logout(testController);
+  await signoutPage.isDisplayed(testController);
+  */
+});
+
+test('Test that devtest page works for admins', async (testController) => {
+  await navBar.gotoSignInPage(testController);
+  await signinPage.signin(testController, admin.username, admin.password);
+  await navBar.isLoggedIn(testController, admin.username);
+  await navBar.gotoDevTest(testController);
+  await devTestPage.isDisplayed(testController);
+  await devTestPage.devTestAdd(testController);
+  await navBar.gotoMyCardsPage(testController);
+  await myCardsPage.isDisplayed(testController);
+  await myCardsPage.hasAdded(testController);
   /*
   await navBar.logout(testController);
   await signoutPage.isDisplayed(testController);
