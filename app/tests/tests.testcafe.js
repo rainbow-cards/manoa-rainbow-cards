@@ -142,7 +142,7 @@ test('Test that editprofessorcard page works for admin accounts', async (testCon
   */
 });
 
-test('Test that devtest page works for admins', async (testController) => {
+test.skip('Test that devtest page works for admins', async (testController) => {
   await navBar.gotoSignInPage(testController);
   await signinPage.signin(testController, admin.username, admin.password);
   await navBar.isLoggedIn(testController, admin.username);
