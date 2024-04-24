@@ -136,14 +136,14 @@ const DevTest = () => {
             <Card>
               <Card.Body>
                 <SelectField
-                  id= "selectField"
+                  id="selectField"
                   name="card"
                   showInlineError
                   // help="Select a Rainbow Card (required)"
                   helpClassName="text-danger"
                 />
                 <TextField
-                  id= "enterUser"
+                  id="enterUser"
                   name="user"
                   showInlineError
                   // help="Enter a user's email (required)"
