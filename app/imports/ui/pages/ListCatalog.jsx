@@ -27,6 +27,9 @@ const ListCatalog = () => {
 
   return (
     <Container className="py-3">
+      <Col className="text-center">
+        <h2>Cards Catalog</h2>
+      </Col>
       <Row>
         <Col xs={3} md={2}>
           <ListGroup>
@@ -60,5 +63,4 @@ const ListCatalog = () => {
     </Container>
   );
 };
-
 export default ListCatalog;
