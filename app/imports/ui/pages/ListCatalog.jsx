@@ -1,43 +1,64 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Col, Container, Row } from 'react-bootstrap';
+import { Container, Row, Col, ListGroup } from 'react-bootstrap';
 import { useTracker } from 'meteor/react-meteor-data';
 import LoadingSpinner from '../components/LoadingSpinner';
-import { ProfCards } from '../../api/profcard/ProfCard';
 import ProfCard from '../components/ProfCard';
+import { ProfCards } from '../../api/profcard/ProfCard';
 
-/* Renders a table containing all the ProfCards documents. Use <StuffItem> to render each row. */
 const ListCatalog = () => {
-  // useTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker
-  const { profcards, ready } = useTracker(() => {
-    // Note that this subscription will get cleaned up
-    // when your component is unmounted or deps change.
-    // Get access to ProfCards documents.
-    const subscription = Meteor.subscribe('cards.public');
-    // Determine if the subscription is ready
-    const rdy = subscription.ready();
-    // Get the ProfCards documents
-    const profCardItems = ProfCards.collection.find().fetch();
-    return {
-      profcards: profCardItems,
-      ready: rdy,
-    };
-  }, []);
+  const [selectedDepartment, setSelectedDepartment] = useState(null);
 
-  return (ready ? (
+  const handleDepartmentClick = (department) => {
+    setSelectedDepartment(department === selectedDepartment ? null : department);
+  };
+
+  const { profcards, ready, departments } = useTracker(() => {
+    const subscription = Meteor.subscribe('cards.public');
+    const rdy = subscription.ready();
+    const profCardItems = ProfCards.collection.find().fetch();
+    const uniqueDepartments = Array.from(new Set(profCardItems.map(card => card.department)));
+    return {
+      profcards: selectedDepartment ? profCardItems.filter(card => card.department === selectedDepartment) : profCardItems,
+      ready: rdy,
+      departments: uniqueDepartments,
+    };
+  }, [selectedDepartment]);
+
+  return (
     <Container className="py-3">
-      <Row className="justify-content-center">
+      <Row>
+        <Col xs={3} md={2}>
+          <ListGroup>
+            <ListGroup.Item className="text-align-left" style={{ fontSize: '16px' }}>
+              <h2 style={{ fontSize: '16px' }}>Departments</h2>
+            </ListGroup.Item>
+            {departments.map(department => (
+              <ListGroup.Item
+                key={department}
+                action
+                variant={selectedDepartment === department ? 'primary' : 'light'}
+                onClick={() => handleDepartmentClick(department)}
+                style={{ fontSize: '12px' }}
+              >
+                {department}
+              </ListGroup.Item>
+            ))}
+          </ListGroup>
+        </Col>
         <Col>
-          <Col className="text-center">
-            <h2>Catalog</h2>
-          </Col>
           <Row xs={2} md={3} lg={4} className="g-4">
-            {profcards.map((profInfo) => (<Col><ProfCard profInfo={profInfo} /></Col>))}
+            {ready ?
+              profcards.map((profInfo) => (
+                <Col key={profInfo._id}>
+                  <ProfCard profInfo={profInfo} />
+                </Col>
+              )) : <LoadingSpinner />}
           </Row>
         </Col>
       </Row>
     </Container>
-  ) : <LoadingSpinner />);
+  );
 };
 
 export default ListCatalog;
