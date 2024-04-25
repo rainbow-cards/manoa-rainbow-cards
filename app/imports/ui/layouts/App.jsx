@@ -19,7 +19,6 @@ import AddProfCard from '../pages/AddProfCard';
 import EditProfCard from '../pages/EditProfCard';
 import ListCatalogAdmin from '../pages/ListCatalogAdmin';
 import ListCatalogProf from '../pages/ListCatalogProf';
-import LandingSignedIn from '../pages/LandingSignedIn';
 import DevTest from '../pages/DevTest';
 
 /** Top-level layout component for this application. Called in imports/startup/client/startup.jsx. */
@@ -114,7 +113,7 @@ ProtectedRoute.propTypes = {
 };
 
 ProtectedRoute.defaultProps = {
-  children: <LandingSignedIn />,
+  children: <Landing />,
 };
 
 // Require a component and location to be passed to each AdminProtectedRoute.
@@ -125,7 +124,7 @@ AdminProtectedRoute.propTypes = {
 
 AdminProtectedRoute.defaultProps = {
   ready: false,
-  children: <LandingSignedIn />,
+  children: <Landing />,
 };
 
 // Require a component and location to be passed to each AdminProtectedRoute.
