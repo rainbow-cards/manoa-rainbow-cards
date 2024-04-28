@@ -5,6 +5,7 @@ import swal from 'sweetalert';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import { ProfCards } from '../../api/profcard/ProfCard';
+import OwnerSchema from '../../api/profcard/OwnerSchema';
 
 // Create a schema to specify the structure of the data to appear in the form.
 const formSchema = new SimpleSchema({
@@ -15,7 +16,7 @@ const formSchema = new SimpleSchema({
   email: String,
   image: String,
   facts: String,
-  owner: String,
+  owners: Array(OwnerSchema),
   campusEats: String,
   hiddenTalent: String,
 });
@@ -26,18 +27,21 @@ const bridge = new SimpleSchema2Bridge(formSchema);
 const AddProfCard = () => {
   // On submit, insert the data.
   const submit = (data, formRef) => {
-    const { name, course, semester, department, email, image, facts, owner, campusEats, hiddenTalent } = data;
-    ProfCards.collection.insert(
-      { name, course, semester, department, email, image, facts, owner, campusEats, hiddenTalent },
-      (error) => {
-        if (error) {
-          swal('Error', error.message, 'error');
-        } else {
-          swal('Success', 'Item added successfully', 'success');
-          formRef.reset();
-        }
-      },
-    );
+    const { name, course, semester, department, email, image, facts, campusEats, hiddenTalent } = data;
+    const owner = [{ name: email, count: 1 }];
+    if (ProfCards.collection.find({ name: name, course: course, semester: semester }).count() === 0) {
+      ProfCards.collection.insert(
+        { name, course, semester, department, email, image, facts, owner, campusEats, hiddenTalent },
+        (error) => {
+          if (error) {
+            swal('Error', error.message, 'error');
+          } else {
+            swal('Success', 'Item added successfully', 'success');
+            formRef.reset();
+          }
+        },
+      );
+    }
   };
 
   // Render the form. Use Uniforms: https://github.com/vazco/uniforms
@@ -71,7 +75,6 @@ const AddProfCard = () => {
                 </Row>
                 <TextField id="image" name="image" />
                 <LongTextField id="facts" name="facts" />
-                <TextField id="owner" name="owner" />
                 <TextField id="campuseats" name="campusEats" />
                 <TextField id="hiddentalent" name="hiddenTalent" />
                 <SubmitField id="add-submit" value="Submit" />

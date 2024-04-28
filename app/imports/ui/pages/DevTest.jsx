@@ -57,22 +57,15 @@ const DevTest = () => {
       swal('Error', `User ${user} not found`, 'error');
       return;
     }
-    console.log(`Targeting ${user} to add ${selectedCard.name} card`);
+    console.log(`Targeting ${user} to give ${selectedCard.name} card`);
     // Insert a copy of the selected card into the ProfCards collection
-    ProfCards.collection.insert({
-      name: selectedCard.name,
-      course: selectedCard.course,
-      semester: selectedCard.semester,
-      department: selectedCard.department,
-      email: selectedCard.email,
-      image: selectedCard.image,
-      facts: selectedCard.facts,
-      campusEats: selectedCard.campusEats || 'N/A',
-      hiddenTalent: selectedCard.hiddenTalent || 'N/A',
-      owner: user, // Set the owner attribute to the target user's username
-    }, (error) => {
+    ProfCards.collection.update({ name: selectedCard.name, course: selectedCard.course, semester: selectedCard.semester }, {
+      $addToSet: {
+        owners: { name: user, count: 1 },
+      },
+    }, { arrayFilters: [{ 'elem.name': user }] }, (error) => {
       if (error) {
-        swal('Error', 'Failed to add card...', 'error');
+        swal('Error', 'Failed to send card...', 'error');
         console.log(error);
       } else {
         swal('Success', `${selectedCard.name} Card sent to ${user} successfully!`, 'success');
@@ -115,7 +108,7 @@ const DevTest = () => {
       facts: mooreCard.facts,
       campusEats: mooreCard.campusEats || 'N/A',
       hiddenTalent: mooreCard.hiddenTalent || 'N/A',
-      owner: 'doge', // Set the owner attribute to the target user's username
+      owners: mooreCard.owners, // Set the owner attribute to the target user's username
     }, (error) => {
       if (error) {
         swal('Error', 'Failed to add card to doge account...', 'error');

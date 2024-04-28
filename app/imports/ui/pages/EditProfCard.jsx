@@ -71,7 +71,7 @@ const EditProfCard = () => {
                 <TextField id="hiddentalent" name="hiddenTalent" />
                 <SubmitField id="edit-submit" value="Submit" />
                 <ErrorsField />
-                <HiddenField name="owner" />
+                <HiddenField name="owners" />
               </Card.Body>
             </Card>
           </AutoForm>

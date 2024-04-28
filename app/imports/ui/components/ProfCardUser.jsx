@@ -8,13 +8,13 @@ const ProfCard = ({ profInfo }) => (
     <Card.Header>
       <div className="d-flex justify-content-between align-items-center">
         <Card.Title>{profInfo.name}</Card.Title>
-        <Card.Subtitle>{profInfo.department} </Card.Subtitle>
+        <Card.Subtitle>{profInfo.department}</Card.Subtitle>
       </div>
     </Card.Header>
     <Card.Body>
       <div className="row justify-content-center">
         <div className="col-md-12 text-center">
-          <Image src={profInfo.image} className="img-fluid" alt="Profile Image" />
+          <Image src={profInfo.image} className="img-fluid" alt="Profile Image"/>
         </div>
       </div>
       <div className="row mt-2 justify-content-center">
@@ -40,7 +40,7 @@ ProfCard.propTypes = {
     email: PropTypes.string,
     image: PropTypes.string,
     facts: PropTypes.string,
-    owner: PropTypes.string,
+    owners: PropTypes.string,
     campusEats: PropTypes.string,
     hiddenTalent: PropTypes.string,
     _id: PropTypes.string,
