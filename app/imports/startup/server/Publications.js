@@ -29,7 +29,7 @@ Meteor.publish(ProfCards.professorPublicationName, function () {
 Meteor.publish(ProfCards.userPublicationName, function () {
   if (this.userId) {
     const username = Meteor.users.findOne(this.userId).username;
-    return ProfCards.collection.find({ owner: username });
+    return ProfCards.collection.find({ owners: { $elemMatch: { name: username } } });
   }
   return this.ready();
 });

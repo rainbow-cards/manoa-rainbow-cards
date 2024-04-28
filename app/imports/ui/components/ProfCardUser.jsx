@@ -1,14 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Card, Image } from 'react-bootstrap';
+import { Meteor } from 'meteor/meteor';
 
 /** Renders Professor Cards. See pages/ListMyCards.jsx. */
 const ProfCard = ({ profInfo }) => (
   <Card className="h-100">
     <Card.Header>
       <div className="d-flex justify-content-between align-items-center">
-        <Card.Title>{profInfo.name}</Card.Title>
-        <Card.Subtitle>{profInfo.department} </Card.Subtitle>
+        <Card.Title>{profInfo.name}  |{profInfo.owners.find(o => o.name === Meteor.user().username).count}|</Card.Title>
+        <Card.Subtitle>{profInfo.department}</Card.Subtitle>
       </div>
     </Card.Header>
     <Card.Body>
@@ -40,7 +41,7 @@ ProfCard.propTypes = {
     email: PropTypes.string,
     image: PropTypes.string,
     facts: PropTypes.string,
-    owner: PropTypes.string,
+    owners: PropTypes.string,
     campusEats: PropTypes.string,
     hiddenTalent: PropTypes.string,
     _id: PropTypes.string,
