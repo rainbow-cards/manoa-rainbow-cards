@@ -5,7 +5,6 @@ import swal from 'sweetalert';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import { ProfCards } from '../../api/profcard/ProfCard';
-import OwnerSchema from '../../api/profcard/OwnerSchema';
 
 // Create a schema to specify the structure of the data to appear in the form.
 const formSchema = new SimpleSchema({
@@ -16,7 +15,6 @@ const formSchema = new SimpleSchema({
   email: String,
   image: String,
   facts: String,
-  owners: Array(OwnerSchema),
   campusEats: String,
   hiddenTalent: String,
 });
@@ -28,10 +26,10 @@ const AddProfCard = () => {
   // On submit, insert the data.
   const submit = (data, formRef) => {
     const { name, course, semester, department, email, image, facts, campusEats, hiddenTalent } = data;
-    const owner = [{ name: email, count: 1 }];
-    if (ProfCards.collection.find({ name: name, course: course, semester: semester }).count() === 0) {
+    const owners = [{ name: email, count: 1 }];
+    if (ProfCards.collection.find({ name: name, course: course, semester: semester }) === undefined) {
       ProfCards.collection.insert(
-        { name, course, semester, department, email, image, facts, owner, campusEats, hiddenTalent },
+        { name, course, semester, department, email, image, facts, owners, campusEats, hiddenTalent },
         (error) => {
           if (error) {
             swal('Error', error.message, 'error');
@@ -41,6 +39,8 @@ const AddProfCard = () => {
           }
         },
       );
+    } else {
+      swal('Error', 'Card for this course already exists', 'error');
     }
   };
 
