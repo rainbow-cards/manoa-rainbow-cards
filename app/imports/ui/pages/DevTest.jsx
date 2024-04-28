@@ -58,20 +58,38 @@ const DevTest = () => {
       return;
     }
     console.log(`Targeting ${user} to give ${selectedCard.name} card`);
+    const options = { arrayFilters: [{ 'elem.name': user }] };
     // Insert a copy of the selected card into the ProfCards collection
-    ProfCards.collection.update({ name: selectedCard.name, course: selectedCard.course, semester: selectedCard.semester }, {
-      $addToSet: {
-        owners: { name: user, count: 1 },
-      },
-    }, { arrayFilters: [{ 'elem.name': user }] }, (error) => {
-      if (error) {
-        swal('Error', 'Failed to send card...', 'error');
-        console.log(error);
-      } else {
-        swal('Success', `${selectedCard.name} Card sent to ${user} successfully!`, 'success');
-        formRef.reset();
-      }
-    });
+    if (selectedCard.owners.find(o => o.name === user) === undefined) {
+      ProfCards.collection.update({ _id: selectedCard._id }, {
+        $addToSet: {
+          owners: { name: user, count: 1 },
+        },
+      }, (error) => {
+        if (error) {
+          swal('Error', 'Failed to send card...', 'error');
+          console.log(error);
+        } else {
+          swal('Success', `${selectedCard.name} Card sent to ${user} successfully!`, 'success');
+          formRef.reset();
+        }
+      });
+    } else {
+      ProfCards.collection.update({ _id: selectedCard._id }, {
+        $inc: {
+          'owners.$[elem].count': 1,
+        },
+      }, options, (error) => {
+        if (error) {
+          swal('Error', 'Failed to send card...', 'error');
+          console.log(error);
+        } else {
+          swal('Success', `${selectedCard.name} Card sent to ${user} successfully!`, 'success');
+          formRef.reset();
+        }
+      });
+    }
+
   };
   const submit2 = () => {
 
