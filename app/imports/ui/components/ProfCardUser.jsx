@@ -1,20 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Card, Image } from 'react-bootstrap';
+import { Meteor } from 'meteor/meteor';
 
 /** Renders Professor Cards. See pages/ListMyCards.jsx. */
 const ProfCard = ({ profInfo }) => (
   <Card className="h-100">
     <Card.Header>
       <div className="d-flex justify-content-between align-items-center">
-        <Card.Title>{profInfo.name}</Card.Title>
+        <Card.Title>{profInfo.name}  |{profInfo.owners.find(o => o.name === Meteor.user().username).count}|</Card.Title>
         <Card.Subtitle>{profInfo.department}</Card.Subtitle>
       </div>
     </Card.Header>
     <Card.Body>
       <div className="row justify-content-center">
         <div className="col-md-12 text-center">
-          <Image src={profInfo.image} className="img-fluid" alt="Profile Image"/>
+          <Image src={profInfo.image} className="img-fluid" alt="Profile Image" />
         </div>
       </div>
       <div className="row mt-2 justify-content-center">
