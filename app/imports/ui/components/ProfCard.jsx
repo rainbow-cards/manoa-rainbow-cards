@@ -9,11 +9,24 @@ const ProfCard = ({ profInfo }) => {
     return null; // Or handle the case where profInfo or owners are not defined
   }
 
+  // adjust font size based on name length
+  const getFontSize = (name) => {
+    if (name.length < 20) {
+      return '1.2rem'; // Default font size
+    }
+    return '1.1rem'; // Decrease font size for longer names
+  };
+
   return (
     <Card className="h-100 prof-card-master">
       <Card.Header>
-        <div className="d-flex justify-content-between align-items-center">
-          <Card.Title>{profInfo.name}</Card.Title>
+        <div
+          className="d-flex justify-content-between align-items-center"
+          style={{ minHeight: '50px' }}
+        >
+          <Card.Title style={{ fontSize: getFontSize(profInfo.name) }}>
+            {profInfo.name}
+          </Card.Title>
           <Card.Subtitle>{profInfo.department} </Card.Subtitle>
         </div>
       </Card.Header>
