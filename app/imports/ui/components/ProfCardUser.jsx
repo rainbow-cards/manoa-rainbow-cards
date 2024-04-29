@@ -1,38 +1,44 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Card, Image } from 'react-bootstrap';
-import { Meteor } from 'meteor/meteor';
 
 /** Renders Professor Cards. See pages/ListMyCards.jsx. */
-const ProfCard = ({ profInfo }) => (
-  <Card className="h-100">
-    <Card.Header>
-      <div className="d-flex justify-content-between align-items-center">
-        <Card.Title>{profInfo.name}  |{profInfo.owners && profInfo.owners.find(o => o.name === Meteor.user().username).count}|</Card.Title>
-        <Card.Subtitle>{profInfo.department}</Card.Subtitle>
-      </div>
-    </Card.Header>
-    <Card.Body>
-      <div className="row justify-content-center">
-        <div className="col-md-12 text-center">
-          <Image src={profInfo.image} className="img-fluid" alt="Profile Image" />
+const ProfCardUser = ({ profInfo }) => {
+  // Check if profInfo exists and has owners array
+  if (!profInfo || !profInfo.owners || !Array.isArray(profInfo.owners)) {
+    return null; // Or handle the case where profInfo or owners are not defined
+  }
+
+  return (
+    <Card className="h-100">
+      <Card.Header>
+        <div className="d-flex justify-content-between align-items-center">
+          <Card.Title>{profInfo.name}</Card.Title>
+          <Card.Subtitle>{profInfo.department} </Card.Subtitle>
         </div>
-      </div>
-      <div className="row mt-2 justify-content-center">
-        <div className="col-md-12 text-center">
-          <Card.Subtitle className="mb-1">{profInfo.course}, {profInfo.semester}</Card.Subtitle>
-          <Card.Subtitle>{profInfo.email}</Card.Subtitle>
+      </Card.Header>
+      <Card.Body>
+        <div className="row justify-content-center">
+          <div className="col-md-12 text-center">
+            <Image src={profInfo.image} className="img-fluid" alt="Profile Image" />
+          </div>
         </div>
-        <Card.Text>{profInfo.facts}</Card.Text>
-        <Card.Text>Favorite campus eats: {profInfo.campusEats}</Card.Text>
-        <Card.Text>A hidden talent: {profInfo.hiddenTalent}</Card.Text>
-      </div>
-    </Card.Body>
-  </Card>
-);
+        <div className="row mt-2 justify-content-center">
+          <div className="col-md-12 text-center">
+            <Card.Subtitle className="mb-1">{profInfo.course}, {profInfo.semester}</Card.Subtitle>
+            <Card.Subtitle>{profInfo.email}</Card.Subtitle>
+          </div>
+          <Card.Text>{profInfo.facts}</Card.Text>
+          <Card.Text>{profInfo.campusEats}</Card.Text>
+          <Card.Text>{profInfo.hiddenTalent}</Card.Text>
+        </div>
+      </Card.Body>
+    </Card>
+  );
+};
 
 // Require a document to be passed to this component.
-ProfCard.propTypes = {
+ProfCardUser.propTypes = {
   profInfo: PropTypes.shape({
     name: PropTypes.string,
     course: PropTypes.string,
@@ -41,11 +47,14 @@ ProfCard.propTypes = {
     email: PropTypes.string,
     image: PropTypes.string,
     facts: PropTypes.string,
-    owners: PropTypes.string,
+    owners: PropTypes.arrayOf(PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      count: PropTypes.number.isRequired,
+    })),
     campusEats: PropTypes.string,
     hiddenTalent: PropTypes.string,
     _id: PropTypes.string,
   }).isRequired,
 };
 
-export default ProfCard;
+export default ProfCardUser;

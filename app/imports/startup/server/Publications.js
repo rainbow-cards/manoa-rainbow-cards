@@ -43,9 +43,17 @@ Meteor.publish(null, function () {
   return this.ready();
 });
 
-// Publish the USERNAMES ONLY for all documents in the users database.
+// Publish the USERNAMES ONLY for all documents in the users database, for Admin-level accounts.
 Meteor.publish('allUsernames', function () {
   if (this.userId && Roles.userIsInRole(this.userId, 'admin')) {
+    return Meteor.users.find({}, { fields: { username: 1 } });
+  }
+  return this.ready();
+});
+
+// Publish the USERNAMES ONLY for all documents in the users database, for Professor-level accounts.
+Meteor.publish('allUsernamesForProfessors', function () {
+  if (this.userId && Roles.userIsInRole(this.userId, 'professor')) {
     return Meteor.users.find({}, { fields: { username: 1 } });
   }
   return this.ready();

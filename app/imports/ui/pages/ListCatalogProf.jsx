@@ -15,15 +15,17 @@ const ListCatalogProf = () => {
   const [selectedCard, setSelectedCard] = useState(null);
   const [hoveredCard, setHoveredCard] = useState(null);
 
-  const { profcards, ready } = useTracker(() => {
-    const subscription = Meteor.subscribe(ProfCards.professorPublicationName);
-    const rdy = subscription.ready();
+  const { profcards, allusers, ready } = useTracker(() => {
+    const subscriptionProfCards = Meteor.subscribe(ProfCards.professorPublicationName);
+    const subscriptionUsers = Meteor.subscribe('allUsernamesForProfessors');
     const profCardItems = ProfCards.collection.find().fetch();
+    const users = Meteor.users.find().fetch(); // Fetch all users
     return {
       profcards: profCardItems,
-      ready: rdy,
+      allusers: users,
+      ready: subscriptionProfCards.ready() && subscriptionUsers.ready(), // Ensure both subscriptions are ready
     };
-  }, []);
+  });
 
   const bridge = new SimpleSchema2Bridge(new SimpleSchema({
     user: { label: 'Send Rainbow Cards to:', type: String },
@@ -38,19 +40,19 @@ const ListCatalogProf = () => {
 
     // Check if the subscription is ready
     if (!ready) {
-      swal('Error', 'Subscriptions not ready...', 'error');
+      swal('Error', 'Subscriptions not ready... Please reload and try again.', 'error');
       return;
     }
 
     if (!selectedCard) {
-      swal('Error', 'Please select a card...', 'error');
+      swal('Error', 'Please select a Rainbow Card below.', 'error');
       return;
     }
 
     // Find the selected card from the profcards array
     const selectedCardInfo = profcards.find((profInfo) => profInfo._id === selectedCard);
     if (!selectedCardInfo) {
-      swal('Error', 'Selected card not found in the database...', 'error');
+      swal('Error', 'Selected card not found in the database.', 'error');
       return;
     }
 
@@ -103,7 +105,7 @@ const ListCatalogProf = () => {
         <Row className="justify-content-center">
           <Col>
             <Col>
-              <p>
+              <div>
                 This page shows all of the Rainbow Cards associated with <b>{Meteor.user()?.username}</b>.
                 <br />
                 <br />
@@ -112,8 +114,17 @@ const ListCatalogProf = () => {
                   <li>send copies of a Rainbow Card to other accounts</li>
                   <li>update its details by clicking the <i>Edit</i> button</li>
                 </ul>
-                To distribute a Rainbow Card to a student, select a card and enter the student&apos;s username below, then click the <i>Submit</i> button when you are finished.
-              </p>
+                To distribute a Rainbow Card to a student, select a card and enter the student&apos;s username below, then click the <i>Submit</i> button.
+              </div>
+              <h4 className="text-center">All Registered Users</h4>
+              <Card>
+                <Card.Body>
+                  {/* Render all users contained in the Meteor.users collection */}
+                  {allusers.map(user => (
+                    <div key={user._id}>{user.username}</div>
+                  ))}
+                </Card.Body>
+              </Card>
               <AutoForm ref={ref => { fRef = ref; }} schema={bridge} onSubmit={(data) => submit(data, fRef)}>
                 <h2 className="text-center">Distribute Form</h2>
                 <Card>
