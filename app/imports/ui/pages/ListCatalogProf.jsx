@@ -114,33 +114,45 @@ const ListCatalogProf = () => {
                   <li>send copies of a Rainbow Card to other accounts</li>
                   <li>update its details by clicking the <i>Edit</i> button</li>
                 </ul>
-                To distribute a Rainbow Card to a student, select a card and enter the student&apos;s username below, then click the <i>Submit</i> button.
+                To distribute a Rainbow Card to a student, select a card, enter the student&apos;s username below, then click the <i>Submit</i> button.
               </div>
               <h4 className="text-center">All Registered Users</h4>
-              <Card>
-                <Card.Body>
-                  {/* Render all users contained in the Meteor.users collection */}
-                  {allusers.map(user => (
-                    <div key={user._id}>{user.username}</div>
-                  ))}
-                </Card.Body>
-              </Card>
-              <AutoForm ref={ref => { fRef = ref; }} schema={bridge} onSubmit={(data) => submit(data, fRef)}>
+              <Row>
                 <h2 className="text-center">Distribute Form</h2>
-                <Card>
-                  <Card.Body>
-                    <TextField
-                      id="enterUser"
-                      name="user"
-                      placeholder="Enter a user here..."
-                      showInlineError
-                      helpClassName="text-danger"
-                    />
-                    <SubmitField id="submit" value="Submit" />
-                    <ErrorsField />
-                  </Card.Body>
-                </Card>
-              </AutoForm>
+                <Col>
+                  <AutoForm ref={ref => { fRef = ref; }} schema={bridge} onSubmit={(data) => submit(data, fRef)}>
+                    <Card style={{ minHeight: '175px' }}>
+                      <Card.Body>
+                        <TextField
+                          id="enterUser"
+                          name="user"
+                          placeholder="Enter a user here..."
+                          showInlineError
+                          helpClassName="text-danger"
+                        />
+                        <SubmitField id="submit" value="Submit" />
+                        <ErrorsField />
+                      </Card.Body>
+                    </Card>
+                  </AutoForm>
+                </Col>
+                <Col>
+                  <Card style={{ minHeight: '175px', maxHeight: '175px', overflowY: 'auto' }}>
+                    <Card.Header>
+                      <h5 className="text-center">All Registered Users</h5>
+                      <div className="text-center" style={{ color: 'gray' }}>
+                        Scroll to view more.
+                      </div>
+                    </Card.Header>
+                    <Card.Body>
+                      {/* Render all users contained in the Meteor.users collection */}
+                      {allusers.map(user => (
+                        <div key={user._id}>{user.username}</div>
+                      ))}
+                    </Card.Body>
+                  </Card>
+                </Col>
+              </Row>
             </Col>
             <Col className="text-center">
               <br />
