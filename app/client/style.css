@@ -45,6 +45,20 @@ body {
   font-family: "Bungee Spice", sans-serif;
 }
 
+.prof-card-master{
+  max-height: 450px;
+  /*max-width: 300px;*/
+  overflow-y: auto;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+* {
+  scrollbar-width: none;
+}
+
 .prof-card {
   position: relative;
   transition: filter 0.2s;
@@ -53,7 +67,6 @@ body {
 
 .prof-card.highlight {
   filter: drop-shadow(0px 0px 12px rgba(30, 100, 0, 0.9));
-  z-index: 0;
   background-color: rgb(150, 200, 100);
   z-index: 2;
 }
@@ -66,4 +79,22 @@ body {
   margin-top: -48px;
   height: 48px;
   z-index: 3;
+}
+
+.prof-card-container {
+  position: relative;
+}
+
+.arrow-down {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 4;
+}
+
+.arrow-down svg {
+  font-size: 20px;
+  opacity: 50%;
+  color: darkolivegreen;
 }

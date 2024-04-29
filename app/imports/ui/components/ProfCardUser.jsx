@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Card, Image } from 'react-bootstrap';
+import { Card, Col, Image, Row } from 'react-bootstrap';
 import { Meteor } from 'meteor/meteor';
+import { ChevronCompactDown } from 'react-bootstrap-icons';
 
 /** Renders Professor Cards. See pages/ListMyCards.jsx. */
 const ProfCardUser = ({ profInfo }) => {
@@ -12,31 +13,49 @@ const ProfCardUser = ({ profInfo }) => {
   const currentOwner = profInfo.owners.find(owner => owner.name === Meteor.user()?.username);
   const ownerCardCount = currentOwner ? currentOwner.count : 0;
   return (
-    <Card className="h-100">
-      <Card.Header>
-        <div className="d-flex justify-content-between align-items-center">
-          <Card.Subtitle>(x{ownerCardCount})</Card.Subtitle>
-          <Card.Title>{profInfo.name}</Card.Title>
-          <Card.Subtitle>{profInfo.department}</Card.Subtitle>
-        </div>
-      </Card.Header>
-      <Card.Body>
-        <div className="row justify-content-center">
-          <div className="col-md-12 text-center">
-            <Image src={profInfo.image} className="img-fluid" alt="Profile Image" />
+    <div className="prof-card-container">
+      <Card className="h-100 prof-card-master">
+        <Card.Header>
+          <div className="d-flex justify-content-between align-items-center">
+            <Card.Subtitle>{ownerCardCount}</Card.Subtitle>
+            <Card.Title>{profInfo.name}</Card.Title>
+            <Card.Subtitle>{profInfo.department}</Card.Subtitle>
           </div>
-        </div>
-        <div className="row mt-2 justify-content-center">
-          <div className="col-md-12 text-center">
-            <Card.Subtitle className="mb-1">{profInfo.course}, {profInfo.semester}</Card.Subtitle>
-            <Card.Subtitle>{profInfo.email}</Card.Subtitle>
+        </Card.Header>
+        <Card.Body>
+          <div className="row justify-content-center">
+            <div className="col-md-12 text-center">
+              <Image
+                src={profInfo.image}
+                className="img-fluid"
+                alt="Profile Image"
+                style={{ maxWidth: '200px', maxHeight: '200px' }}
+              />
+            </div>
           </div>
-          <Card.Text>{profInfo.facts}</Card.Text>
-          <Card.Text>{profInfo.campusEats}</Card.Text>
-          <Card.Text>{profInfo.hiddenTalent}</Card.Text>
-        </div>
-      </Card.Body>
-    </Card>
+          <div className="row mt-2 justify-content-center">
+            <div className="col-md-12 text-center">
+              <Card.Subtitle className="mb-1">{profInfo.course}, {profInfo.semester}</Card.Subtitle>
+              <Card.Subtitle>{profInfo.email}</Card.Subtitle>
+            </div>
+            <Card.Text>{profInfo.facts}</Card.Text>
+            <Row className="justify-content-center">
+              <Col style={{ maxWidth: '150px' }}>
+                <Card.Subtitle>FAV FOOD<br />ON CAMPUS</Card.Subtitle>
+                <Card.Text>{profInfo.campusEats}<br /></Card.Text>
+              </Col>
+              <Col style={{ maxWidth: '150px' }}>
+                <Card.Subtitle>HOBBIES<br />& TALENTS</Card.Subtitle>
+                <Card.Text>{profInfo.hiddenTalent}<br /></Card.Text>
+              </Col>
+            </Row>
+          </div>
+        </Card.Body>
+      </Card>
+      <div className="arrow-down">
+        <ChevronCompactDown />
+      </div>
+    </div>
   );
 };
 
@@ -50,7 +69,10 @@ ProfCardUser.propTypes = {
     email: PropTypes.string,
     image: PropTypes.string,
     facts: PropTypes.string,
-    owners: PropTypes.string,
+    owners: PropTypes.arrayOf(PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      count: PropTypes.number.isRequired,
+    })),
     campusEats: PropTypes.string,
     hiddenTalent: PropTypes.string,
     _id: PropTypes.string,

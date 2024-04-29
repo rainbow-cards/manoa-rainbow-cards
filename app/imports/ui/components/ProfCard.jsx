@@ -10,7 +10,7 @@ const ProfCard = ({ profInfo }) => {
   }
 
   return (
-    <Card className="h-100">
+    <Card className="h-100 prof-card-master">
       <Card.Header>
         <div className="d-flex justify-content-between align-items-center">
           <Card.Title>{profInfo.name}</Card.Title>
@@ -44,7 +44,10 @@ ProfCard.propTypes = {
     email: PropTypes.string,
     image: PropTypes.string,
     facts: PropTypes.string,
-    owners: PropTypes.string,
+    owners: PropTypes.arrayOf(PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      count: PropTypes.number.isRequired,
+    })),
     campusEats: PropTypes.string,
     hiddenTalent: PropTypes.string,
     _id: PropTypes.string,
