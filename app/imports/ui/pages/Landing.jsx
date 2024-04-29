@@ -14,6 +14,8 @@ const Landing = () => {
     return cardList[randomIndex];
   };
 
+  const isLogged = Meteor.userId() !== null;
+
   useTracker(() => {
     // eslint-disable-next-line no-unused-vars
     const subscription = Meteor.subscribe('cards.public');
@@ -40,7 +42,9 @@ const Landing = () => {
           <h1 className="font-effect-fire-animation" id="landing-title">Mānoa<br />Rainbow Cards</h1>
           {/* eslint-disable-next-line max-len */}
           <p>Rainbow Cards is a card collection site where you can collect the cards of your favorite professors. Each card includes information and fun facts about the professor. Aim to collect a variety of cards and trade them for your desired cards with other users!</p>
-          <Button id="sign-up-button" as={NavLink} to="/signup" key="signup">Get Started</Button>
+          {!isLogged && (
+            <Button id="sign-up-button" as={NavLink} to="/signup" key="signup">Get Started</Button>
+          )}
           <br />
           <p>Want to contribute? <a href="https://forms.gle/RJjyfaoXvakZ6eQNA">Opt-In Form for Professors</a></p>
         </Col>

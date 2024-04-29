@@ -15,7 +15,6 @@ const formSchema = new SimpleSchema({
   email: String,
   image: String,
   facts: String,
-  owner: String,
   campusEats: String,
   hiddenTalent: String,
 });
@@ -26,18 +25,23 @@ const bridge = new SimpleSchema2Bridge(formSchema);
 const AddProfCard = () => {
   // On submit, insert the data.
   const submit = (data, formRef) => {
-    const { name, course, semester, department, email, image, facts, owner, campusEats, hiddenTalent } = data;
-    ProfCards.collection.insert(
-      { name, course, semester, department, email, image, facts, owner, campusEats, hiddenTalent },
-      (error) => {
-        if (error) {
-          swal('Error', error.message, 'error');
-        } else {
-          swal('Success', 'Item added successfully', 'success');
-          formRef.reset();
-        }
-      },
-    );
+    const { name, course, semester, department, email, image, facts, campusEats, hiddenTalent } = data;
+    const owners = [{ name: email, count: 1 }];
+    if (ProfCards.collection.find({ name: name, course: course, semester: semester }) === undefined) {
+      ProfCards.collection.insert(
+        { name, course, semester, department, email, image, facts, owners, campusEats, hiddenTalent },
+        (error) => {
+          if (error) {
+            swal('Error', error.message, 'error');
+          } else {
+            swal('Success', 'Item added successfully', 'success');
+            formRef.reset();
+          }
+        },
+      );
+    } else {
+      swal('Error', 'Card for this course already exists', 'error');
+    }
   };
 
   // Render the form. Use Uniforms: https://github.com/vazco/uniforms
@@ -71,7 +75,6 @@ const AddProfCard = () => {
                 </Row>
                 <TextField id="image" name="image" />
                 <LongTextField id="facts" name="facts" />
-                <TextField id="owner" name="owner" />
                 <TextField id="campuseats" name="campusEats" />
                 <TextField id="hiddentalent" name="hiddenTalent" />
                 <SubmitField id="add-submit" value="Submit" />
