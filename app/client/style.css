@@ -228,6 +228,14 @@ button:active {
   background-color: #6a8f60;
 }
 
+.green-highlight {
+  /*text-shadow:*/
+  /*    -1px -1px 0 rgba(100, 175, 75, 0.3),*/
+  /*    1px -1px 0 rgba(100, 175, 75, 0.3),*/
+  /*    -1px 1px 0 rgba(255, 255, 255, 0.4),*/
+  /*    1px 1px 0 rgba(100, 175, 75, 0.3);*/
+}
+
 .user-dropdown-button {
   background-color: #85ba66 !important;
   cursor: pointer;
@@ -244,4 +252,13 @@ button:active {
 .logo-outline {
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.5);
   border-radius: 5px;
+}
+
+.site-footer-plate {
+  background-color: rgba(225, 255, 215, 0.9) !important;
+  padding-bottom: 5px;
+}
+
+.footer-column-gap {
+  margin-left: -50px;
 }
