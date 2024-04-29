@@ -33,7 +33,12 @@ const ProfCard = ({ profInfo }) => {
       <Card.Body>
         <div className="row justify-content-center">
           <div className="col-md-12 text-center">
-            <Image src={profInfo.image} className="img-fluid" alt="Profile Image" />
+            <Image
+              src={profInfo.image}
+              className="img-fluid"
+              alt="Profile Image"
+              style={{ maxWidth: '200px', maxHeight: '200px' }}
+            />
           </div>
         </div>
         <div className="row mt-2 justify-content-center">
