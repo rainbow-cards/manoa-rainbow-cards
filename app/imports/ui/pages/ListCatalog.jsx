@@ -5,7 +5,6 @@ import { useTracker } from 'meteor/react-meteor-data';
 import LoadingSpinner from '../components/LoadingSpinner';
 import ProfCard from '../components/ProfCard';
 import { ProfCards } from '../../api/profcard/ProfCard';
-import ProfCardAdmin from '../components/ProfCardAdmin';
 
 const ListCatalog = () => {
   const [selectedDepartment, setSelectedDepartment] = useState(null);
@@ -65,7 +64,7 @@ const ListCatalog = () => {
                   onMouseLeave={() => setHoveredCard(null)}
                 >
                   <CardBody style={{ backgroundColor: 'rgba(150, 200, 100, 0.3)' }}>
-                    <ProfCardAdmin profInfo={profInfo} />
+                    <ProfCard profInfo={profInfo} />
                   </CardBody>
                   {hoveredCard === profInfo._id && (
                     <Card.Footer className="text-center prof-card-footer">
