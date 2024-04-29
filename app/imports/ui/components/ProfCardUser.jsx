@@ -17,7 +17,7 @@ const ProfCardUser = ({ profInfo }) => {
       <Card className="h-100 prof-card-master">
         <Card.Header>
           <div className="d-flex justify-content-between align-items-center">
-            <Card.Subtitle>{ownerCardCount}</Card.Subtitle>
+            <Card.Subtitle>x{ownerCardCount}</Card.Subtitle>
             <Card.Title>{profInfo.name}</Card.Title>
             <Card.Subtitle>{profInfo.department}</Card.Subtitle>
           </div>
