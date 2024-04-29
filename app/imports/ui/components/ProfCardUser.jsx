@@ -8,7 +8,7 @@ const ProfCard = ({ profInfo }) => (
   <Card className="h-100">
     <Card.Header>
       <div className="d-flex justify-content-between align-items-center">
-        <Card.Title>{profInfo.name}  |{profInfo.owners.find(o => o.name === Meteor.user().username).count}|</Card.Title>
+        <Card.Title>{profInfo.name}  |{profInfo.owners && profInfo.owners.find(o => o.name === Meteor.user().username).count}|</Card.Title>
         <Card.Subtitle>{profInfo.department}</Card.Subtitle>
       </div>
     </Card.Header>

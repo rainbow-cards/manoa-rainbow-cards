@@ -58,38 +58,52 @@ const DevTest = () => {
       return;
     }
     console.log(`Targeting ${user} to give ${selectedCard.name} card`);
+    console.log('Selected card:', selectedCard);
+    console.log('Owners of card:');
+    try {
+      selectedCard.owners.forEach(owner => {
+        console.log(owner.name);
+      });
+    } catch (error) {
+      console.error('Error accessing owner name:', error);
+    }
     const options = { arrayFilters: [{ 'elem.name': user }] };
     // Insert a copy of the selected card into the ProfCards collection
-    if (selectedCard.owners.find(o => o.name === user) === undefined) {
-      ProfCards.collection.update({ _id: selectedCard._id }, {
-        $addToSet: {
-          owners: { name: user, count: 1 },
-        },
-      }, (error) => {
-        if (error) {
-          swal('Error', 'Failed to send card...', 'error');
-          console.log(error);
-        } else {
-          swal('Success', `${selectedCard.name} Card sent to ${user} successfully!`, 'success');
-          formRef.reset();
-        }
-      });
-    } else {
-      ProfCards.collection.update({ _id: selectedCard._id }, {
-        $inc: {
-          'owners.$[elem].count': 1,
-        },
-      }, options, (error) => {
-        if (error) {
-          swal('Error', 'Failed to send card...', 'error');
-          console.log(error);
-        } else {
-          swal('Success', `${selectedCard.name} Card sent to ${user} successfully!`, 'success');
-          formRef.reset();
-        }
-      });
+    try {
+      if (selectedCard.owners.find(o => o.name === user) === undefined) {
+        console.log('Checkpoint A');
+        ProfCards.collection.update({ _id: selectedCard._id }, {
+          $addToSet: {
+            owners: { name: user, count: 1 },
+          },
+        }, (error) => {
+          if (error) {
+            swal('Error', 'Failed to send card...', 'error');
+            console.log(error);
+          } else {
+            swal('Success', `${selectedCard.name} Card sent to ${user} successfully!`, 'success');
+            formRef.reset();
+          }
+        });
+      } else {
+        console.log('Checkpoint B');
+        ProfCards.collection.update({ _id: selectedCard._id }, {
+          $inc: {
+            'owners.$[elem].count': 1,
+          },
+        }, options, (error) => {
+          if (error) {
+            swal('Error', 'Failed to send card...', 'error');
+            console.log(error);
+          } else {
+            swal('Success', `${selectedCard.name} Card sent to ${user} successfully!`, 'success');
+            formRef.reset();
+          }
+        });
+      }
+    } catch (error) {
+      console.error('An error occurred: ', error);
     }
-
   };
   const submit2 = () => {
 
