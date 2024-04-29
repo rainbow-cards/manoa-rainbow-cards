@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Card, Image } from 'react-bootstrap';
+import { Meteor } from 'meteor/meteor';
 
 /** Renders Professor Cards. See pages/ListMyCards.jsx. */
 const ProfCardUser = ({ profInfo }) => {
@@ -8,13 +9,15 @@ const ProfCardUser = ({ profInfo }) => {
   if (!profInfo || !profInfo.owners || !Array.isArray(profInfo.owners)) {
     return null; // Or handle the case where profInfo or owners are not defined
   }
-
+  const currentOwner = profInfo.owners.find(owner => owner.name === Meteor.user()?.username);
+  const ownerCardCount = currentOwner ? currentOwner.count : 0;
   return (
     <Card className="h-100">
       <Card.Header>
         <div className="d-flex justify-content-between align-items-center">
+          <Card.Subtitle>(x{ownerCardCount})</Card.Subtitle>
           <Card.Title>{profInfo.name}</Card.Title>
-          <Card.Subtitle>{profInfo.department} </Card.Subtitle>
+          <Card.Subtitle>{profInfo.department}</Card.Subtitle>
         </div>
       </Card.Header>
       <Card.Body>
@@ -47,10 +50,7 @@ ProfCardUser.propTypes = {
     email: PropTypes.string,
     image: PropTypes.string,
     facts: PropTypes.string,
-    owners: PropTypes.arrayOf(PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      count: PropTypes.number.isRequired,
-    })),
+    owners: PropTypes.string,
     campusEats: PropTypes.string,
     hiddenTalent: PropTypes.string,
     _id: PropTypes.string,

@@ -33,7 +33,6 @@ const ListMyCards = () => {
           </Col>
           <Row xs={2} md={3} lg={4} className="g-4">
             {cards.map((profInfo, index) => (<Col key={index}><ProfCardUser profInfo={profInfo} /></Col>))}
-
           </Row>
         </Col>
       </Row>
