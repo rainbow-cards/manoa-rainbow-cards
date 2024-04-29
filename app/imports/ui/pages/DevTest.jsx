@@ -154,9 +154,11 @@ const DevTest = () => {
   let fRef = null; // Reference for the first AutoForm
   return (ready ? (
     <Container className="py-3">
+      <h2 className="text-center">Developer Test Page</h2>
+      <p className="text-center">Hope you&apos;re supposed to be here!</p>
       <Row className="justify-content-center">
         <Col xs={7}>
-          <Col className="text-center"><h2>Send Card (DEV ONLY)</h2></Col>
+          <Col className="text-center"><h3>Send a Card</h3></Col>
           <AutoForm ref={ref => { fRef = ref; }} schema={bridge} onSubmit={data => submit(data, fRef)}>
             <Card>
               <Card.Body>
@@ -178,7 +180,7 @@ const DevTest = () => {
                 <ErrorsField />
               </Card.Body>
             </Card>
-            <h2 className="text-center">All Registered Users</h2>
+            <h3 className="text-center">All Registered Users</h3>
             <Card>
               <Card.Body>
                 {/* Render all users contained in the Meteor.users collection */}
@@ -188,7 +190,7 @@ const DevTest = () => {
               </Card.Body>
             </Card>
           </AutoForm>
-          <h2 className="text-center">Give card to doge</h2>
+          <h3 className="text-center">Give card to doge</h3>
           <Card className="align-items-center">
             <Card.Body>
               <Row>

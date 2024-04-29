@@ -79,7 +79,7 @@ const AdminProtectedRoute = ({ ready, children }) => {
     return <LoadingSpinner />;
   }
   const isAdmin = Roles.userIsInRole(Meteor.userId(), 'admin');
-  return (isLogged && isAdmin) ? children : <Navigate to="/notauthorized" />;
+  return (isLogged && isAdmin) ? children : <Navigate to="/home" />;
 };
 
 const ProfProtectedRoute = ({ ready, children }) => {
@@ -91,7 +91,7 @@ const ProfProtectedRoute = ({ ready, children }) => {
     return <LoadingSpinner />;
   }
   const isProf = Roles.userIsInRole(Meteor.userId(), 'professor');
-  return (isLogged && isProf) ? children : <Navigate to="/notauthorized" />;
+  return (isLogged && isProf) ? children : <Navigate to="/home" />;
 };
 
 const AdProfProtectedRoute = ({ ready, children }) => {
@@ -104,7 +104,7 @@ const AdProfProtectedRoute = ({ ready, children }) => {
   }
   const isProf = Roles.userIsInRole(Meteor.userId(), 'professor');
   const isAdmin = Roles.userIsInRole(Meteor.userId(), 'admin');
-  return (isLogged && (isProf || isAdmin)) ? children : <Navigate to="/notauthorized" />;
+  return (isLogged && (isProf || isAdmin)) ? children : <Navigate to="/home" />;
 };
 
 // Require a component and location to be passed to each ProtectedRoute.

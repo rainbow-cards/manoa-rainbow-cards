@@ -107,7 +107,7 @@ const ListCatalogAdmin = () => {
       <Row className="justify-content-center">
         <Col>
           <Col>
-            <h2 className="text-center">Cards Catalog (Admin)</h2>
+            <h2 className="text-center">Administrator Portal</h2>
             <div>
               This page shows all of the Rainbow Cards associated with <b>{Meteor.user()?.username}</b>.
               <br />
