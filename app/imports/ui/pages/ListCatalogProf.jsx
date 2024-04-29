@@ -115,8 +115,9 @@ const ListCatalogProf = () => {
                   <li>update its details by clicking the <i>Edit</i> button</li>
                 </ul>
                 To distribute a Rainbow Card to a student, select a card, enter the student&apos;s username below, then click the <i>Submit</i> button.
+                <br />
+                <br />
               </div>
-              <h4 className="text-center">All Registered Users</h4>
               <Row>
                 <h2 className="text-center">Distribute Form</h2>
                 <Col>
