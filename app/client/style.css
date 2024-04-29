@@ -98,3 +98,7 @@ body {
   opacity: 50%;
   color: darkolivegreen;
 }
+
+#trade-button {
+  background-color: #e8a220;
+}

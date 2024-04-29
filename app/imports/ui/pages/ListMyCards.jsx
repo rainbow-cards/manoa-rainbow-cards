@@ -5,6 +5,7 @@ import { useTracker } from 'meteor/react-meteor-data';
 import LoadingSpinner from '../components/LoadingSpinner';
 import { ProfCards } from '../../api/profcard/ProfCard';
 import ProfCardUser from '../components/ProfCardUser';
+import { Link } from 'react-router-dom';
 /* Renders a table containing all the ProfCards documents. Use <StuffItem> to render each row. */
 const ListMyCards = () => {
   const [selectedCard, setSelectedCard] = useState(null);
@@ -54,6 +55,9 @@ const ListMyCards = () => {
                       >
                         {selectedCard === profInfo._id ? 'Deselect' : 'Select'}
                       </Button>
+                      <Link id="trading-nav" to="/trading">
+                        <Button variant="secondary" id="trade-button">Trade It!</Button>
+                      </Link>
                     </Card.Footer>
                   )}
                 </Card>
