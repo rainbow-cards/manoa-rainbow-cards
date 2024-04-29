@@ -87,7 +87,7 @@ body {
 
 .arrow-down {
   position: absolute;
-  bottom: 30px;
+  bottom: 40px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 4;
@@ -95,7 +95,7 @@ body {
 
 .arrow-down svg {
   font-size: 20px;
-  opacity: 50%;
+  opacity: 60%;
   color: darkolivegreen;
 }
 
