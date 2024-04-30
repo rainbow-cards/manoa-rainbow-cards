@@ -57,28 +57,53 @@ const DevTest = () => {
       swal('Error', `User ${user} not found`, 'error');
       return;
     }
-    console.log(`Targeting ${user} to add ${selectedCard.name} card`);
+    console.log(`Targeting ${user} to give ${selectedCard.name} card`);
+    console.log('Selected card:', selectedCard);
+    console.log('Owners of card:');
+    try {
+      selectedCard.owners.forEach(owner => {
+        console.log(owner.name);
+      });
+    } catch (error) {
+      console.error('Error accessing owner name:', error);
+    }
+    const options = { arrayFilters: [{ 'elem.name': user }] };
     // Insert a copy of the selected card into the ProfCards collection
-    ProfCards.collection.insert({
-      name: selectedCard.name,
-      course: selectedCard.course,
-      semester: selectedCard.semester,
-      department: selectedCard.department,
-      email: selectedCard.email,
-      image: selectedCard.image,
-      facts: selectedCard.facts,
-      campusEats: selectedCard.campusEats || 'N/A',
-      hiddenTalent: selectedCard.hiddenTalent || 'N/A',
-      owner: user, // Set the owner attribute to the target user's username
-    }, (error) => {
-      if (error) {
-        swal('Error', 'Failed to add card...', 'error');
-        console.log(error);
+    try {
+      if (selectedCard.owners.find(o => o.name === user) === undefined) {
+        console.log('Checkpoint A');
+        ProfCards.collection.update({ _id: selectedCard._id }, {
+          $addToSet: {
+            owners: { name: user, count: 1 },
+          },
+        }, (error) => {
+          if (error) {
+            swal('Error', 'Failed to send card...', 'error');
+            console.log(error);
+          } else {
+            swal('Success', `${selectedCard.name} Card sent to ${user} successfully!`, 'success');
+            formRef.reset();
+          }
+        });
       } else {
-        swal('Success', `${selectedCard.name} Card sent to ${user} successfully!`, 'success');
-        formRef.reset();
+        console.log('Checkpoint B');
+        ProfCards.collection.update({ _id: selectedCard._id }, {
+          $inc: {
+            'owners.$[elem].count': 1,
+          },
+        }, options, (error) => {
+          if (error) {
+            swal('Error', 'Failed to send card...', 'error');
+            console.log(error);
+          } else {
+            swal('Success', `${selectedCard.name} Card sent to ${user} successfully!`, 'success');
+            formRef.reset();
+          }
+        });
       }
-    });
+    } catch (error) {
+      console.error('An error occurred: ', error);
+    }
   };
   const submit2 = () => {
 
@@ -115,7 +140,7 @@ const DevTest = () => {
       facts: mooreCard.facts,
       campusEats: mooreCard.campusEats || 'N/A',
       hiddenTalent: mooreCard.hiddenTalent || 'N/A',
-      owner: 'doge', // Set the owner attribute to the target user's username
+      owners: mooreCard.owners, // Set the owner attribute to the target user's username
     }, (error) => {
       if (error) {
         swal('Error', 'Failed to add card to doge account...', 'error');
@@ -129,9 +154,11 @@ const DevTest = () => {
   let fRef = null; // Reference for the first AutoForm
   return (ready ? (
     <Container className="py-3">
+      <h2 className="text-center">Developer Test Page</h2>
+      <p className="text-center">Hope you&apos;re supposed to be here!</p>
       <Row className="justify-content-center">
         <Col xs={7}>
-          <Col className="text-center"><h2>Send Card (DEV ONLY)</h2></Col>
+          <Col className="text-center"><h3>Send a Card</h3></Col>
           <AutoForm ref={ref => { fRef = ref; }} schema={bridge} onSubmit={data => submit(data, fRef)}>
             <Card>
               <Card.Body>
@@ -153,7 +180,7 @@ const DevTest = () => {
                 <ErrorsField />
               </Card.Body>
             </Card>
-            <h2 className="text-center">All Registered Users</h2>
+            <h3 className="text-center">All Registered Users</h3>
             <Card>
               <Card.Body>
                 {/* Render all users contained in the Meteor.users collection */}
@@ -163,7 +190,7 @@ const DevTest = () => {
               </Card.Body>
             </Card>
           </AutoForm>
-          <h2 className="text-center">Give card to doge</h2>
+          <h3 className="text-center">Give card to doge</h3>
           <Card className="align-items-center">
             <Card.Body>
               <Row>

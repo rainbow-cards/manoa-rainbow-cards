@@ -1,5 +1,6 @@
 import { Mongo } from 'meteor/mongo';
 import SimpleSchema from 'simpl-schema';
+import OwnerSchema from './OwnerSchema';
 
 /**
  * The ProfCardsCollection. It encapsulates state and variable values for profcard.
@@ -19,7 +20,7 @@ class ProfCardsCollection {
       email: String,
       image: String,
       facts: String,
-      owner: String,
+      owners: Array(OwnerSchema), // Array of owners, with count attached
       campusEats: String,
       hiddenTalent: String,
     });
