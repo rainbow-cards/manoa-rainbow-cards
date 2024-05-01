@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor';
-import { ProfCards } from '/path/to/ProfCards.js'; // Replace '/path/to/ProfCards.js' with the correct path
+import { ProfCards } from '../api/profcard/ProfCard.js';
 
 Meteor.startup(() => {
   // Create a unique index on the server
