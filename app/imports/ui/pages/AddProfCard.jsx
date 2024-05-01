@@ -27,20 +27,24 @@ const AddProfCard = () => {
   const submit = (data, formRef) => {
     const { name, course, semester, department, email, image, facts, campusEats, hiddenTalent } = data;
     const owners = [{ name: email, count: 1 }];
-    if (ProfCards.collection.find({ name: name, course: course, semester: semester }) === undefined) {
-      ProfCards.collection.insert(
-        { name, course, semester, department, email, image, facts, owners, campusEats, hiddenTalent },
-        (error) => {
-          if (error) {
-            swal('Error', error.message, 'error');
-          } else {
-            swal('Success', 'Item added successfully', 'success');
-            formRef.reset();
-          }
-        },
-      );
-    } else {
-      swal('Error', 'Card for this course already exists', 'error');
+    try {
+      if (ProfCards.collection.find({ name: name, course: course, semester: semester }).count() === 0) {
+        ProfCards.collection.insert(
+          { name, course, semester, department, email, image, facts, owners, campusEats, hiddenTalent },
+          (error) => {
+            if (error) {
+              // console.log(ProfCards.collection.find({ name: name, course: course, semester: semester }));
+              swal('Error', 'A Rainbow Card for this course already exists.\n' +
+                'Check that the combination of name, course number, and semester does not already exist.', 'error');
+            } else {
+              swal('Success', 'Rainbow Card added successfully!', 'success');
+              formRef.reset();
+            }
+          },
+        );
+      }
+    } catch (error) {
+      console.error('Error: ', error);
     }
   };
 
