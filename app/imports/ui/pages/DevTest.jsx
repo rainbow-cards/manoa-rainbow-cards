@@ -113,9 +113,9 @@ const DevTest = () => {
       return;
     }
 
-    // Find the selected card from the profcards array
-    const mooreCard = profcards.find(card => card.name === 'Moore Carleton');
-
+    // Find the selected card from the profcards collection
+    const mooreCard = profcards.find(card => card.name === 'Carleton Moore');
+    console.log(mooreCard);
     if (!mooreCard) {
       swal('Error', 'Card not found in the database...', 'error');
       return;
