@@ -22,6 +22,8 @@ import ListCatalogProf from '../pages/ListCatalogProf';
 import DevTest from '../pages/DevTest';
 import UserSearch from '../pages/UserSearch';
 import ListCatalogUser from '../pages/ListCatalogUser';
+import ListMyWishedCards from '../pages/ListMyWishedCards';
+
 
 /** Top-level layout component for this application. Called in imports/startup/client/startup.jsx. */
 const App = () => {
@@ -45,6 +47,7 @@ const App = () => {
           <Route path="/home" element={<ProtectedRoute><Landing /></ProtectedRoute>} />
           <Route path="/list" element={<ProtectedRoute><ListMyCards /></ProtectedRoute>} />
           <Route path="/search" element={<ProtectedRoute><UserSearch /></ProtectedRoute>} />
+          <Route path="/wish" element={<ProtectedRoute><ListMyWishedCards /></ProtectedRoute>} />
           <Route path="/profcat" element={<ProfProtectedRoute ready={ready}><ListCatalogProf /></ProfProtectedRoute>} />
           <Route path="/add" element={<AdminProtectedRoute ready={ready}><AddProfCard /></AdminProtectedRoute>} />
           <Route path="/admin" element={<AdminProtectedRoute ready={ready}><ListCatalogAdmin /></AdminProtectedRoute>} />
