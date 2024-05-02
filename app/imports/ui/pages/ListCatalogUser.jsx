@@ -2,11 +2,14 @@ import React, { useState } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { Container, Row, Col, ListGroup, Card, CardBody, Button } from 'react-bootstrap';
 import { useTracker } from 'meteor/react-meteor-data';
+import { useParams } from 'react-router';
 import LoadingSpinner from '../components/LoadingSpinner';
 import ProfCard from '../components/ProfCard';
 import { ProfCards } from '../../api/profcard/ProfCard';
 
-const ListCatalog = () => {
+const ListCatalogUser = () => {
+  // Insert something for useParams, in order to implement catalog of user's card
+  const targetUser = useParams();
   const [selectedDepartment, setSelectedDepartment] = useState(null);
   const [selectedCard, setSelectedCard] = useState(null);
   const [hoveredCard, setHoveredCard] = useState(null);
@@ -15,7 +18,7 @@ const ListCatalog = () => {
   };
 
   const { profcards, ready, departments } = useTracker(() => {
-    const subscription = Meteor.subscribe('cards.public');
+    const subscription = Meteor.subscribe(ProfCards.userPublicationName, targetUser.userId);
     const rdy = subscription.ready();
     const profCardItems = ProfCards.collection.find({}).fetch();
     const uniqueDepartments = Array.from(new Set(profCardItems.map(card => card.department)));
@@ -28,7 +31,6 @@ const ListCatalog = () => {
 
   const handleSelectCard = (profId) => {
     setSelectedCard(profId === selectedCard ? null : profId);
-    ProfCards.collection.update({ _id: profId }, { $addToSet: { wished: Meteor.user()?.username } });
   };
 
   return (ready ? (
@@ -86,4 +88,4 @@ const ListCatalog = () => {
     </Container>
   ) : <LoadingSpinner />);
 };
-export default ListCatalog;
+export default ListCatalogUser;

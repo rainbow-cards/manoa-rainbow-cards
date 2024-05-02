@@ -15,7 +15,7 @@ const ListMyCards = () => {
     // Note that this subscription will get cleaned up
     // when your component is unmounted or deps change.
     // Get access to ProfCards documents.
-    const subscription = Meteor.subscribe(ProfCards.userPublicationName);
+    const subscription = Meteor.subscribe(ProfCards.userPublicationName, Meteor.userId());
     // Determine if the subscription is ready
     const rdy = subscription.ready();
     // Get the ProfCards documents
