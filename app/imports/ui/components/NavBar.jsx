@@ -3,7 +3,7 @@ import { Meteor } from 'meteor/meteor';
 import { useTracker } from 'meteor/react-meteor-data';
 import { NavLink } from 'react-router-dom';
 import { Roles } from 'meteor/alanning:roles';
-import { Container, Image, Nav, Navbar, NavDropdown } from 'react-bootstrap';
+import { Button, Container, Image, Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import { BoxArrowRight, PersonFill, PersonPlusFill } from 'react-bootstrap-icons';
 
 const NavBar = () => {
@@ -13,37 +13,58 @@ const NavBar = () => {
   }), []);
 
   return (
-    <Navbar bg="success-subtle" expand="lg">
+    <Navbar expand="lg" className="navbar-custom">
       <Container>
-        <Navbar.Brand as={NavLink} to="/home">
-          <Image src="/images/rainbow-cards-logo.png" width="97" height="68" className="d-inline-block align-top" alt="Rainbow Cards Logo" />
+        <Navbar.Brand className="logo-button" as={NavLink} to="/home">
+          <Image src="/images/rainbow-cards-logo.png" width="97" height="68" className="logo-outline d-inline-block align-top" alt="Rainbow Cards Logo" />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto justify-content-start">
             {currentUser ? ([
-              <Nav.Link id="catalog-nav" as={NavLink} to="/catalog" key="catalog">Catalog</Nav.Link>,
-              <Nav.Link id="list-user-cards-nav" as={NavLink} to="/list" key="list">My Cards</Nav.Link>,
+              <Button key="catalog" id="catalog-nav" className="nav-text nav-btn red-button" as={NavLink} to="/catalog">
+                RAINBOW CATALOG
+              </Button>,
+              <Button key="list" className="nav-text nav-btn orange-button" as={NavLink} to="/list">
+                PORTFOLIO
+              </Button>,
+              <Button key="trading" className="nav-text nav-btn yellow-button" as={NavLink} to="/trading">
+                TRADING
+              </Button>,
+              <Button key="explore" className="nav-text nav-btn green-button" as={NavLink} to="/search">
+                EXPLORE
+              </Button>,
+              <Button key="guide" className="nav-text nav-btn blue-button" as={NavLink} to="/guide">
+                GUIDE
+              </Button>,
             ]) : ''}
             {Roles.userIsInRole(Meteor.userId(), 'admin') ? ([
-              <Nav.Link id="add-card-admin-nav" as={NavLink} to="/add" key="add">Add</Nav.Link>,
-              <Nav.Link id="catalog-admin-nav" as={NavLink} to="/admin" key="admin">Admin</Nav.Link>,
-              <Nav.Link id="devtest-admin-nav" as={NavLink} to="/devtest" key="devtest">DevTest</Nav.Link>,
+              <Button key="add" id="add-card-admin-nav" className="nav-text nav-btn indigo-button" as={NavLink} to="/add">
+                ADD NEW CARD
+              </Button>,
+              <Button key="admin" id="catalog-admin-nav" className="nav-text nav-btn violet-button" as={NavLink} to="/admin">
+                ADMIN
+              </Button>,
+              <Button key="devtest" id="devtest-admin-nav" className="nav-text nav-btn black-button" as={NavLink} to="/devtest">
+                DEV CONTROLS
+              </Button>,
             ]) : ''}
             {Roles.userIsInRole(Meteor.userId(), 'professor') ? ([
-              <Nav.Link id="catalog-prof-nav" as={NavLink} to="/profcat" key="profc">Professor Catalog</Nav.Link>,
+              <Button key="profcat" className="nav-text nav-btn indigo-button" as={NavLink} to="/profcat">
+                MY CARDS
+              </Button>,
             ]) : ''}
           </Nav>
           <Nav className="justify-content-end">
             {currentUser === '' ? (
-              <NavDropdown className="greentxt" id="login-dropdown" title="Login">
-                <NavDropdown.Item id="login-dropdown-sign-in" as={NavLink} to="/signin">
+              <NavDropdown key="login-dropdown" className="greentxt user-dropdown-button" id="login-dropdown" title="Login">
+                <NavDropdown.Item id="login-dropdown-sign-in" as={NavLink} to="/signin" key="login">
                   <div className="greentxt">
                     <PersonFill />
                     Sign In
                   </div>
                 </NavDropdown.Item>
-                <NavDropdown.Item id="login-dropdown-sign-up" as={NavLink} to="/signup">
+                <NavDropdown.Item id="login-dropdown-sign-up" as={NavLink} to="/signup" key="signup">
                   <div className="greentxt">
                     <PersonPlusFill />
                     Sign Up
@@ -51,12 +72,11 @@ const NavBar = () => {
                 </NavDropdown.Item>
               </NavDropdown>
             ) : (
-              <NavDropdown id="navbar-current-user" title={currentUser}>
-                <NavDropdown.Item id="navbar-sign-out" as={NavLink} to="/signout">
+              <NavDropdown key="signout" id="navbar-current-user" className="greentxt user-dropdown-button" title={currentUser}>
+                <NavDropdown.Item id="navbar-sign-out" className="greentxt" as={NavLink} to="/signout">
                   <BoxArrowRight />
                   {' '}
-                  Sign
-                  out
+                  Sign out
                 </NavDropdown.Item>
               </NavDropdown>
             )}

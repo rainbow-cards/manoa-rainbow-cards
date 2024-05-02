@@ -33,7 +33,7 @@ const ListCatalog = () => {
   return (ready ? (
     <Container className="py-3">
       <Col className="text-center">
-        <h2>Cards Catalog</h2>
+        <h2>Rainbow Catalog</h2>
       </Col>
       <Row>
         <Col xs={3} md={2}>

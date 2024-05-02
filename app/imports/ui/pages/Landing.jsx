@@ -61,7 +61,7 @@ const Landing = () => {
       <Row className="align-items-center text-center">
         <Col xs={12}>
           {featuredCard && (
-            <div style={{ display: 'inline-block', width: '320px', height: '400px' }}>
+            <div style={{ display: 'inline-block', width: '300px', height: '330px' }}>
               <ProfCard profInfo={featuredCard} />
             </div>
           )}
