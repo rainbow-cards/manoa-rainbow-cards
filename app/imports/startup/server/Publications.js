@@ -34,6 +34,13 @@ Meteor.publish(ProfCards.userPublicationName, function () {
   return this.ready();
 });
 
+Meteor.publish(ProfCards.userPublicationNameWish, function () {
+  if (this.userId) {
+    return ProfCards.collection.find({ wished: { $in: [Meteor.user()?.username] } });
+  }
+  return this.ready();
+});
+
 // alanning:roles publication
 // Recommended code to publish roles for each user.
 Meteor.publish(null, function () {
