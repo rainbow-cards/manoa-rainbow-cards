@@ -21,6 +21,7 @@ class ProfCardsCollection {
       image: String,
       facts: String,
       owners: Array(OwnerSchema), // Array of owners, with count attached
+      wished: Array(String),
       campusEats: String,
       hiddenTalent: String,
     });
@@ -29,6 +30,7 @@ class ProfCardsCollection {
     // Define names for publications and subscriptions
     this.professorPublicationName = `${this.name}.publication.professor`;
     this.userPublicationName = `${this.name}.publication.user`;
+    this.userPublicationNameWish = `${this.name}.publication.user.wish`;
   }
 }
 
