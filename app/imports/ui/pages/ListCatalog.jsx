@@ -28,7 +28,7 @@ const ListCatalog = () => {
 
   const handleSelectCard = (profId) => {
     setSelectedCard(profId === selectedCard ? null : profId);
-    ProfCard.collection.update({ _id: profId }, { $addtoSet: { wished: Meteor.user()?.username } });
+    ProfCards.collection.update({ _id: profId }, { $addToSet: { wished: Meteor.user()?.username } });
   };
 
   return (ready ? (
