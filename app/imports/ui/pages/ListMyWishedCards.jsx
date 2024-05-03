@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Card, CardBody, Col, Container, Row } from 'react-bootstrap';
+import { Button, Card, CardBody, Col, Container, Row } from 'react-bootstrap';
 import { useTracker } from 'meteor/react-meteor-data';
 import { Link } from 'react-router-dom';
 import LoadingSpinner from '../components/LoadingSpinner';
@@ -8,7 +8,7 @@ import { ProfCards } from '../../api/profcard/ProfCard';
 import ProfCardUser from '../components/ProfCardUser';
 /* Renders a table containing all the ProfCards documents. Use <StuffItem> to render each row. */
 const ListMyCards = () => {
-  const [selectedCard] = useState(null);
+  const [selectedCard, setSelectedCard] = useState(null);
   const [hoveredCard, setHoveredCard] = useState(null);
   // useTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker
   const { ready, cards } = useTracker(() => {
@@ -25,7 +25,10 @@ const ListMyCards = () => {
       ready: rdy,
     };
   }, []);
-
+  const handleSelectCard = (profId) => {
+    setSelectedCard(profId === selectedCard ? null : profId);
+    ProfCards.collection.update({ _id: profId }, { $pull: { wished: Meteor.user()?.username } });
+  };
   return (ready ? (
     <Container className="py-3">
       <Row className="justify-content-center">
@@ -52,6 +55,16 @@ const ListMyCards = () => {
                     <CardBody style={{ backgroundColor: 'rgba(150, 200, 100, 0.3)' }}>
                       <ProfCardUser profInfo={profInfo} />
                     </CardBody>
+                    {hoveredCard === profInfo._id && (
+                      <Card.Footer className="text-center prof-card-footer">
+                        <Button
+                          variant={selectedCard === profInfo._id ? 'danger' : 'primary'}
+                          onClick={() => handleSelectCard(profInfo._id)}
+                        >
+                          Remove from wishlist
+                        </Button>
+                      </Card.Footer>
+                    )}
                   </Card>
                 </Col>
               ))}
