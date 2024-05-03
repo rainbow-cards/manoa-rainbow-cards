@@ -26,10 +26,19 @@ const ListCatalog = () => {
     };
   }, [selectedDepartment]);
 
+  let isWished = (profId) => {
+    const current = ProfCards.collection.findOne({ _id: profId });
+    const wishedList = current?.wished;
+    return wishedList.includes(Meteor.user()?.username);
+  };
+
   const handleSelectCard = (profId) => {
     setSelectedCard(profId === selectedCard ? null : profId);
     ProfCards.collection.update({ _id: profId }, { $addToSet: { wished: Meteor.user()?.username } });
+    isWished = true;
   };
+
+  const isLogged = Meteor.userId() !== null;
 
   return (ready ? (
     <Container className="py-3">
@@ -69,12 +78,14 @@ const ListCatalog = () => {
                   </CardBody>
                   {hoveredCard === profInfo._id && (
                     <Card.Footer className="text-center prof-card-footer">
-                      <Button
-                        variant={selectedCard === profInfo._id ? 'danger' : 'primary'}
-                        onClick={() => handleSelectCard(profInfo._id)}
-                      >
-                        {selectedCard === profInfo._id ? 'Un-wishlist' : 'Wishlist'}
-                      </Button>
+                      {isLogged && !isWished(profInfo._id) && (
+                        <Button
+                          variant={selectedCard === profInfo._id ? 'danger' : 'primary'}
+                          onClick={() => handleSelectCard(profInfo._id)}
+                        >
+                          {selectedCard === profInfo._id ? 'Un-wishlist' : 'Wishlist'}
+                        </Button>
+                      )}
                     </Card.Footer>
                   )}
                 </Card>
