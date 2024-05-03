@@ -13,9 +13,8 @@ const DevTest = () => {
   const { profcards, ready } = useTracker(() => {
     const subscription = Meteor.subscribe('cards.public');
     const subscriptionUsernames = Meteor.subscribe('allUsernames');
-    const subscriptionMyCards = Meteor.subscribe(ProfCards.userPublicationName);
 
-    const rdy = subscription.ready() && subscriptionUsernames.ready() && subscriptionMyCards.ready();
+    const rdy = subscription.ready() && subscriptionUsernames.ready();
 
     const profCardItems = ProfCards.collection.find().fetch();
     return {
