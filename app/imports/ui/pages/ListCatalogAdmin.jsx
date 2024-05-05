@@ -185,6 +185,9 @@ const ListCatalogAdmin = () => {
                       <Link id="admin-edit-link" to={`/edit/${profInfo._id}`}>
                         <Button variant="secondary">Edit</Button>
                       </Link>
+                      <Link id="admin-delete-link" to={`/delete/${profInfo._id}`}>
+                        <Button variant="danger">Delete</Button>
+                      </Link>
                     </Card.Footer>
                   )}
                 </Card>
