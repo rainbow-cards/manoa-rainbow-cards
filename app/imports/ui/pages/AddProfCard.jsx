@@ -51,13 +51,13 @@ const AddProfCard = () => {
   // Render the form. Use Uniforms: https://github.com/vazco/uniforms
   let fRef = null;
   return (
-    <Container className="py-3">
+    <Container className="py-3 greentxt">
       <Row className="justify-content-center">
         <Col xs={7}>
-          <Col className="text-center"><h2>Add a Rainbow Card</h2></Col>
+          <Col className="text-center greentxt"><h2>Add a Rainbow Card</h2></Col>
           <AutoForm ref={ref => { fRef = ref; }} schema={bridge} onSubmit={data => submit(data, fRef)}>
             <Card>
-              <Card.Body>
+              <Card.Body className="greentxt bg-success-subtle">
                 <Row className="justify-content-center">
                   <Col xs={6}>
                     <TextField id="name" name="name" />
@@ -77,10 +77,10 @@ const AddProfCard = () => {
                     <TextField id="email" name="email" />
                   </Col>
                 </Row>
-                <TextField id="image" name="image" />
-                <LongTextField id="facts" name="facts" />
-                <TextField id="campuseats" name="campusEats" />
-                <TextField id="hiddentalent" name="hiddenTalent" />
+                <TextField className="greentxt" id="image" name="image" />
+                <LongTextField className="greentxt" id="facts" name="facts" />
+                <TextField className="greentxt" id="campuseats" name="campusEats" />
+                <TextField className="greentxt" id="hiddentalent" name="hiddenTalent" />
                 <SubmitField id="add-submit" value="Submit" />
                 <ErrorsField />
               </Card.Body>

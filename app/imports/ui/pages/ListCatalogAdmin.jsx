@@ -103,7 +103,7 @@ const ListCatalogAdmin = () => {
   let fRef = null; // Reference for the AutoForm
 
   return (ready ? (
-    <Container className="py-3">
+    <Container className="py-3 greentxt">
       <Row className="justify-content-center">
         <Col>
           <Col>
@@ -125,9 +125,10 @@ const ListCatalogAdmin = () => {
               <h2 className="text-center">Distribute Form</h2>
               <Col>
                 <AutoForm ref={ref => { fRef = ref; }} schema={bridge} onSubmit={(data) => submit(data, fRef)}>
-                  <Card style={{ minHeight: '178px' }}>
-                    <Card.Body>
+                  <Card style={{ minHeight: '178px' }} border='success'>
+                    <Card.Body className="greentxt bg-success-subtle">
                       <TextField
+                        className="greentxt"
                         id="enterUser"
                         name="user"
                         placeholder="Enter a user here..."
@@ -141,10 +142,10 @@ const ListCatalogAdmin = () => {
                 </AutoForm>
               </Col>
               <Col>
-                <Card style={{ minHeight: '178px', maxHeight: '178px', overflowY: 'auto' }}>
+                <Card className="greentxt bg-success-subtle" style={{ minHeight: '178px', maxHeight: '178px', overflowY: 'auto' }} border='success'>
                   <Card.Header>
-                    <h5 className="text-center">All Registered Users</h5>
-                    <div className="text-center" style={{ color: 'gray' }}>
+                    <h5 className="text-center" >All Registered Users</h5>
+                    <div className="greentxt text-center" style={{ color: 'gray' }}>
                       Scroll to view more.
                     </div>
                   </Card.Header>
