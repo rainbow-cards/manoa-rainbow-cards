@@ -12,10 +12,8 @@
  */
 body {
   --bs-light-rgb: var(--matr-navbar-bg-rgb);
-  /*
   background: fixed center no-repeat url('images/rc-bg.png');
   background-size: cover;
-  */
 }
 /* Set the alert background on the signin and signup pages. */
 #signin-page .alert-light, #signup-page .alert-light {
