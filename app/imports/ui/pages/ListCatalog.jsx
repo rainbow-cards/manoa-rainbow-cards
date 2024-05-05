@@ -43,19 +43,24 @@ const ListCatalog = () => {
   return (ready ? (
     <Container className="py-3">
       <Col className="text-center">
-        <h2>Rainbow Catalog</h2>
+        <h2 className="greentxt">Rainbow Catalog</h2>
       </Col>
       <Row>
         <Col xs={3} md={2}>
           <ListGroup>
-            <ListGroup.Item className="text-align-left" style={{ fontSize: '16px' }}>
+            <ListGroup.Item
+              className="text-align-left greentxt bg-success-subtle"
+              style={{ fontSize: '16px' }}
+              variant={'success'}
+            >
               <h2 style={{ fontSize: '16px' }}>Filter by Department</h2>
             </ListGroup.Item>
             {departments.map(department => (
               <ListGroup.Item
+                className="greentxt bg-success-subtle"
                 key={department}
                 action
-                variant={selectedDepartment === department ? 'primary' : 'light'}
+                variant={selectedDepartment === department ? 'primary' : 'success'}
                 onClick={() => handleDepartmentClick(department)}
                 style={{ fontSize: '12px' }}
               >

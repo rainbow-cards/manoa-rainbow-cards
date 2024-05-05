@@ -42,10 +42,10 @@ const EditProfCard = () => {
     <Container className="py-3">
       <Row className="justify-content-center">
         <Col xs={7}>
-          <Col className="text-center"><h2>Edit Card</h2></Col>
+          <Col className="text-center greentxt"><h2>Edit Card</h2></Col>
           <AutoForm schema={bridge} onSubmit={data => submit(data)} model={doc}>
             <Card>
-              <Card.Body>
+              <Card.Body className="bg-success-subtle greentxt">
                 <Row className="justify-content-center">
                   <Col xs={6}>
                     <TextField id="name" name="name" />

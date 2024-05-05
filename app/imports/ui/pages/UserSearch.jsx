@@ -37,7 +37,7 @@ const UserSearch = () => {
     <Container className="py-3">
       <Row className="justify-content-center">
         <Col xs={7}>
-          <Col className="text-center"><h2>User Profile Search</h2></Col>
+          <Col className="text-center greentxt"><h2>User Profile Search</h2></Col>
           <AutoForm schema={bridge} onSubmit={data => submit(data)}>
             <Card>
               <Card.Body className="greentxt bg-success-subtle">
