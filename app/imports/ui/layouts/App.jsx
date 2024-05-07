@@ -24,6 +24,7 @@ import UserSearch from '../pages/UserSearch';
 import ListCatalogUser from '../pages/ListCatalogUser';
 import ListMyWishedCards from '../pages/ListMyWishedCards';
 import DeleteProfCard from '../pages/DeleteProfCard';
+import Guide from '../pages/Guide';
 
 /** Top-level layout component for this application. Called in imports/startup/client/startup.jsx. */
 const App = () => {
@@ -43,6 +44,7 @@ const App = () => {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/signout" element={<SignOut />} />
           <Route path="/catalog" element={<ListCatalog />} />
+          <Route path="/guide" element={<Guide />} />
           <Route path="/catalog/:userId" element={<ListCatalogUser />} />
           <Route path="/home" element={<ProtectedRoute><Landing /></ProtectedRoute>} />
           <Route path="/list" element={<ProtectedRoute><ListMyCards /></ProtectedRoute>} />

@@ -25,7 +25,7 @@
       "email": "pjohnson@hawaii.edu",
       "image": "https://github.com/philipmjohnson/philipmjohnson.github.io/raw/main/img/pmj-headshot.png",
       "facts": "Philip got his BS in CS from the University of Michigan (along with a BS in Biology!). He co-founded the Geo Garden Club, an app that connects local gardeners.",
-      "owners": [{ "name": "professor@foo.com", "count": 5 }],
+      "owners": [{ "name": "cmoore@hawaii.edu", "count": 5 }],
       "wished": ["john@foo.com"],
       "campusEats": "Subway",
       "hiddenTalent": "Basketball, Power Forward"  },
@@ -125,7 +125,19 @@
       "owners": [{ "name": "john@foo.com", "count": 1 }],
       "wished": ["john@foo.com"],
       "campusEats": "Holo Holo Grill",
-      "hiddenTalent": "Music" }
+      "hiddenTalent": "Music" },
+    {
+      "name": " Elijah Myles Saloma ",
+      "course": "DEV",
+      "semester": "Spring 2024",
+      "department": "ICS",
+      "email": "esaloma@hawaii.edu",
+      "image": "https://media.licdn.com/dms/image/D5603AQFArnj59AKIHA/profile-displayphoto-shrink_800_800/0/1705117088766?e=2147483647&v=beta&t=dQhx6gaeicSktYPnEoNMJzLbm-vJJuVttwPEEmepcsg",
+      "facts": "He achieved 1st place in ballroom dancing nationally! He also assists students with Calculus 2 work.",
+      "owners": [{ "name": "admin@foo.com", "count": 1 }],
+      "wished": ["john@foo.com"],
+      "campusEats": "Brito Bowl",
+      "hiddenTalent": "Dancing" }
   ]
 }
 
