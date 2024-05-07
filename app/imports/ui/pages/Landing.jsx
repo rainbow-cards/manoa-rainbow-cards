@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Col, Container, Image, Row } from 'react-bootstrap';
+import { Button, Col, Container, Row } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 import { useTracker } from 'meteor/react-meteor-data';
 import { Meteor } from 'meteor/meteor';
@@ -32,14 +32,10 @@ const Landing = () => {
   }, []);
 
   return (
-    <Container id="landing-page" fluid className="py-3">
+    <Container id="landing-page" fluid className="py-5">
       <Row className="align-middle text-center">
-        <Col xs={4}>
-          <Image roundedCircle src="/images/rainbow-cards-icon.png" width="200px" />
-        </Col>
-
-        <Col className="d-flex flex-column justify-content-center align-items-center greentxt">
-          <h1 className="font-effect-fire-animation" id="landing-title">Mānoa<br />Rainbow Cards</h1>
+        <Col xs={{ order: 'last', xs: 12, md: 6 }} md={{ order: 'first', xs: 12, md: 6 }} className="d-flex flex-column justify-content-center align-items-center greentxt" style={{ paddingLeft: '120px' }}>
+          <h1 className id="landing-title">Mānoa<br />Rainbow Cards</h1>
           {/* eslint-disable-next-line max-len */}
           <p>Rainbow Cards is a card collection site where you can collect the cards of your favorite professors. Each card includes information and fun facts about the professor. Aim to collect a variety of cards and trade them for your desired cards with other users!</p>
           {!isLogged && (
@@ -48,28 +44,20 @@ const Landing = () => {
           <br />
           <p>Want to contribute? <a href="https://forms.gle/RJjyfaoXvakZ6eQNA">Opt-In Form for Professors</a></p>
         </Col>
-
-        <Col xs={4}>
-          <Image roundedCircle src="/images/rainbow-cards-icon.png" width="200px" />
+        <Col xs={12} md={6} className="d-flex flex-column justify-content-center greentxt" style={{ paddingLeft: '1px' }}>
+          <div className="text-right" style={{ paddingBottom: '60px' }}>
+            <h2>Featured Card:</h2>
+            {featuredCard && (
+              <div style={{ display: 'inline-block', width: '300px', height: '330px' }}>
+                <ProfCard profInfo={featuredCard} />
+              </div>
+            )}
+          </div>
         </Col>
       </Row>
-      <Row className="align-middle text-center">
-        <Col className="d-flex flex-column justify-content-center greentxt">
-          <h2> Featured Card: </h2>
-        </Col>
-      </Row>
-      <Row className="align-items-center text-center">
-        <Col xs={12}>
-          {featuredCard && (
-            <div style={{ display: 'inline-block', width: '300px', height: '330px' }}>
-              <ProfCard profInfo={featuredCard} />
-            </div>
-          )}
-        </Col>
-      </Row>
-
     </Container>
   );
+
 };
 
 export default Landing;
