@@ -159,7 +159,7 @@ const DevTest = () => {
         <Col xs={7}>
           <Col className="text-center"><h3>Send a Card</h3></Col>
           <AutoForm ref={ref => { fRef = ref; }} schema={bridge} onSubmit={data => submit(data, fRef)}>
-            <Card border='success' className='bg-success-subtle greentxt'>
+            <Card border="success" className="bg-success-subtle greentxt">
               <Card.Body>
                 <SelectField
                   id="selectField"
@@ -178,9 +178,9 @@ const DevTest = () => {
                 <SubmitField id="submit" value="Submit" />
                 <ErrorsField />
               </Card.Body>
-            </Card >
+            </Card>
             <h3 className="text-center">All Registered Users</h3>
-            <Card className='bg-success-subtle greentxt' border='success'>
+            <Card className="bg-success-subtle greentxt" border="success">
               <Card.Body>
                 {/* Render all users contained in the Meteor.users collection */}
                 {Meteor.users.find().fetch().map(user => (
@@ -190,7 +190,7 @@ const DevTest = () => {
             </Card>
           </AutoForm>
           <h3 className="text-center">Give card to doge</h3>
-          <Card className="align-items-center bg-success-subtle" border='success'>
+          <Card className="align-items-center bg-success-subtle" border="success">
             <Card.Body>
               <Row>
                 <Button className="btn btn-primary" onClick={submit2}>Auto-Add</Button>
