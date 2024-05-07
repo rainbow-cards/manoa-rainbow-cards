@@ -260,3 +260,14 @@ button:active {
 .footer-column-gap {
   margin-left: -50px;
 }
+
+.guide-container {
+  background-color: whitesmoke;
+  fill-opacity: 90%;
+}
+
+.guide-container-body {
+  color: #75b531;
+  font-size: 20px;
+  font-family: "Comic Sans MS";
+}
