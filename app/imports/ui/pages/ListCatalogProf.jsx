@@ -91,7 +91,7 @@ const ListCatalogProf = () => {
           swal('Error', 'Failed to send card...', 'error');
           console.log(error);
         } else {
-          swal('Success', `${selectedCardInfo.name} Card sent to ${user} successfully!`, 'success');
+          swal('Success', `Sent to ${user} successfully!`, 'success');
           formRef.reset();
         }
       });
