@@ -4,6 +4,7 @@ import { ProfCards } from '../../api/profcard/ProfCard';
 
 Meteor.methods({
   'profCards.isFavorited'(profCardId, ownerId) {
+    console.log('Checking favorite status of card');
     check(profCardId, String);
     check(ownerId, String);
 
@@ -16,17 +17,20 @@ Meteor.methods({
     check(ownerId, String);
 
     // Update the document in the ProfCards collection
-    ProfCards.collection.update(
-      { _id: profCardId, 'owners._id': ownerId },
-      {
-        $set: { 'owners.$.favorited': true },
-        $setOnInsert: { 'owners.$.name': Meteor.users.findOne(ownerId)?.username }, // Add the name field
-      },
-    );
-
-    console.log('Favorited card:', profCardId);
+    try {
+      ProfCards.collection.update(
+        { _id: profCardId, 'owners._id': ownerId },
+        {
+          $set: { 'owners.$.favorited': true },
+          $setOnInsert: { 'owners.$.name': Meteor.users.findOne(ownerId)?.username }, // Add the name field
+        },
+      );
+    } catch (e) {
+      console.error(e);
+    }
   },
   'profCards.unfavorite'(profCardId, ownerId) {
+    console.log('Executing unfavorite method');
     check(profCardId, String);
     check(ownerId, String);
 
