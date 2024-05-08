@@ -8,42 +8,77 @@ import ProfCard from '../components/ProfCard';
 import { ProfCards } from '../../api/profcard/ProfCard';
 
 const ListCatalogUser = () => {
-  // Insert something for useParams, in order to implement catalog of user's card
+  // Get the userId from the URL params
   const targetUser = useParams();
+
+  // State variables
   const [selectedDepartment, setSelectedDepartment] = useState(null);
   const [selectedCard, setSelectedCard] = useState(null);
   const [hoveredCard, setHoveredCard] = useState(null);
+  const [wishlistedCards, setWishlistedCards] = useState([]);
+
+  // Function to handle department click
   const handleDepartmentClick = (department) => {
     setSelectedDepartment(department === selectedDepartment ? null : department);
   };
 
-  const { profcards, ready, departments } = useTracker(() => {
+  // Fetch data using useTracker hook
+  const { profcards, ready, departments, searchedUsername } = useTracker(() => {
+    // Subscribe to the publication for user's cards
     const subscription = Meteor.subscribe(ProfCards.userPublicationName, targetUser.userId);
     const rdy = subscription.ready();
+
+    // Fetch all profCards
     const profCardItems = ProfCards.collection.find({}).fetch();
+
+    // Extract unique departments
     const uniqueDepartments = Array.from(new Set(profCardItems.map(card => card.department)));
+
+    // Find the searched user
+    const user = Meteor.users.findOne(targetUser.userId);
+
+    // Return the data
     return {
       profcards: selectedDepartment ? profCardItems.filter(card => card.department === selectedDepartment) : profCardItems,
       ready: rdy,
       departments: uniqueDepartments,
+      searchedUsername: user ? user.username : '',
     };
-  }, [selectedDepartment]);
+  }, [selectedDepartment, targetUser.userId]);
 
+  const isWished = (profId) => wishlistedCards.includes(profId);
+  // Function to handle card selection
   const handleSelectCard = (profId) => {
     setSelectedCard(profId === selectedCard ? null : profId);
+    setWishlistedCards(prevState => [...prevState, profId]);
+    ProfCards.collection.update({ _id: profId }, { $addToSet: { wished: Meteor.user()?.username } });
   };
 
+  const handleKeyDown = (event, profId) => {
+    // If Enter key is pressed, wishlist the card
+    if (event.key === 'Enter') {
+      event.preventDefault(); // Prevent default form submission behavior
+      handleSelectCard(profId); // Call the handleSelectCard function to wishlist the card
+    }
+  };
+
+  const isLogged = Meteor.userId() !== null;
+
+  // Return loading spinner while data is loading
   return (ready ? (
     <Container className="py-3">
       <Col className="text-center">
-        <h2>Rainbow Catalog</h2>
+        {/* Display user's profile name or default header */}
+        <h2>{searchedUsername ? `${searchedUsername}'s Portfolio` : 'Rainbow Catalog'}</h2>
       </Col>
       <Row>
         <Col xs={3} md={2}>
+          {/* Department filter list */}
           <ListGroup>
             <ListGroup.Item className="text-align-left" style={{ fontSize: '16px' }}>
               <h2 style={{ fontSize: '16px' }}>Filter by Department</h2>
             </ListGroup.Item>
+            {/* Render department items */}
             {departments.map(department => (
               <ListGroup.Item
                 key={department}
@@ -58,6 +93,7 @@ const ListCatalogUser = () => {
           </ListGroup>
         </Col>
         <Col>
+          {/* Render profCards */}
           <Row xs={1} md={2} lg={3} className="g-4">
             {profcards.map((profInfo) => (
               <Col key={profInfo._id}>
@@ -65,18 +101,29 @@ const ListCatalogUser = () => {
                   className={`prof-card ${hoveredCard === profInfo._id || selectedCard === profInfo._id ? 'highlight' : ''}`}
                   onMouseEnter={() => setHoveredCard(profInfo._id)}
                   onMouseLeave={() => setHoveredCard(null)}
+                  onKeyDown={(event) => handleKeyDown(event, profInfo._id)}
+                  tabIndex="0" // Make the card focusable
                 >
                   <CardBody style={{ backgroundColor: 'rgba(150, 200, 100, 0.3)' }}>
                     <ProfCard profInfo={profInfo} />
                   </CardBody>
                   {hoveredCard === profInfo._id && (
                     <Card.Footer className="text-center prof-card-footer">
-                      <Button
-                        variant={selectedCard === profInfo._id ? 'danger' : 'primary'}
-                        onClick={() => handleSelectCard(profInfo._id)}
-                      >
-                        {selectedCard === profInfo._id ? 'Un-wishlist' : 'Wishlist'}
-                      </Button>
+                      {/* Wishlist button */}
+                      {isLogged && !isWished(profInfo._id) && (
+                        <Button
+                          variant={selectedCard === profInfo._id ? 'danger' : 'primary'}
+                          onClick={() => handleSelectCard(profInfo._id)}
+                        >
+                          {selectedCard === profInfo._id ? 'Un-wishlist' : 'Wishlist'}
+                        </Button>
+                      )}
+                      {/* "Wishlisted" message */}
+                      {isLogged && isWished(profInfo._id) && (
+                        <Button variant="success" disabled>
+                          Wishlisted!
+                        </Button>
+                      )}
                     </Card.Footer>
                   )}
                 </Card>

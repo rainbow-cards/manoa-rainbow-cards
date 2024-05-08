@@ -10,6 +10,8 @@ const ListCatalog = () => {
   const [selectedDepartment, setSelectedDepartment] = useState(null);
   const [selectedCard, setSelectedCard] = useState(null);
   const [hoveredCard, setHoveredCard] = useState(null);
+  const [wishlistedCards, setWishlistedCards] = useState([]);
+
   const handleDepartmentClick = (department) => {
     setSelectedDepartment(department === selectedDepartment ? null : department);
   };
@@ -26,16 +28,20 @@ const ListCatalog = () => {
     };
   }, [selectedDepartment]);
 
-  let isWished = (profId) => {
-    const current = ProfCards.collection.findOne({ _id: profId });
-    const wishedList = current?.wished;
-    return wishedList.includes(Meteor.user()?.username);
-  };
+  const isWished = (profId) => wishlistedCards.includes(profId);
 
   const handleSelectCard = (profId) => {
     setSelectedCard(profId === selectedCard ? null : profId);
+    setWishlistedCards(prevState => [...prevState, profId]);
     ProfCards.collection.update({ _id: profId }, { $addToSet: { wished: Meteor.user()?.username } });
-    isWished = true;
+  };
+
+  const handleKeyDown = (event, profId) => {
+    // If Enter key is pressed, wishlist the card
+    if (event.key === 'Enter') {
+      event.preventDefault(); // Prevent default form submission behavior
+      handleSelectCard(profId); // Call the handleSelectCard function to wishlist the card
+    }
   };
 
   const isLogged = Meteor.userId() !== null;
@@ -77,18 +83,27 @@ const ListCatalog = () => {
                   className={`prof-card ${hoveredCard === profInfo._id || selectedCard === profInfo._id ? 'highlight' : ''}`}
                   onMouseEnter={() => setHoveredCard(profInfo._id)}
                   onMouseLeave={() => setHoveredCard(null)}
+                  onKeyDown={(event) => handleKeyDown(event, profInfo._id)}
+                  tabIndex="0" // Make the card focusable
                 >
                   <CardBody style={{ backgroundColor: 'rgba(150, 200, 100, 0.3)' }}>
                     <ProfCard profInfo={profInfo} />
                   </CardBody>
                   {hoveredCard === profInfo._id && (
                     <Card.Footer className="text-center prof-card-footer">
+                      {/* Wishlist button */}
                       {isLogged && !isWished(profInfo._id) && (
                         <Button
                           variant={selectedCard === profInfo._id ? 'danger' : 'primary'}
                           onClick={() => handleSelectCard(profInfo._id)}
                         >
                           {selectedCard === profInfo._id ? 'Un-wishlist' : 'Wishlist'}
+                        </Button>
+                      )}
+                      {/* "Wishlisted" message */}
+                      {isLogged && isWished(profInfo._id) && (
+                        <Button variant="success" disabled>
+                          Wishlisted!
                         </Button>
                       )}
                     </Card.Footer>
@@ -102,4 +117,5 @@ const ListCatalog = () => {
     </Container>
   ) : <LoadingSpinner />);
 };
+
 export default ListCatalog;
