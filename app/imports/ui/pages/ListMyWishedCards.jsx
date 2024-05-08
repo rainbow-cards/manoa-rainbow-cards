@@ -5,7 +5,7 @@ import { useTracker } from 'meteor/react-meteor-data';
 import { Link } from 'react-router-dom';
 import LoadingSpinner from '../components/LoadingSpinner';
 import { ProfCards } from '../../api/profcard/ProfCard';
-import ProfCardUser from '../components/ProfCardUser';
+import ProfCard from '../components/ProfCard';
 /* Renders a table containing all the ProfCards documents. Use <StuffItem> to render each row. */
 const ListMyCards = () => {
   const [selectedCard, setSelectedCard] = useState(null);
@@ -53,7 +53,7 @@ const ListMyCards = () => {
                     onMouseLeave={() => setHoveredCard(null)}
                   >
                     <CardBody style={{ backgroundColor: 'rgba(150, 200, 100, 0.3)' }}>
-                      <ProfCardUser profInfo={profInfo} />
+                      <ProfCard profInfo={profInfo} />
                     </CardBody>
                     {hoveredCard === profInfo._id && (
                       <Card.Footer className="text-center prof-card-footer">

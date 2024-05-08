@@ -28,21 +28,27 @@ const NavBar = () => {
               <Button key="list" className="nav-text nav-btn orange-button" as={NavLink} to="/list">
                 PORTFOLIO
               </Button>,
-              <Button key="trading" className="nav-text nav-btn yellow-button" as={NavLink} to="/trading">
+              <Button key="wish" className="nav-text nav-btn yellow-button" as={NavLink} to="/wish">
+                WISHLIST
+              </Button>,
+              <Button key="trading" className="nav-text nav-btn green-button" as={NavLink} to="/trading">
                 TRADING
               </Button>,
-              <Button key="explore" className="nav-text nav-btn green-button" as={NavLink} to="/search">
+              <Button key="search" className="nav-text nav-btn blue-button" as={NavLink} to="/search">
+                USER SEARCH
+              </Button>,
+              <Button key="explore" className="nav-text nav-btn indigo-button" as={NavLink} to="/search">
                 EXPLORE
               </Button>,
-              <Button key="guide" className="nav-text nav-btn blue-button" as={NavLink} to="/guide">
+              <Button key="guide" className="nav-text nav-btn violet-button" as={NavLink} to="/guide">
                 GUIDE
               </Button>,
             ]) : ''}
             {Roles.userIsInRole(Meteor.userId(), 'admin') ? ([
-              <Button key="add" id="add-card-admin-nav" className="nav-text nav-btn indigo-button" as={NavLink} to="/add">
+              <Button key="add" id="add-card-admin-nav" className="nav-text nav-btn black-button" as={NavLink} to="/add">
                 ADD NEW CARD
               </Button>,
-              <Button key="admin" id="catalog-admin-nav" className="nav-text nav-btn violet-button" as={NavLink} to="/admin">
+              <Button key="admin" id="catalog-admin-nav" className="nav-text nav-btn black-button" as={NavLink} to="/admin">
                 ADMIN
               </Button>,
               <Button key="devtest" id="devtest-admin-nav" className="nav-text nav-btn black-button" as={NavLink} to="/devtest">
@@ -50,7 +56,7 @@ const NavBar = () => {
               </Button>,
             ]) : ''}
             {Roles.userIsInRole(Meteor.userId(), 'professor') ? ([
-              <Button key="profcat" className="nav-text nav-btn indigo-button" as={NavLink} to="/profcat">
+              <Button key="profcat" className="nav-text nav-btn black-button" as={NavLink} to="/profcat">
                 MY CARDS
               </Button>,
             ]) : ''}
