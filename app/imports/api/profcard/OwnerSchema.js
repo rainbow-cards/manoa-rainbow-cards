@@ -12,6 +12,14 @@ const OwnerSchema = new SimpleSchema({
     type: Number,
     defaultValue: 0,
   },
+  favorited: {
+    type: Boolean,
+    defaultValue: false,
+  },
+  forTrade: {
+    type: Boolean,
+    defaultValue: false,
+  },
 });
 
 export default OwnerSchema;
