@@ -120,29 +120,26 @@ const ListCatalogProf = () => {
   return (
     ready ? (
       <Container className="py-3">
-        <h2 className="text-center">My Cards Portal</h2>
         <Row className="justify-content-center">
+          <h2 className="text-center header-banner"><b>My Cards Portal</b></h2>
           <Col>
             <Col>
-              <div>
-                This page shows all of the Rainbow Cards associated with <b>{Meteor.user()?.username}</b>.
-                <br />
+              <Card className="py-3 px-3">
+                <p>This page shows all of the Rainbow Cards associated with <b>{Meteor.user()?.username}</b>.</p>
                 <br />
                 By mousing over a Rainbow Card, you can: <br />
                 <ul>
                   <li>send copies of a Rainbow Card to other accounts</li>
                   <li>update its details by clicking the <i>Edit</i> button</li>
                 </ul>
-                To distribute a Rainbow Card to a student, select a card, enter the student&apos;s username below, then click the <i>Submit</i> button.
-                <br />
-                <br />
-              </div>
+                <p>To distribute a Rainbow Card to a student, select at least one card, enter the student&apos;s username below, then click the <i>Submit</i> button.</p>
+              </Card>
               <Row>
-                <h2 className="text-center">Distribute Form</h2>
+                <h3 className="text-center header-banner">Distribute Form</h3>
                 <Col>
                   <AutoForm ref={ref => { fRef = ref; }} schema={bridge} onSubmit={(data) => submit(data, fRef)}>
                     <Card style={{ minHeight: '175px' }}>
-                      <Card.Body>
+                      <Card.Body className="greentxt bg-success-subtle">
                         <TextField
                           id="enterUser"
                           name="user"
@@ -158,13 +155,13 @@ const ListCatalogProf = () => {
                 </Col>
                 <Col>
                   <Card style={{ minHeight: '175px', maxHeight: '175px', overflowY: 'auto' }}>
-                    <Card.Header>
+                    <Card.Header className="greentxt bg-success-subtle">
                       <h5 className="text-center">All Registered Users</h5>
                       <div className="text-center" style={{ color: 'gray' }}>
                         Scroll to view more.
                       </div>
                     </Card.Header>
-                    <Card.Body>
+                    <Card.Body className="greentxt bg-success-subtle">
                       {/* Render all users contained in the Meteor.users collection */}
                       {allusers.map(user => (
                         <div key={user._id}>{user.username}</div>
@@ -176,7 +173,7 @@ const ListCatalogProf = () => {
             </Col>
             <Col className="text-center">
               <br />
-              <h3>My Rainbow Cards</h3>
+              <h3 className="header-banner">My Rainbow Cards</h3>
             </Col>
             <Row xs={1} md={2} lg={3} className="g-4">
               {profcards.map((profInfo, index) => (

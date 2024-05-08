@@ -269,15 +269,16 @@ button:active {
 .guide-container-body {
   color: #75b531;
   font-size: 20px;
-  font-family: "Comic Sans MS";
+  font-family: "Comic Sans MS", Optima, serif;
 }
 
-/*.card-check {*/
-/*  position: absolute;*/
-/*  top: 50%;*/
-/*  left: 50%;*/
-/*  transform: translate(-50%, -50%);*/
-/*  zIndex: 1;*/
-/*  backgroundColor: 'white';*/
-/*  borderRadius: '20%'*/
-/*}*/
+.header-banner {
+  background-color: #6a8f60;
+  color: white;
+  font-family: "Comic Sans MS", Optima, serif;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  max-width: 98.25% !important;
+  margin: auto;
+  border-radius: 10px;
+}

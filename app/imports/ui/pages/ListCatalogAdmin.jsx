@@ -120,11 +120,11 @@ const ListCatalogAdmin = () => {
   return (ready ? (
     <Container className="py-3 greentxt">
       <Row className="justify-content-center">
+        <h2 className="text-center header-banner"><b>Administrator Portal</b></h2>
         <Col>
           <Col>
-            <h2 className="text-center">Administrator Portal</h2>
-            <div>
-              This page shows all of the Rainbow Cards associated with <b>{Meteor.user()?.username}</b>.
+            <Card>
+              <p>This page shows all of the Rainbow Cards associated with <b>{Meteor.user()?.username}</b>.</p>
               <br />
               <br />
               By mousing over a Rainbow Card, you can: <br />
@@ -132,12 +132,12 @@ const ListCatalogAdmin = () => {
                 <li>send copies of a Rainbow Card to other accounts</li>
                 <li>update its details by clicking the <i>Edit</i> button</li>
               </ul>
-              To distribute a Rainbow Card to another account, select one or more cards, enter the account&apos;s username below, then click the <i>Submit</i> button.
+              <p>To distribute a Rainbow Card to another account, select one or more cards, enter the account&apos;s username below, then click the <i>Submit</i> button.</p>
               <br />
               <br />
-            </div>
+            </Card>
             <Row>
-              <h2 className="text-center">Distribute Form</h2>
+              <h3 className="text-center header-banner">Distribute Form</h3>
               <Col>
                 <AutoForm ref={ref => { fRef = ref; }} schema={bridge} onSubmit={(data) => submit(data, fRef)}>
                   <Card style={{ minHeight: '178px' }} border="success">
@@ -178,7 +178,7 @@ const ListCatalogAdmin = () => {
           </Col>
           <Col className="text-center">
             <br />
-            <h3>All Rainbow Cards</h3>
+            <h3 className="header-banner">All Rainbow Cards</h3>
           </Col>
           <Row xs={1} md={2} lg={3} className="g-4">
             {profcards.map((profInfo, index) => (
