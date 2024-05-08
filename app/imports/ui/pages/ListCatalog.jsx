@@ -51,7 +51,7 @@ const ListCatalog = () => {
             <ListGroup.Item
               className="text-align-left greentxt bg-success-subtle"
               style={{ fontSize: '16px' }}
-              variant={'success'}
+              variant="success"
             >
               <h2 style={{ fontSize: '16px' }}>Filter by Department</h2>
             </ListGroup.Item>
