@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Meteor } from 'meteor/meteor';
 import swal from 'sweetalert';
 import { AutoForm, ErrorsField, SubmitField, TextField } from 'uniforms-bootstrap5';
@@ -10,10 +10,12 @@ import { useTracker } from 'meteor/react-meteor-data';
 import LoadingSpinner from '../components/LoadingSpinner';
 import { ProfCards } from '../../api/profcard/ProfCard';
 import ProfCardAdmin from '../components/ProfCardAdmin';
+import { CheckSquareFill } from 'react-bootstrap-icons'; // Import the CheckSquareFill icon
 
 const ListCatalogProf = () => {
   const [selectedCard, setSelectedCard] = useState(null);
   const [hoveredCard, setHoveredCard] = useState(null);
+  const cardRefs = useRef([]); // Ref to store card elements
 
   const { profcards, allusers, ready } = useTracker(() => {
     const subscriptionProfCards = Meteor.subscribe(ProfCards.professorPublicationName);
@@ -31,14 +33,15 @@ const ListCatalogProf = () => {
     user: { label: 'Send Rainbow Cards to:', type: String },
   }));
 
+  // Function to handle card selection
   const handleSelectCard = (profId) => {
     setSelectedCard(profId === selectedCard ? null : profId);
   };
 
+  // Function to handle form submission
   const submit = (formData, formRef) => {
     const { user } = formData;
 
-    // Check if the subscription is ready
     if (!ready) {
       swal('Error', 'Subscriptions not ready... Please reload and try again.', 'error');
       return;
@@ -49,14 +52,12 @@ const ListCatalogProf = () => {
       return;
     }
 
-    // Find the selected card from the profcards array
     const selectedCardInfo = profcards.find((profInfo) => profInfo._id === selectedCard);
     if (!selectedCardInfo) {
       swal('Error', 'Selected card not found in the database.', 'error');
       return;
     }
 
-    // Find the target user by their username
     const targetUser = Meteor.users.findOne({ username: user });
     if (!targetUser) {
       swal('Error', `User ${user} not found`, 'error');
@@ -76,7 +77,7 @@ const ListCatalogProf = () => {
           swal('Error', 'Failed to send card...', 'error');
           console.log(error);
         } else {
-          swal('Success', `${selectedCardInfo.name} Card sent to ${user} successfully!`, 'success');
+          swal('Success', `Sent to ${user} successfully!`, 'success');
           formRef.reset();
         }
       });
@@ -90,12 +91,19 @@ const ListCatalogProf = () => {
           swal('Error', 'Failed to send card...', 'error');
           console.log(error);
         } else {
-          swal('Success', `${selectedCardInfo.name} Card sent to ${user} successfully!`, 'success');
+          swal('Success', `Sent to ${user} successfully!`, 'success');
           formRef.reset();
         }
       });
     }
   };
+
+  useEffect(() => {
+    // Focus the first card when the component mounts
+    if (cardRefs.current.length > 0) {
+      cardRefs.current[0].focus();
+    }
+  }, [ready]); // Ensure this effect runs when the data is ready
 
   let fRef = null; // Reference for the AutoForm
 
@@ -161,26 +169,37 @@ const ListCatalogProf = () => {
               <h3>My Rainbow Cards</h3>
             </Col>
             <Row xs={1} md={2} lg={3} className="g-4">
-              {profcards.map((profInfo) => (
+              {profcards.map((profInfo, index) => (
                 <Col key={profInfo._id}>
                   <Card
+                    ref={ref => { cardRefs.current[index] = ref; }} // Assign ref to the card
                     className={`prof-card ${hoveredCard === profInfo._id || selectedCard === profInfo._id ? 'highlight' : ''}`}
                     onMouseEnter={() => setHoveredCard(profInfo._id)}
                     onMouseLeave={() => setHoveredCard(null)}
+                    onClick={() => handleSelectCard(profInfo._id)}
+                    onKeyDown={(event) => {
+                      if (event.key === 'Enter') {
+                        event.preventDefault();
+                        handleSelectCard(profInfo._id);
+                      }
+                    }} // Handle keydown event
+                    tabIndex="0" // Make the card focusable
                   >
-                    <CardBody style={{ backgroundColor: 'rgba(150, 200, 100, 0.3)' }}>
+                    <CardBody style={{ position: 'relative', backgroundColor: 'rgba(150, 200, 100, 0.3)' }}>
                       <ProfCardAdmin profInfo={profInfo} />
+                      {selectedCard === profInfo._id && (
+                        <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', zIndex: 1, backgroundColor: 'white', borderRadius: '20%', opacity: '90%' }}>
+                          <CheckSquareFill color="green" size={48} />
+                        </div>
+                      )}
                     </CardBody>
                     {hoveredCard === profInfo._id && (
                       <Card.Footer className="text-center prof-card-footer">
-                        <Button
-                          variant={selectedCard === profInfo._id ? 'danger' : 'primary'}
-                          onClick={() => handleSelectCard(profInfo._id)}
-                        >
-                          {selectedCard === profInfo._id ? 'Deselect' : 'Select'}
-                        </Button>
                         <Link id="admin-edit-link" to={`/edit/${profInfo._id}`}>
                           <Button variant="secondary">Edit</Button>
+                        </Link>
+                        <Link id="admin-delete-link" to={`/delete/${profInfo._id}`}>
+                          <Button variant="danger">Delete</Button>
                         </Link>
                       </Card.Footer>
                     )}
