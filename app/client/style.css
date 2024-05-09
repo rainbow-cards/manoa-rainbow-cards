@@ -269,5 +269,16 @@ button:active {
 .guide-container-body {
   color: #75b531;
   font-size: 20px;
-  font-family: "Comic Sans MS";
+  font-family: "Comic Sans MS", Optima, serif;
+}
+
+.header-banner {
+  background-color: #6a8f60;
+  color: white;
+  font-family: "Comic Sans MS", Optima, serif;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  max-width: 98.25% !important;
+  margin: auto;
+  border-radius: 10px;
 }
