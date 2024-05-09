@@ -6,7 +6,7 @@ import { catalogPage } from './catalog.page';
 import { myCardsPage } from './mycards.page';
 import { addPage } from './add.page';
 import { editPage } from './edit.page';
-import { devTestPage } from './devtest.page';
+// import { devTestPage } from './devtest.page';
 import { guidePage } from './guide.page';
 import { searchPage } from './search.page';
 import { wishlistPage } from './wishlist.page';
