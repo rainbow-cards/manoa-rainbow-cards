@@ -40,11 +40,11 @@ const sR = {
   hidden_talent: 'Robertson',
 };
 
-fixture('Mānoa Rainbow Cards deployment page test with default db')
-  .page('http://localhost:3000');
-
 // fixture('Mānoa Rainbow Cards deployment page test with default db')
-//   .page('https://manoa-rainbow-cards.xyz/');
+// .page('http://localhost:3000');
+
+fixture('Mānoa Rainbow Cards deployment page test with default db')
+  .page('https://manoa-rainbow-cards.xyz/');
 
 test('Test that landing page shows up', async (testController) => {
   await landingPage.isDisplayed(testController);
@@ -142,8 +142,8 @@ test('Test that editprofessorcard page works for admin accounts', async (testCon
   await signoutPage.isDisplayed(testController);
   */
 });
-
-test.skip('Test that devtest page works for admins', async (testController) => {
+/*
+test('Test that devtest page works for admins', async (testController) => {
   await navBar.gotoSignInPage(testController);
   await signinPage.signin(testController, admin.username, admin.password);
   await navBar.isLoggedIn(testController, admin.username);
@@ -156,8 +156,8 @@ test.skip('Test that devtest page works for admins', async (testController) => {
   /*
   await navBar.logout(testController);
   await signoutPage.isDisplayed(testController);
-  */
 });
+*/
 
 test('Test that guide page and card giver works', async (testController) => {
   await navBar.gotoSignInPage(testController);
@@ -184,7 +184,7 @@ test('Test that user search works', async (testController) => {
   await signoutPage.isDisplayed(testController);
 });
 
-test.only('Test wishlist functionality', async (testController) => {
+test('Test wishlist functionality', async (testController) => {
   await navBar.gotoSignInPage(testController);
   await signinPage.signin(testController, admin.username, admin.password);
   await navBar.isLoggedIn(testController, admin.username);
