@@ -41,9 +41,9 @@ const UserSearch = () => {
           <AutoForm schema={bridge} onSubmit={data => submit(data)}>
             <Card>
               <Card.Body className="greentxt bg-success-subtle">
-                <TextField name="userName" placeholder="Enter a user email" />
+                <TextField id="search-bar" name="userName" placeholder="Enter a user email" />
                 <ErrorsField />
-                <SubmitField />
+                <SubmitField id="submit-button" />
               </Card.Body>
             </Card>
           </AutoForm>

@@ -13,6 +13,8 @@ class EditPage {
 
   async edit(testController, name, course, semester, department, email, image, facts, campuseats, hiddentalent) {
     await this.isDisplayed(testController);
+    await testController.click(Selector('.card').nth(3)); // this is the issue
+    await testController.click('#admin-edit-link');
     await testController.typeText('#name', name, { replace: true });
     await testController.typeText('#course', course, { replace: true });
     await testController.typeText('#semester', semester, { replace: true });

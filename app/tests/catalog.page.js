@@ -17,6 +17,20 @@ class CatalogPage {
     const colCount = Selector('.col').count;
     await testController.expect(colCount).gte(4); // Need to change to 4 once add function works again
   }
+
+  async wish(testController) {
+    await testController.click(Selector('.card').nth(1));
+    await testController.pressKey('tab');
+    await testController.pressKey('enter');
+    // await testController.click(Selector('.button').nth(0));
+    // await testController.click('#wish-button');
+  }
+
+  async hasWished(testController) {
+    const colCount = Selector('.card').count;
+    await testController.expect(colCount).gte(1);
+
+  }
 }
 
 export const catalogPage = new CatalogPage();

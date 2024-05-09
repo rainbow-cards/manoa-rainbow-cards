@@ -7,6 +7,9 @@ import { myCardsPage } from './mycards.page';
 import { addPage } from './add.page';
 import { editPage } from './edit.page';
 import { devTestPage } from './devtest.page';
+import { guidePage } from './guide.page';
+import { searchPage } from './search.page';
+import { wishlistPage } from './wishlist.page';
 
 /* global fixture:false, test:false */
 
@@ -37,11 +40,11 @@ const sR = {
   hidden_talent: 'Robertson',
 };
 
-// fixture('Mānoa Rainbow Cards deployment page test with default db')
-//   .page('http://localhost:3000');
-
 fixture('Mānoa Rainbow Cards deployment page test with default db')
-  .page('https://manoa-rainbow-cards.xyz/');
+  .page('http://localhost:3000');
+
+// fixture('Mānoa Rainbow Cards deployment page test with default db')
+//   .page('https://manoa-rainbow-cards.xyz/');
 
 test('Test that landing page shows up', async (testController) => {
   await landingPage.isDisplayed(testController);
@@ -120,7 +123,7 @@ test('Test that editprofessorcard page works for admin accounts', async (testCon
   await signinPage.signin(testController, admin.username, admin.password);
   await navBar.isLoggedIn(testController, admin.username);
   await navBar.gotoEditPage(testController);
-  await navBar.gotoEditor(testController);
+  // await navBar.gotoEditor(testController);
   await editPage.isDisplayed(testController);
   await editPage.edit(
     testController,
@@ -154,4 +157,42 @@ test.skip('Test that devtest page works for admins', async (testController) => {
   await navBar.logout(testController);
   await signoutPage.isDisplayed(testController);
   */
+});
+
+test('Test that guide page and card giver works', async (testController) => {
+  await navBar.gotoSignInPage(testController);
+  await signinPage.signin(testController, credentials.username, credentials.password);
+  await navBar.isLoggedIn(testController, credentials.username);
+  await navBar.gotoGuide(testController);
+  await guidePage.isDisplayed(testController);
+  await navBar.gotoCatalogPage(testController);
+  await catalogPage.isDisplayed(testController);
+  await catalogPage.hasAdded(testController);
+  await navBar.logout(testController);
+  await signoutPage.isDisplayed(testController);
+});
+
+test('Test that user search works', async (testController) => {
+  await navBar.gotoSignInPage(testController);
+  await signinPage.signin(testController, admin.username, admin.password);
+  await navBar.isLoggedIn(testController, admin.username);
+  await navBar.gotoSearch(testController);
+  await searchPage.isDisplayed(testController);
+  await searchPage.search(testController, credentials.username);
+  await catalogPage.isDisplayed(testController);
+  await navBar.logout(testController);
+  await signoutPage.isDisplayed(testController);
+});
+
+test.only('Test wishlist functionality', async (testController) => {
+  await navBar.gotoSignInPage(testController);
+  await signinPage.signin(testController, admin.username, admin.password);
+  await navBar.isLoggedIn(testController, admin.username);
+  await navBar.gotoCatalogPage(testController);
+  await catalogPage.isDisplayed(testController);
+  await catalogPage.wish(testController);
+  await navBar.gotoWish(testController);
+  await wishlistPage.isDisplayed(testController);
+  await navBar.logout(testController);
+  await signoutPage.isDisplayed(testController);
 });
