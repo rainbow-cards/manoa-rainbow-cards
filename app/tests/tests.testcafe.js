@@ -14,8 +14,8 @@ import { wishlistPage } from './wishlist.page';
 /* global fixture:false, test:false */
 
 /** Credentials for one of the sample users defined in settings.development.json. */
-const credentials = { username: 'john@foo.com', password: 'changeme' };
-const admin = { username: 'admin@foo.com', password: 'changeme' };
+const credentials = { username: 'john@foo.com', password: 'FishAndChips12345678' };
+const admin = { username: 'admin@foo.com', password: 'FishAndChips12345678' };
 const prof = {
   name: 'Ravi Narayan',
   course: 'ICS451',

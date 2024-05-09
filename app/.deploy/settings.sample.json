@@ -6,8 +6,8 @@
   },
 
   "defaultAccounts": [
-    { "email": "admin@foo.com", "password": "changeme", "role": "admin" },
-    { "email": "john@foo.com", "password": "changeme" }
+    { "email": "admin@foo.com", "password": "FishAndChips12345678", "role": "admin" },
+    { "email": "john@foo.com", "password": "FishAndChips12345678" }
   ],
 
   "defaultData": [
