@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Button, Card, Col, Container, Row } from 'react-bootstrap';
+import { Card, Col, Container, Row } from 'react-bootstrap';
 import { AutoForm, ErrorsField, SubmitField, TextField, SelectField } from 'uniforms-bootstrap5';
 import { useTracker } from 'meteor/react-meteor-data';
 import swal from 'sweetalert';
@@ -9,9 +9,9 @@ import SimpleSchema from 'simpl-schema';
 import { ProfCards } from '../../api/profcard/ProfCard';
 import LoadingSpinner from '../components/LoadingSpinner';
 
-const DevTest = () => {
+const TradeCard = () => {
   const { profcards, ready } = useTracker(() => {
-    const subscription = Meteor.subscribe('cards.public');
+    const subscription = Meteor.subscribe(ProfCards.userPublicationName, Meteor.user()._id);
     const subscriptionUsernames = Meteor.subscribe('allUsernames');
 
     const rdy = subscription.ready() && subscriptionUsernames.ready();
@@ -27,6 +27,27 @@ const DevTest = () => {
     card: { label: 'Select a card', type: String, allowedValues: profcards.map(card => `${card.name} (${card.semester}, ${card.course})`) },
     user: { label: 'Enter a user', type: String },
   }));
+
+  const decrementCardCount = (card) => {
+    const currentUser = Meteor.user().username;
+    const options = { arrayFilters: [{ 'elem.name': currentUser }] };
+    console.log('before the storm');
+    if (card.owners.find((element) => element.name === currentUser).count > 1) {
+      ProfCards.collection.update({ _id: card._id }, {
+        $inc: {
+          'owners.$[elem].count': -1,
+        },
+      }, options);
+      console.log('decremented count');
+    } else {
+      ProfCards.collection.update({ _id: card._id }, {
+        $pull: {
+          owners: { name: currentUser, count: 1 },
+        },
+      });
+      console.log('removed card');
+    }
+  };
   const submit = (formData, formRef) => {
     const { card, user } = formData;
 
@@ -84,6 +105,7 @@ const DevTest = () => {
             formRef.reset();
           }
         });
+        decrementCardCount(selectedCard);
       } else {
         console.log('Checkpoint B');
         ProfCards.collection.update({ _id: selectedCard._id }, {
@@ -99,62 +121,19 @@ const DevTest = () => {
             formRef.reset();
           }
         });
+        decrementCardCount(selectedCard);
       }
     } catch (error) {
       console.error('An error occurred: ', error);
     }
   };
-  const submit2 = () => {
 
-    // Check if the subscription is ready
-    if (!ready) {
-      swal('Error', 'Subscriptions not ready...', 'error');
-      return;
-    }
-
-    // Find the selected card from the profcards collection
-    const mooreCard = profcards.find(card => card.name === 'Carleton Moore');
-    console.log(mooreCard);
-    if (!mooreCard) {
-      swal('Error', 'Card not found in the database...', 'error');
-      return;
-    }
-    // console.log(selectedCard);
-    // Find the target user by their username
-    const targetUser = Meteor.users.findOne({ username: 'doge' });
-
-    if (!targetUser) {
-      swal('Error', 'User doge not found', 'error');
-      return;
-    }
-    console.log(`Targeting doge to add ${mooreCard.name} card`);
-    // Insert a copy of the selected card into the ProfCards collection
-    ProfCards.collection.insert({
-      name: mooreCard.name,
-      course: mooreCard.course,
-      semester: mooreCard.semester,
-      department: mooreCard.department,
-      email: mooreCard.email,
-      image: mooreCard.image,
-      facts: mooreCard.facts,
-      campusEats: mooreCard.campusEats || 'N/A',
-      hiddenTalent: mooreCard.hiddenTalent || 'N/A',
-      owners: mooreCard.owners, // Set the owner attribute to the target user's username
-    }, (error) => {
-      if (error) {
-        swal('Error', 'Failed to add card to doge account...', 'error');
-        console.log(error);
-      } else {
-        swal('Success', `${mooreCard.name} Rainbow Card sent successfully to doge!`, 'success');
-      }
-    });
-  };
   // Render the form. Use Uniforms: https://github.com/vazco/uniforms
   let fRef = null; // Reference for the first AutoForm
   return (ready ? (
     <Container className="py-3 greentxt">
-      <h2 className="text-center">Developer Test Page</h2>
-      <p className="text-center">Hope you&apos;re supposed to be here!</p>
+      <h2 className="text-center">Trade Cards</h2>
+      <p className="text-center">Or rather, send a card!</p>
       <Row className="justify-content-center">
         <Col xs={7}>
           <Col className="text-center"><h3>Send a Card</h3></Col>
@@ -189,18 +168,10 @@ const DevTest = () => {
               </Card.Body>
             </Card>
           </AutoForm>
-          <h3 className="text-center">Give card to doge</h3>
-          <Card className="align-items-center bg-success-subtle" border="success">
-            <Card.Body>
-              <Row>
-                <Button className="btn btn-primary" onClick={submit2}>Auto-Add</Button>
-              </Row>
-            </Card.Body>
-          </Card>
         </Col>
       </Row>
     </Container>
   ) : <LoadingSpinner />);
 };
 
-export default DevTest;
+export default TradeCard;

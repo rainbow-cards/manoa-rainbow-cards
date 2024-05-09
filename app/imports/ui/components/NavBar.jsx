@@ -45,14 +45,11 @@ const NavBar = () => {
               </Button>,
             ]) : ''}
             {Roles.userIsInRole(Meteor.userId(), 'admin') ? ([
-              <Button key="add" id="add-card-admin-nav" className="nav-text nav-btn black-button" as={NavLink} to="/add">
+              <Button key="add" id="add-card-admin-nav" className="nav-text nav-btn violet-button" as={NavLink} to="/add">
                 ADD NEW CARD
               </Button>,
               <Button key="admin" id="catalog-admin-nav" className="nav-text nav-btn black-button" as={NavLink} to="/admin">
                 ADMIN
-              </Button>,
-              <Button key="devtest" id="devtest-admin-nav" className="nav-text nav-btn black-button" as={NavLink} to="/devtest">
-                DEV CONTROLS
               </Button>,
             ]) : ''}
             {Roles.userIsInRole(Meteor.userId(), 'professor') ? ([
