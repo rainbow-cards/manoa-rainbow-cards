@@ -65,7 +65,7 @@ const Guide = () => {
         </Col>
       </Row>
       <Col className="text-center">
-        <Button variant="primary" onClick={() => handleButtonClick()}>
+        <Button id="dev-card" variant="primary" onClick={() => handleButtonClick()}>
           Get Dev Card!
         </Button>
       </Col>

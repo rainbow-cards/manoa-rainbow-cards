@@ -25,22 +25,22 @@ const NavBar = () => {
               <Button key="catalog" id="catalog-nav" className="nav-text nav-btn red-button" as={NavLink} to="/catalog">
                 RAINBOW CATALOG
               </Button>,
-              <Button key="list" className="nav-text nav-btn orange-button" as={NavLink} to="/list">
+              <Button key="list" id="portfolio-nav" className="nav-text nav-btn orange-button" as={NavLink} to="/list">
                 PORTFOLIO
               </Button>,
-              <Button key="wish" className="nav-text nav-btn yellow-button" as={NavLink} to="/wish">
+              <Button key="wish" id="wish-nav" className="nav-text nav-btn yellow-button" as={NavLink} to="/wish">
                 WISHLIST
               </Button>,
               <Button key="trading" className="nav-text nav-btn green-button" as={NavLink} to="/trading">
                 TRADING
               </Button>,
-              <Button key="search" className="nav-text nav-btn blue-button" as={NavLink} to="/search">
+              <Button key="search" id="search-nav" className="nav-text nav-btn blue-button" as={NavLink} to="/search">
                 USER SEARCH
               </Button>,
               <Button key="explore" className="nav-text nav-btn indigo-button" as={NavLink} to="/search">
                 EXPLORE
               </Button>,
-              <Button key="guide" className="nav-text nav-btn violet-button" as={NavLink} to="/guide">
+              <Button key="guide" id="guide-nav" className="nav-text nav-btn violet-button" as={NavLink} to="/guide">
                 GUIDE
               </Button>,
             ]) : ''}

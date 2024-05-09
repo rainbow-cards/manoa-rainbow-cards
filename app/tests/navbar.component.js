@@ -72,7 +72,7 @@ class NavBar {
       await testController.click('button.navbar-toggler');
     }
     */
-    await testController.click('#list-user-cards-nav');
+    await testController.click('#portfolio-nav');
   }
 
   async gotoAddPage(testController) {
@@ -105,6 +105,7 @@ class NavBar {
       await testController.click('button.navbar-toggler');
     }
     */
+    // await testController.hover(Selector('card').nth(1));
     await testController.click('#admin-edit-link');
   }
 
@@ -117,6 +118,39 @@ class NavBar {
     }
     */
     await testController.click('#devtest-admin-nav');
+  }
+
+  async gotoGuide(testController) {
+    /*
+    await this.ensureLogout(testController);
+    const visible = await Selector('#basic-navbar-nav').visible;
+    if (!visible) {
+      await testController.click('button.navbar-toggler');
+    }
+    */
+    await testController.click('#guide-nav');
+  }
+
+  async gotoSearch(testController) {
+    /*
+    await this.ensureLogout(testController);
+    const visible = await Selector('#basic-navbar-nav').visible;
+    if (!visible) {
+      await testController.click('button.navbar-toggler');
+    }
+    */
+    await testController.click('#search-nav');
+  }
+
+  async gotoWish(testController) {
+    /*
+    await this.ensureLogout(testController);
+    const visible = await Selector('#basic-navbar-nav').visible;
+    if (!visible) {
+      await testController.click('button.navbar-toggler');
+    }
+    */
+    await testController.click('#wish-nav');
   }
 }
 
