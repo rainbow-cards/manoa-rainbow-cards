@@ -101,6 +101,12 @@ const ListCatalogAdmin = () => {
     });
   };
 
+  const deleteSubmit = (id) => {
+    ProfCards.collection.remove({ _id: id }, (error) => (error ?
+      swal('Error', error.message, 'error') :
+      swal('Success', 'Card deleted successfully', 'success')));
+  };
+
   // Function to handle keyboard events on cards
   const handleCardKeyDown = (event, profId) => {
     if (event.key === 'Enter') {
@@ -205,9 +211,7 @@ const ListCatalogAdmin = () => {
                       <Link id="admin-edit-link" to={`/edit/${profInfo._id}`}>
                         <Button variant="secondary">Edit</Button>
                       </Link>
-                      <Link id="admin-delete-link" to={`/delete/${profInfo._id}`}>
-                        <Button variant="danger">Delete</Button>
-                      </Link>
+                      <Button variant="danger" onClick={() => deleteSubmit(profInfo._id)}>Delete</Button>
                     </Card.Footer>
                   )}
                 </Card>

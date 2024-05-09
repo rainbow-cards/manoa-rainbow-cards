@@ -35,7 +35,7 @@ const AddProfCard = () => {
           if (error) {
             // console.log(ProfCards.collection.find({ name: name, course: course, semester: semester }));
             swal('Error', 'A Rainbow Card for this course already exists.\n' +
-                'Check that the combination of name, course number, and semester does not already exist.', 'error');
+              'Check that the combination of name, course number, and semester does not already exist.', 'error');
           } else {
             swal('Success', 'Rainbow Card added successfully!', 'success');
             formRef.reset();

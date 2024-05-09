@@ -22,7 +22,6 @@ import ListCatalogProf from '../pages/ListCatalogProf';
 import UserSearch from '../pages/UserSearch';
 import ListCatalogUser from '../pages/ListCatalogUser';
 import ListMyWishedCards from '../pages/ListMyWishedCards';
-import DeleteProfCard from '../pages/DeleteProfCard';
 import Guide from '../pages/Guide';
 import TradeCard from '../pages/TradeCard';
 
@@ -55,7 +54,6 @@ const App = () => {
           <Route path="/add" element={<AdminProtectedRoute ready={ready}><AddProfCard /></AdminProtectedRoute>} />
           <Route path="/admin" element={<AdminProtectedRoute ready={ready}><ListCatalogAdmin /></AdminProtectedRoute>} />
           <Route path="/edit/:_id" element={<AdProfProtectedRoute ready={ready}><EditProfCard /></AdProfProtectedRoute>} />
-          <Route path="/delete/:_id" element={<AdProfProtectedRoute ready={ready}><DeleteProfCard /></AdProfProtectedRoute>} />
           <Route path="/notauthorized" element={<NotAuthorized />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
